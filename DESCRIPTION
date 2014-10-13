@@ -1,7 +1,7 @@
 Package: ASSIGN
 Type: Package
 Title: Adaptive Signature Selection and InteGratioN (ASSIGN)
-Version: 1.1.0
+Version: 1.2.0
 Date: 2013-09-29
 Author: Ying Shen, Andrea H. Bild, and W. Evan Johnson
 Maintainer: Ying Shen <yshen3@bu.edu>
