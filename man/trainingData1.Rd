@@ -3,7 +3,7 @@
 \docType{data}
 \title{Gene expression profiling from cell line preturbation experiments (training dataset)}
 \description{
-  Gene expression datasets for 5 pathway preturbation experiments.
+  Gene expression datasets for 5 oncogenic pathway preturbation experiments, including B-Catenin, E2F3, MYC, RAS, and SRC pathways.
 }
 \usage{data(trainingData1)}
 \format{

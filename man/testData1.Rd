@@ -3,7 +3,7 @@
 \docType{data}
 \title{Gene expression profiling from cancer patients (test dataset)}
 \description{
-  Gene expression datasets for 111 cancer patient samples.
+  Gene expression datasets for 111 lung cancer patient samples, including 53 cases of lung adenocarcinoma and 58 cases of lung squamous carcinoma.
 }
 \usage{data(testData1)}
 \format{
