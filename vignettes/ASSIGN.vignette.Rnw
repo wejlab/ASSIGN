@@ -121,7 +121,7 @@ The \Rfunction{assign.mcmc} function returns the MCMC chain recording default 20
 <<assign-convergence-function,eval=TRUE,results=hide>>=
 trace.plot <- assign.convergence(test=mcmc.chain, burn_in=0, iter=2000, 
                                  parameter="B", whichGene=1, 
-                                                                  whichSample=NA, whichPath=NA)
+                                 whichSample=NA, whichPath=NA)
 @
 
 The \Rfunction{assign.convergence} function returns the a vector of the estimated values from each Gibbs sampling iteration of the model parameter to be checked, and a trace plot of the parameter.
@@ -131,7 +131,7 @@ We then apply the \Rfunction{assign.summary} function to compute the posterior m
 <<assign-summary-function,eval=TRUE,results=hide>>=
 mcmc.pos.mean <- assign.summary(test=mcmc.chain, burn_in=1000, 
                                 iter=2000, adaptive_B=TRUE, 
-                                                                adaptive_S=FALSE,mixture_beta=TRUE)
+                                adaptive_S=FALSE,mixture_beta=TRUE)
 @
 
 The \Rfunction{assign.summary} function returns the posterior mean of each parameters. The details of \Rfunction{assign.summary} output are described in the Value section of the manual page of \Rfunction{assign.summary} function. 
@@ -161,11 +161,11 @@ The user needs to specify the output directory in the \Rfunarg{outputDir} option
 <<assign-output-function,eval=TRUE,results=hide>>=
 assign.output(processed.data=processed.data, 
               mcmc.pos.mean.testData=mcmc.pos.mean, 
-                            trainingData=trainingData1, testData=testData1, 
-                                          trainingLabel=trainingLabel1, 
-                                                        testLabel=testLabel1, geneList=NULL, 
-                                                                      adaptive_B=TRUE, adaptive_S=FALSE, 
-                                                                                    mixture_beta=TRUE, outputDir=tempdir)
+              trainingData=trainingData1, testData=testData1, 
+              trainingLabel=trainingLabel1, 
+              testLabel=testLabel1, geneList=NULL, 
+              adaptive_B=TRUE, adaptive_S=FALSE, 
+              mixture_beta=TRUE, outputDir=tempdir)
 @
 
 <<assign-cv-output-function,eval=FALSE>>=
@@ -173,10 +173,10 @@ assign.output(processed.data=processed.data,
 # should be specified as processed.data$trainingData_sub. 
 assign.cv.output(processed.data=processed.data, 
                  mcmc.pos.mean.trainingData=mcmc.pos.mean,
-                                  trainingData=trainingData1,
-                                                   trainingLabel=trainingLabel1, adaptive_B=FALSE, 
-                                                                    adaptive_S=FALSE, mixture_beta=TRUE, 
-                                                                                     outputDir= tempdir) 
+                 trainingData=trainingData1,
+                 trainingLabel=trainingLabel1, adaptive_B=FALSE, 
+                 adaptive_S=FALSE, mixture_beta=TRUE, 
+                 outputDir=tempdir) 
 @
 
 \subsection{Run ASSIGN in an all-in-one way}
@@ -202,9 +202,9 @@ Here we illustrate how to run \Rfunction{assign.wrapper} function by three examp
 # the gene list of pathway signature is NOT available
 assign.wrapper(trainingData=trainingData1, testData=testData1, 
                trainingLabel=trainingLabel1, testLabel=testLabel1, 
-                              geneList=NULL, n_sigGene=rep(200,5), adaptive_B=TRUE, 
-                                             adaptive_S=FALSE, mixture_beta=TRUE, outputDir= tempdir, 
-                                                            iter=2000, burn_in=1000)
+               geneList=NULL, n_sigGene=rep(200,5), adaptive_B=TRUE, 
+               adaptive_S=FALSE, mixture_beta=TRUE, outputDir= tempdir, 
+               iter=2000, burn_in=1000)
 @
 
 <<all-in-one-assign-wrapper-example2,eval=TRUE,results=hide>>=
@@ -212,9 +212,9 @@ assign.wrapper(trainingData=trainingData1, testData=testData1,
 # the gene list of pathway signature is available
 assign.wrapper(trainingData=trainingData1, testData=testData1, 
                trainingLabel=trainingLabel1, testLabel=NULL, 
-                              geneList=geneList1, n_sigGene=NULL, adaptive_B=TRUE, 
-                                             adaptive_S=FALSE, mixture_beta=TRUE, 
-                                                            outputDir=tempdir, iter=2000, burn_in=1000)
+               geneList=geneList1, n_sigGene=NULL, adaptive_B=TRUE, 
+               adaptive_S=FALSE, mixture_beta=TRUE, 
+               outputDir=tempdir, iter=2000, burn_in=1000)
 @
 
 <<all-in-one-assign-wrapper-example3,eval=TRUE,results=hide>>=
@@ -222,9 +222,9 @@ assign.wrapper(trainingData=trainingData1, testData=testData1,
 #the gene list of pathway signature is available
 assign.wrapper(trainingData=NULL, testData=testData1, 
                trainingLabel=NULL, testLabel=NULL, 
-                              geneList=geneList1, n_sigGene=NULL, adaptive_B=TRUE, 
-                                             adaptive_S=TRUE, mixture_beta=TRUE, 
-                                                            outputDir= tempdir, iter=2000, burn_in=1000)
+               geneList=geneList1, n_sigGene=NULL, adaptive_B=TRUE, 
+               adaptive_S=TRUE, mixture_beta=TRUE, 
+               outputDir= tempdir, iter=2000, burn_in=1000)
 @
 
 \section{Conclusion}
