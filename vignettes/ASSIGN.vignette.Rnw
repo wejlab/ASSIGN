@@ -77,8 +77,8 @@ We first run \Rfunction{assign.preprocess} function on the input datasets. When 
 # the gene list of pathway signature is NOT available
 processed.data <- assign.preprocess(trainingData=trainingData1, 
                                     testData=testData1, 
-                                                                        trainingLabel=trainingLabel1, 
-                                                                                                            geneList=NULL, n_sigGene=rep(200,5))
+                                    trainingLabel=trainingLabel1, 
+                                    geneList=NULL, n_sigGene=rep(200,5))
 @
 
 Alternatively, the users can have both the training data and the curated/predetermined pathway signatures. Some genes in the curated pathway signatures, although not significantly differently expressed, need to be included for the prediction purpose. In this case we specify \Rfunarg{trainingData} and \Rfunarg{geneList} when BOTH of the training dataset and predetermined signature gene list are available.
@@ -88,8 +88,8 @@ Alternatively, the users can have both the training data and the curated/predete
 # the gene list of pathway signature is available
 processed.data <- assign.preprocess(trainingData=trainingData1, 
                                     testData=testData1, 
-                                                                        trainingLabel=trainingLabel1, 
-                                                                                                            geneList=geneList1)
+                                    trainingLabel=trainingLabel1, 
+                                    geneList=geneList1)
 @
 
 In some cases, the expression profiles (training dataset) is unavailable. Only the knowledge-based gene list or gene list from the joint knowledge of some prior profiling experiments is available. In this case we specify \Rfunarg{geneList} and leave the \Rfunarg{trainingData} and \Rfunarg{trainingLabel} as default NULL.
@@ -99,8 +99,8 @@ In some cases, the expression profiles (training dataset) is unavailable. Only t
 # the gene list of pathway signature is available
 processed.data <- assign.preprocess(trainingData=NULL, 
                                     testData=testData1, 
-                                                                        trainingLabel=NULL, 
-                                                                                                            geneList=geneList1)
+                                    trainingLabel=NULL, 
+                                    geneList=geneList1)
 @
 
 The \Rfunction{assign.preprocess} function returns the processed training dataset (trainingData\_sub) and test dataset (testData\_sub) as well as the prior parameters for the background vector (B\_vector), signature matrix (S\_matrix) and the probability signature matrix (Pi\_matrix) and differential expressed gene lists of each pathways (diffGeneList). The details of the assign.preprocess output are described in the Value section of the manual page of \Rfunction{assign.preprocess} function. The output data of \Rfunction{assign.preprocess} function are used as the input data of the \Rfunction{assign.mcmc} function.  
@@ -110,10 +110,10 @@ For the \Rfunction{assign.mcmc} function, Y, Bg and X are specified as the outpu
 <<assign-mcmc-function,eval=TRUE,results=hide>>=
 mcmc.chain <- assign.mcmc(Y=processed.data$testData_sub, 
                           Bg = processed.data$B_vector, 
-                                                    X=processed.data$S_matrix, 
-                                                                              Delta_prior_p = processed.data$Pi_matrix, 
-                                                                                                        iter = 2000, adaptive_B=TRUE, 
-                                                                                                                                  adaptive_S=FALSE, mixture_beta=TRUE)
+                          X=processed.data$S_matrix, 
+                          Delta_prior_p = processed.data$Pi_matrix, 
+                          iter = 2000, adaptive_B=TRUE, 
+                          adaptive_S=FALSE, mixture_beta=TRUE)
 @
 
 The \Rfunction{assign.mcmc} function returns the MCMC chain recording default 2000 iterations for each parameters. The details of \Rfunction{assign.mcmc} output are described in the Value section of the manual page of \Rfunction{assign.mcmc} function. We can make a trace plot to check the convergence of the model parameters through \Rfunction{assign.convergence}. The \Rfunarg{burn\_in} is set default 0, so that the trace plot starts from the first iteration. The additional iteration can be specified if the MCMC chain is not converged in 2000 iterations.
