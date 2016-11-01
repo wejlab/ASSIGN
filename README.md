@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dfjenkins3/ASSIGN.svg?branch=master)](https://travis-ci.org/dfjenkins3/ASSIGN)
+
 # ASSIGN: Adaptive Signature Selection and InteGratioN
 
 __Author__: Ying Shen, Andrea H. Bild, David Jenkins, and W. Evan Johnson
