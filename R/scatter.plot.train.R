@@ -9,17 +9,24 @@ scatter.plot.train <- function(coef_train, trainingData, trainingLabel){
         trainL[x[[j]]] <- rep(names(x)[j], length(x[[j]]))
       }
     } else {
-      trainL[trainingLabel[[i]]] <- rep(names(trainingLabel)[i], length(trainingLabel[[i]]))
+      trainL[trainingLabel[[i]]] <- rep(names(trainingLabel)[i],
+                                        length(trainingLabel[[i]]))
     }
   }
   trainL <- trainL[trainL != ""]
   
-  pdf("pathway_activity_scatterplot_trainingset.pdf")
+  grDevices::pdf("pathway_activity_scatterplot_trainingset.pdf")
   for (i in 1:nPath){
     HMEC_samples <- 1:ncol(trainingData)
     Pathway_strength_HMEC <- coef_train[,i]
-    plot(HMEC_samples, Pathway_strength_HMEC, col=as.factor(trainL),xlab="HMEC sample", ylab=paste(names(trainingLabel)[i+1], "pathway activity", sep=" "), main=paste("Cross-validation in HMEC", names(trainingLabel)[i+1], "pathway", sep=" "), pch=19, cex=0.7)
-    legend("topleft", legend=unique(trainL), pch=19, cex=0.7, col=as.numeric(as.factor(unique(trainL))))
+    graphics::plot(HMEC_samples, Pathway_strength_HMEC, col=as.factor(trainL),
+                   xlab="HMEC sample", ylab=paste(names(trainingLabel)[i+1],
+                                                  "pathway activity", sep=" "),
+                   main=paste("Cross-validation in HMEC",
+                              names(trainingLabel)[i+1], "pathway", sep=" "),
+                   pch=19, cex=0.7)
+    graphics::legend("topleft", legend=unique(trainL), pch=19, cex=0.7,
+                     col=as.numeric(as.factor(unique(trainL))))
   }  
-  invisible(dev.off())
+  invisible(grDevices::dev.off())
 }

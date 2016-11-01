@@ -1,5 +1,7 @@
-bayes.gene.selection <- function(n_sigGene, dat, trainingLabel,iter=100, burn_in=50, sigmaZero = 0.1, sigmaNonZero = 1, alpha_tau = 1, beta_tau = 0.01, p = 0.01)
-{
+bayes.gene.selection <- function(n_sigGene, dat, trainingLabel,iter=500,
+                                 burn_in=100, sigmaZero = 0.1, sigmaNonZero = 1,
+                                 alpha_tau = 1, beta_tau = 0.01, p = 0.01,
+                                 pctUp=0.5){
   nPath <- length(trainingLabel) - 1
   bgPosB <- NULL; edPosB <- NULL
   for (i in 1:length(trainingLabel[[1]])){
@@ -19,7 +21,7 @@ bayes.gene.selection <- function(n_sigGene, dat, trainingLabel,iter=100, burn_in
   tau2_pos <- matrix(0, n, m)
   
   for (j in 1: m){
-    cat("Gene selection on", names(trainingLabel)[j+1], "pathway...\n")
+    message("Gene selection on ", names(trainingLabel)[j+1], " pathway...")
     Y <- dat[, c(bgPosB[j]:edPosB[j], bgPosS[j]:edPosS[j])]
     k <- NCOL(Y)
     k1 <- edPosB[j] - bgPosB[j] +1
@@ -38,41 +40,48 @@ bayes.gene.selection <- function(n_sigGene, dat, trainingLabel,iter=100, burn_in
     PHI_S[1, ] <- rep(0, n)
     PHI_Delta[1, ] <- rep(0, n)
     PHI_tau2[1, ] <- rep(u/v, n)
-    
+    pb <- utils::txtProgressBar(min=0, max=iter, width=80, file=stderr())
+    message("| 0%                                  50%                                 100% |")
     for (i in 2:iter){
-      if(i %% 10 == 0){cat("iteration", i, "\n", sep=" ")}
+      utils::setTxtProgressBar(pb, i)
       s_B_1 <- 1/(k * PHI_tau2[i-1, ]+ 1/sigma2^2)
       mu_B_1 <- s_B_1 * (apply(Y, 1, sum) - k2 * PHI_S[i-1, ]) * PHI_tau2[i-1, ]
-      PHI_B[i, ] <- rnorm(n, mu_B_1, sapply(s_B_1, sqrt))
+      PHI_B[i, ] <- stats::rnorm(n, mu_B_1, sapply(s_B_1, sqrt))
       
       a <- ifelse(PHI_Delta[i-1, ] == 1, sigma2, sigma1)
       s_beta_1 <- 1/(k2 * PHI_tau2[i-1, ] + 1/a^2)
       mu_beta_1 <- s_beta_1 * (apply(Y[,(k1+1):k], 1, sum) - k2 * PHI_B[i, ]) * PHI_tau2[i-1, ]
-      PHI_S[i, ] <- rnorm(n, mu_beta_1, sapply(s_beta_1, sqrt))
+      PHI_S[i, ] <- stats::rnorm(n, mu_beta_1, sapply(s_beta_1, sqrt))
       
       
       b_div_a <- (1-p)/p * (sigma2 / sigma1) * exp(-1/2 * (PHI_S[i, ]^2 / sigma1^2 - PHI_S[i, ]^2 / sigma2^2))
-      PHI_Delta[i, ] <- rbern(n, 1/(1+b_div_a))
+      PHI_Delta[i, ] <- Rlab::rbern(n, 1/(1+b_div_a))
       
       
       un <- u + k/2
       sum1 <- apply((Y[,1:k1]-matrix(rep(PHI_B[i, ], k1), n, k1))^2, 1, sum)
       sum2 <- apply((Y[, (k1+1):k]-matrix(rep((PHI_B[i, ]+PHI_S[i, ]), k2), n, k2))^2, 1, sum)
       vn <- (sum1+sum2)/2 + v
-      PHI_tau2[i, ] <- rgamma(n, un, vn)
+      PHI_tau2[i, ] <- Rlab::rgamma(n, un, vn)
       
     }
-    
+    close(pb)
     B_pos[, j] <- apply(PHI_B[-c(1:burn_in), ], 2, mean)
     S_pos[, j] <- apply(PHI_S[-c(1:burn_in), ], 2, mean)
     r_pos[, j] <- apply(PHI_Delta[-c(1:burn_in), ], 2, mean)
     tau2_pos[, j] <- apply(PHI_tau2[-c(1:burn_in), ], 2, mean)
   }
   
-  
   diffGeneList <- vector("list")
   for (j in 1:m){
-    tmp <- order((abs(S_pos[,j]) * r_pos[,j]), decreasing=TRUE)[1:n_sigGene[j]]
+    if(!is.null(pctUp)){
+      tmp_up   <- order((S_pos[,j] * r_pos[,j]), decreasing=TRUE)[1:floor(n_sigGene[j]/(1/(pctUp)))]
+      tmp_down <- order((S_pos[,j] * r_pos[,j]), decreasing=FALSE)[1:ceiling(n_sigGene[j]/(1/(1-pctUp)))]
+      tmp <- c(tmp_up, tmp_down)
+    }
+    else{
+      tmp <- order((abs(S_pos[,j]) * r_pos[,j]), decreasing=TRUE)[1:n_sigGene[j]]
+    }
     diffGeneList[[j]] <- row.names(dat)[tmp]
   }
   return(list(prior_p=r_pos, beta1=S_pos, diffGeneList=diffGeneList))
