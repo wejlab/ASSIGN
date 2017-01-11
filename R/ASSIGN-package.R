@@ -41,21 +41,6 @@ NULL
 #' @keywords datasets
 NULL
 
-#' Pathway Signature Data
-#'
-#' Pathway signature RNA-Seq data from akt, bad, egfr, her2, igf1r, krasgv,
-#' krasqh, and raf pathways. This data has already been batch corrected with
-#' reference batch ComBat. This data can be combined with a test data set to
-#' predict pathway activity for the pathways.
-#'
-#'
-#' @name combat_train
-#' @docType data
-#' @format Data frame with control (GFP) and cell line signature RNA-Seq data.
-#' @source Bild et al.
-#' @keywords datasets
-NULL
-
 #' Pathway Signature Gene Lists
 #'
 #' Pathway signature gene lists have been optimized based on correlations of

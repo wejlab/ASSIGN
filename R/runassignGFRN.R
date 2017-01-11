@@ -42,19 +42,18 @@
 #' @export runassignGFRN
 #'
 runassignGFRN <- function(indata, run=c("akt","bad","egfr","her2","igf1r",
-                                        "krasgv","krasqh","raf"),
+                                        "krasgv","raf"),
                           optimized_geneList=NULL, use_seed=1234,
                           sigma_sZero=0.05, sigma_sNonZero=0.5,
                           S_zeroPrior=FALSE, iter=100000, burn_in=50000) {
 
   #list of anchor genes
   anchorGeneList <- list(akt="AKT1", bad="BAD", egfr="EGFR", her2="ERBB2",
-                         igf1r="IGF1R", krasgv="KRAS", krasqh="KRAS",
-                         raf="RAF1")
+                         igf1r="IGF1R", krasgv="KRAS", raf="RAF1")
   
   #list of corresponding controls for each pathway
   gfpList <- list(akt="gfp", bad="gfp", egfr="egfr_gfp", her2="gfp",
-                  igf1r="gfp", krasgv="kras_gfp", krasqh="kras_gfp", raf="gfp")
+                  igf1r="gfp", krasgv="kras_gfp", raf="gfp")
   
   if(is.null(optimized_geneList)){
     utils::data('gfrn_geneList', package='ASSIGN', envir=environment()) 
@@ -69,10 +68,8 @@ runassignGFRN <- function(indata, run=c("akt","bad","egfr","her2","igf1r",
                                    gfrn_geneList$her2_down[1:5]),
                             igf1r=c(gfrn_geneList$igf1r_up[1:50],
                                     gfrn_geneList$igf1r_down[1:50]),
-                            krasgv=c(gfrn_geneList$krasgv_up[1:87],
-                                     gfrn_geneList$krasgv_down[1:88]),
-                            krasqh=c(gfrn_geneList$krasqh_up[1:150],
-                                     gfrn_geneList$krasqh_down[1:150]),
+                            krasgv=c(gfrn_geneList$krasgv_up[1:100],
+                                     gfrn_geneList$krasgv_down[1:100]),
                             raf=c(gfrn_geneList$raf_up[1:175],
                                   gfrn_geneList$raf_down[1:175]))
   }

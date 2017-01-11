@@ -36,7 +36,7 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL) {
   }
   
   dat <- merge_drop(combat_train,testData)
-  sub <- c(6,6,12,6,6,5,6,6,9,9,9,9,ncol(testData))
+  sub <- c(6,6,12,6,6,5,6,6,9,9,ncol(testData))
   bat <- c(rep(1,ncol(combat_train)),rep(2,ncol(testData)))
   if(pcaPlots){
     grDevices::pdf("pca_refcombat_twostep.pdf")
@@ -56,13 +56,10 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL) {
   c_egfr_gfp <- combat_expr1[,1:6]
   c_egfr     <- combat_expr1[,7:12]
   c_kras_gfp <- combat_expr1[,54:62]
-  c_kraswt   <- combat_expr1[,63:71]
-  c_krasqh   <- combat_expr1[,72:80]
-  c_krasgv   <- combat_expr1[,81:89]
+  c_krasgv   <- combat_expr1[,63:71]
   c_test     <- combat_expr1[,(ncol(combat_train)+1):ncol(combat_expr1)]
   results <- list(gfp=c_gfp, akt=c_akt, bad=c_bad, her2=c_her2, igf1r=c_igf1r,
                   raf=c_raf, egfr_gfp=c_egfr_gfp, egfr=c_egfr,
-                  kras_gfp=c_kras_gfp, kraswt=c_kraswt, krasqh=c_krasqh,
-                  krasgv=c_krasgv, test=c_test)
+                  kras_gfp=c_kras_gfp, krasgv=c_krasgv, test=c_test)
   return(results)
 }

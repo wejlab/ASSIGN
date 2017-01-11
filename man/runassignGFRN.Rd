@@ -5,9 +5,9 @@
 \title{Run optimized single pathway ASSIGN}
 \usage{
 runassignGFRN(indata, run = c("akt", "bad", "egfr", "her2", "igf1r", "krasgv",
-  "krasqh", "raf"), optimized_geneList = NULL, use_seed = 1234,
-  sigma_sZero = 0.05, sigma_sNonZero = 0.5, S_zeroPrior = FALSE,
-  iter = 1e+05, burn_in = 50000)
+  "raf"), optimized_geneList = NULL, use_seed = 1234, sigma_sZero = 0.05,
+  sigma_sNonZero = 0.5, S_zeroPrior = FALSE, iter = 1e+05,
+  burn_in = 50000)
 }
 \arguments{
 \item{indata}{The list of data frames from ComBat.step2}
