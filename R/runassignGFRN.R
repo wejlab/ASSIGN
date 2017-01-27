@@ -91,7 +91,8 @@ runassignGFRN <- function(indata, run=c("akt","bad","egfr","her2","igf1r",
       anchorGeneList[curr_path] <- list(NULL)
     }
     
-    if(!(is.null(exclude_common_genes))){
+    excludegenes <- NULL
+    if(exclude_common_genes){
       excludegenes <- get("excludegenes", envir=environment())
       excludeGeneList <- list()
       excludeGeneList[curr_path] <- list(excludegenes)
