@@ -7,7 +7,7 @@
 runassignGFRN(indata, run = c("akt", "bad", "egfr", "her2", "igf1r", "krasgv",
   "raf"), optimized_geneList = NULL, use_seed = 1234, sigma_sZero = 0.05,
   sigma_sNonZero = 0.5, S_zeroPrior = FALSE, iter = 1e+05,
-  burn_in = 50000)
+  burn_in = 50000, exclude_common_genes = FALSE)
 }
 \arguments{
 \item{indata}{The list of data frames from ComBat.step2}
@@ -39,6 +39,9 @@ follows a normal distribution with mean zero. The default is FALSE.}
 \item{burn_in}{The number of burn-in iterations. These iterations are
 discarded when computing the posterior means of the model parameters. The
 default is 50000.}
+
+\item{exclude_common_genes}{Remove commonly differentially expressed genes
+for overexpression signatures. The default is FALSE.}
 }
 \value{
 Data is output to the current working directory in a results

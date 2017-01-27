@@ -27,6 +27,8 @@
 #' @param burn_in The number of burn-in iterations. These iterations are
 #' discarded when computing the posterior means of the model parameters. The
 #' default is 50000.
+#' @param exclude_common_genes Remove commonly differentially expressed genes
+#' for overexpression signatures. The default is FALSE.
 #'
 #' @return Data is output to the current working directory in a results
 #' directory.
@@ -45,7 +47,8 @@ runassignGFRN <- function(indata, run=c("akt","bad","egfr","her2","igf1r",
                                         "krasgv","raf"),
                           optimized_geneList=NULL, use_seed=1234,
                           sigma_sZero=0.05, sigma_sNonZero=0.5,
-                          S_zeroPrior=FALSE, iter=100000, burn_in=50000) {
+                          S_zeroPrior=FALSE, iter=100000, burn_in=50000,
+                          exclude_common_genes=FALSE) {
 
   #list of anchor genes
   anchorGeneList <- list(akt="AKT1", bad="BAD", egfr="EGFR", her2="ERBB2",
@@ -88,6 +91,12 @@ runassignGFRN <- function(indata, run=c("akt","bad","egfr","her2","igf1r",
       anchorGeneList[curr_path] <- list(NULL)
     }
     
+    if(!(is.null(exclude_common_genes))){
+      excludegenes <- get("excludegenes", envir=environment())
+      excludeGeneList <- list()
+      excludeGeneList[curr_path] <- list(excludegenes)
+    }
+    
     if(use_seed){
       set.seed(use_seed)
     }
@@ -96,6 +105,7 @@ runassignGFRN <- function(indata, run=c("akt","bad","egfr","her2","igf1r",
                                       indata[[curr_path]]),
                    testData=indata[['test']],
                    anchorGenes=anchorGeneList[curr_path],
+                   excludeGenes=excludeGeneList,
                    trainingLabel=trainingLabel,
                    geneList=optimized_geneList[curr_path],
                    n_sigGene=NULL,
