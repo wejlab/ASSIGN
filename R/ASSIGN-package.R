@@ -55,3 +55,16 @@ NULL
 #' @source Bild et al.
 #' @keywords datasets
 NULL
+
+#' Exclude Gene List
+#'
+#' Overexpression signatures may contain genes that are consistantly
+#' differentially expressed. This list was compiled based on the GFRN gene list.
+#' These genes appear in at least 60% of all signatures at various lengths.
+#'
+#' @name excludegenes
+#' @docType data
+#' @format character vector of commonly differentially expressed genes
+#' @source Bild et al.
+#' @keywords datasets
+NULL
