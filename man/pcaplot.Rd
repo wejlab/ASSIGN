@@ -4,7 +4,7 @@
 \alias{pcaplot}
 \title{Display a PCA Plot of the Data}
 \usage{
-pcaplot(mat, sub, center = T, scale = T)
+pcaplot(mat, sub, center = T, scale = T, plottitle = "PCA")
 }
 \arguments{
 \item{mat}{The data frame on which to perform pca.}
