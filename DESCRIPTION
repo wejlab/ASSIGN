@@ -28,7 +28,8 @@ Imports:
     Rlab,
     stats,
     sva,
-    utils
+    utils,
+    ggplot2
 biocViews: Software, GeneExpression, Pathways, Bayesian
 Suggests:
     testthat,

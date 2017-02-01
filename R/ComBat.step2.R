@@ -36,15 +36,25 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL) {
   }
   
   dat <- merge_drop(combat_train,testData)
-  sub <- c(6,6,12,6,6,5,6,6,9,9,ncol(testData))
+  sub <- c(rep("gfp_egfr",6),
+           rep("egfr",6),
+           rep("gfp",12),
+           rep("akt",6),
+           rep("bad",6),
+           rep("her2",5),
+           rep("igf1r",6),
+           rep("raf",6),
+           rep("gfp_kras",9),
+           rep("krasgv",9),
+           rep("test",ncol(testData)))
   bat <- c(rep(1,ncol(combat_train)),rep(2,ncol(testData)))
   if(pcaPlots){
     grDevices::pdf("pca_refcombat_twostep.pdf")
-    pcaplot(dat,sub)
+    print(pcaplot(dat,sub, plottitle="PCA: Before ComBat"))
   }
   combat_expr1 <- sva::ComBat(dat=dat, batch=bat, mod=NULL, ref.batch=1)
   if(pcaPlots){
-    pcaplot(combat_expr1,sub)
+    print(pcaplot(combat_expr1,sub, plottitle="PCA: After ComBat"))
     invisible(grDevices::dev.off())
   }
   c_gfp      <- combat_expr1[,13:24]

@@ -35,24 +35,17 @@ merge_drop<-function(x,y,by=0,...){
 #' @return A PCA plot is displayed
 #' @export pcaplot
 #'
-pcaplot<-function(mat,sub,center=T,scale=T){
-  if(sum(sub)!=length(mat)){
-    print("verify the subscripts...exiting now")
+pcaplot<-function(mat,sub,center=T,scale=T, plottitle="PCA"){
+  if(length(sub)!=length(mat)){
+    stop("verify the subscripts...exiting now")
   }
   else{
     pca_mat <- stats::prcomp(t(mat), center=center,scale=scale)
-    graphics::plot(pca_mat)
-    graphics::plot(pca_mat$x[,1],pca_mat$x[,2])
-    graphics::abline(h=0,v=0)
-    for(i in length(sub):1){
-      if(i!=1){
-        graphics::points(pca_mat$x[sum(sub[1:i-1]):sum(sub[1:i])],
-                         pca_mat$x[sum(sub[1:i-1]):sum(sub[1:i]),2],col=i,pch=i)
-      }
-      else{
-        graphics::points(pca_mat$x[1:sub[i]],pca_mat$x[1:sub[i],2],col=i,pch=i)
-      }
-    }
+    pca_mat_plot <- data.frame(pca_mat$x[,1:2])
+    pca_mat_plot$Group <- factor(sub)
+    return(ggplot2::ggplot(pca_mat_plot, ggplot2::aes(PC1, PC2)) + 
+             ggplot2::geom_point(ggplot2::aes(colour = Group), size=2) +
+             ggplot2::ggtitle(plottitle))
   }
 }
 
