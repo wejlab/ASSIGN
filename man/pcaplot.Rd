@@ -18,6 +18,9 @@ shifted to be zero centered. The default is TRUE}
 \item{scale}{a logical value indicating whether the variables should be
 scaled to have unit variance before the analysis takes place. The default
 is TRUE}
+
+\item{plottitle}{The title to display above your PCA plot. The default is
+"PCA".}
 }
 \value{
 A PCA plot is displayed

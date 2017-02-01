@@ -31,6 +31,8 @@ merge_drop<-function(x,y,by=0,...){
 #' @param scale a logical value indicating whether the variables should be
 #' scaled to have unit variance before the analysis takes place. The default
 #' is TRUE
+#' @param plottitle The title to display above your PCA plot. The default is
+#' "PCA".
 #'
 #' @return A PCA plot is displayed
 #' @export pcaplot
@@ -43,8 +45,8 @@ pcaplot<-function(mat,sub,center=T,scale=T, plottitle="PCA"){
     pca_mat <- stats::prcomp(t(mat), center=center,scale=scale)
     pca_mat_plot <- data.frame(pca_mat$x[,1:2])
     pca_mat_plot$Group <- factor(sub)
-    return(ggplot2::ggplot(pca_mat_plot, ggplot2::aes(PC1, PC2)) + 
-             ggplot2::geom_point(ggplot2::aes(colour = Group), size=2) +
+    return(ggplot2::ggplot(pca_mat_plot, ggplot2::aes_string(x='PC1', y='PC2')) + 
+             ggplot2::geom_point(ggplot2::aes_string(colour = 'Group'), size=2) +
              ggplot2::ggtitle(plottitle))
   }
 }
