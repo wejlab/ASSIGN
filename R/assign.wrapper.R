@@ -70,6 +70,8 @@
 #' The default is 500.
 #' @param geneselect_burn_in The number of burn-in iterations for bayesian gene
 #' selection. The default is 100
+#' @param outputSignature_convergence Create a pdf of the MCMC chain. The
+#' default is FALSE.
 #' @return The assign.wrapper returns one/multiple pathway activity for each
 #' individual training sample and test sample, scatter plots of pathway
 #' activity for each individual pathway in the training and test data,
@@ -109,7 +111,8 @@ assign.wrapper<-function (trainingData = NULL, testData, trainingLabel,
                           theta0 = 0.05, theta1 = 0.9, iter = 2000,
                           burn_in = 1000, sigma_sZero = 0.01,
                           sigma_sNonZero = 1, S_zeroPrior=FALSE, pctUp=0.5,
-                          geneselect_iter=500, geneselect_burn_in=100){
+                          geneselect_iter=500, geneselect_burn_in=100,
+                          outputSignature_convergence=FALSE){
   if (is.null(geneList)) {
     pathName <- names(trainingLabel)[-1]
   }
@@ -214,10 +217,12 @@ assign.wrapper<-function (trainingData = NULL, testData, trainingLabel,
                      trainingLabel, testLabel, Delta_cutoff = 0.95,
                      coef_test, geneList)
     ####Added by moom####
-    grDevices::pdf("Signature_convergence.pdf") 
-    graphics::plot(mcmc.chain.testData$S_mcmc)
-    graphics::abline(h=0,col="red")
-    invisible(grDevices::dev.off())
+    if(outputSignature_convergence){
+      grDevices::pdf("Signature_convergence.pdf") 
+      graphics::plot(mcmc.chain.testData$S_mcmc)
+      graphics::abline(h=0,col="red")
+      invisible(grDevices::dev.off())
+    }
 
     dimnames(mcmc.pos.mean.testData$Delta_pos)=dimnames(processed.data$S_matrix)    
     deltas <- cbind(processed.data$S_matrix, processed.data$Delta_matrix,

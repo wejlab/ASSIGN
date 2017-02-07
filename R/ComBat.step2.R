@@ -14,6 +14,9 @@
 #' @param combat_train the ComBat training data data frame. If you do not have
 #' this, the function will attempt to download it from the internet. Please
 #' contact the developers if you have any issues with access to the file.
+#' @param plots_to_console By default this function will write PDF versions of
+#' the plots. Set this to TRUE to send the plots to the command line. The
+#' default is FALSE.
 #'
 #' @return A list of data.frames is returned, including control (GFP) and
 #' signature data, as well as the batch corrected test data. This data can go
@@ -21,7 +24,8 @@
 #' subsetted to go directly into ASSIGN.
 #'
 #' @export ComBat.step2
-ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL) {
+ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL,
+                         plots_to_console=FALSE) {
   if(!("ref.batch" %in% names(as.list(args(sva::ComBat))))){
     stop("Installed version of sva: ", utils::packageVersion("sva"), " does not have ref.batch option.\n",
          "Use devtools to install the github version of sva:\ndevtools::install_github('jtleek/sva-devel')")
@@ -49,13 +53,21 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL) {
            rep("test",ncol(testData)))
   bat <- c(rep(1,ncol(combat_train)),rep(2,ncol(testData)))
   if(pcaPlots){
+    pcaplotbefore <- pcaplot(dat,sub, plottitle="PCA: Before ComBat")
+    if(plots_to_console){
+      print(pcaplotbefore)
+    }
     grDevices::pdf("pca_refcombat_twostep.pdf")
-    print(pcaplot(dat,sub, plottitle="PCA: Before ComBat"))
+    print(pcaplotbefore)
   }
   combat_expr1 <- sva::ComBat(dat=dat, batch=bat, mod=NULL, ref.batch=1)
   if(pcaPlots){
-    print(pcaplot(combat_expr1,sub, plottitle="PCA: After ComBat"))
+    pcaplotafter <- pcaplot(combat_expr1,sub, plottitle="PCA: After ComBat")
+    print(pcaplotafter)
     invisible(grDevices::dev.off())
+    if(plots_to_console){
+      print(pcaplotafter)
+    }
   }
   c_gfp      <- combat_expr1[,13:24]
   c_akt      <- combat_expr1[,25:30]

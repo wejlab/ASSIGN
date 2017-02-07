@@ -10,7 +10,8 @@ assign.wrapper(trainingData = NULL, testData, trainingLabel,
   adaptive_S = FALSE, mixture_beta = TRUE, outputDir, p_beta = 0.01,
   theta0 = 0.05, theta1 = 0.9, iter = 2000, burn_in = 1000,
   sigma_sZero = 0.01, sigma_sNonZero = 1, S_zeroPrior = FALSE,
-  pctUp = 0.5, geneselect_iter = 500, geneselect_burn_in = 100)
+  pctUp = 0.5, geneselect_iter = 500, geneselect_burn_in = 100,
+  outputSignature_convergence = FALSE)
 }
 \arguments{
 \item{trainingData}{The genomic measure matrix of training samples (i.g.,
@@ -94,6 +95,9 @@ The default is 500.}
 
 \item{geneselect_burn_in}{The number of burn-in iterations for bayesian gene
 selection. The default is 100}
+
+\item{outputSignature_convergence}{Create a pdf of the MCMC chain. The
+default is FALSE.}
 }
 \value{
 The assign.wrapper returns one/multiple pathway activity for each

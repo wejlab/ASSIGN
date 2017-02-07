@@ -4,7 +4,8 @@
 \alias{ComBat.step2}
 \title{Perform the second step of ComBat}
 \usage{
-ComBat.step2(testData, pcaPlots = FALSE, combat_train = NULL)
+ComBat.step2(testData, pcaPlots = FALSE, combat_train = NULL,
+  plots_to_console = FALSE)
 }
 \arguments{
 \item{testData}{The input test data to batch correct}
@@ -15,6 +16,10 @@ should create PCA plots. The default is FALSE.}
 \item{combat_train}{the ComBat training data data frame. If you do not have
 this, the function will attempt to download it from the internet. Please
 contact the developers if you have any issues with access to the file.}
+
+\item{plots_to_console}{By default this function will write PDF versions of
+the plots. Set this to TRUE to send the plots to the command line. The
+default is FALSE.}
 }
 \value{
 A list of data.frames is returned, including control (GFP) and
