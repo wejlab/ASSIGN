@@ -82,4 +82,3 @@ mcmc.pos.mean <- assign.summary(test=mcmc.chain, burn_in=10, iter=20,
 \author{
 Ying Shen
 }
-

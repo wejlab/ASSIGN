@@ -86,4 +86,3 @@ adaptive_B=FALSE, adaptive_S=FALSE, mixture_beta=TRUE, outputDir=tempdir)
 \author{
 Ying Shen
 }
-

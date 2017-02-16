@@ -141,4 +141,3 @@ mcmc.chain <- assign.mcmc(Y=processed.data$testData_sub,
 \author{
 Ying Shen
 }
-

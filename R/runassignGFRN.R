@@ -29,6 +29,8 @@
 #' default is 50000.
 #' @param exclude_common_genes Remove commonly differentially expressed genes
 #' for overexpression signatures. The default is FALSE.
+#' @param adaptive_S Logical. If TRUE, the model adapts the signatures (S) of
+#' genomic measures for the test samples. The default for GFRN analysis is TRUE.
 #'
 #' @return Data is output to the current working directory in a results
 #' directory.
@@ -48,7 +50,7 @@ runassignGFRN <- function(indata, run=c("akt","bad","egfr","her2","igf1r",
                           optimized_geneList=NULL, use_seed=1234,
                           sigma_sZero=0.05, sigma_sNonZero=0.5,
                           S_zeroPrior=FALSE, iter=100000, burn_in=50000,
-                          exclude_common_genes=FALSE) {
+                          exclude_common_genes=FALSE, adaptive_S=TRUE) {
 
   #list of anchor genes
   anchorGeneList <- list(akt="AKT1", bad="BAD", egfr="EGFR", her2="ERBB2",
@@ -111,7 +113,7 @@ runassignGFRN <- function(indata, run=c("akt","bad","egfr","her2","igf1r",
                    geneList=optimized_geneList[curr_path],
                    n_sigGene=NULL,
                    adaptive_B=TRUE,
-                   adaptive_S=TRUE,
+                   adaptive_S=adaptive_S,
                    mixture_beta=FALSE,
                    S_zeroPrior=S_zeroPrior,
                    outputDir=paste(curr_path,"_",

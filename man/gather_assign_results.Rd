@@ -12,4 +12,3 @@ A data frame of ASSIGN predictions from each run in the directory
 \description{
 Gather the ASSIGN results in a specific directory
 }
-

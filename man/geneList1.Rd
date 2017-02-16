@@ -14,4 +14,3 @@ a guide to targeted therapies. Nature, 439, 353-357.
 Signature genes for 5 oncogenic pathways.
 }
 \keyword{datasets}
-

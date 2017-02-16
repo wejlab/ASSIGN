@@ -147,4 +147,3 @@ assign.wrapper(trainingData=trainingData1, testData=testData1,
 \author{
 Ying Shen and W. Evan Johnson
 }
-

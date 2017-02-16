@@ -34,4 +34,4 @@ biocViews: Software, GeneExpression, Pathways, Bayesian
 Suggests:
     testthat,
     BiocStyle
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

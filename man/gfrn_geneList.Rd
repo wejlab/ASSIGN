@@ -16,4 +16,3 @@ the bayesian gene selection step of ASSIGN, which will decrease the amount of
 time it takes to run ASSIGN.
 }
 \keyword{datasets}
-

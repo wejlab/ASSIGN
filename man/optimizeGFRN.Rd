@@ -84,4 +84,3 @@ optimization_results <- optimizeGFRN(combat.data, corData, corList)
 }
 
 }
-

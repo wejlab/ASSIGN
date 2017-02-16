@@ -37,4 +37,3 @@ analysis.
 This function downloads the training data from the internet, so an internet
 connection is necessary
 }
-

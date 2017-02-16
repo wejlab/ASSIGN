@@ -7,7 +7,7 @@
 runassignGFRN(indata, run = c("akt", "bad", "egfr", "her2", "igf1r", "krasgv",
   "raf"), optimized_geneList = NULL, use_seed = 1234, sigma_sZero = 0.05,
   sigma_sNonZero = 0.5, S_zeroPrior = FALSE, iter = 1e+05,
-  burn_in = 50000, exclude_common_genes = FALSE)
+  burn_in = 50000, exclude_common_genes = FALSE, adaptive_S = TRUE)
 }
 \arguments{
 \item{indata}{The list of data frames from ComBat.step2}
@@ -42,6 +42,9 @@ default is 50000.}
 
 \item{exclude_common_genes}{Remove commonly differentially expressed genes
 for overexpression signatures. The default is FALSE.}
+
+\item{adaptive_S}{Logical. If TRUE, the model adapts the signatures (S) of
+genomic measures for the test samples. The default for GFRN analysis is TRUE.}
 }
 \value{
 Data is output to the current working directory in a results
@@ -63,4 +66,3 @@ runassignGFRN(combat.data)
 }
 
 }
-

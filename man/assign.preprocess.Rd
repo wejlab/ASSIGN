@@ -127,4 +127,3 @@ testData=testData1, trainingLabel=trainingLabel1, geneList=geneList1)
 \author{
 Ying Shen
 }
-

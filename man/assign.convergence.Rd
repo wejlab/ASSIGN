@@ -64,4 +64,3 @@ trace.plot <- assign.convergence(test=mcmc.chain, burn_in=0, iter=2000,
 \author{
 Ying Shen
 }
-
