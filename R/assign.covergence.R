@@ -43,7 +43,7 @@
 #' 
 #' @export assign.convergence
 assign.convergence <- function(test, burn_in=0, iter=2000,
-                               parameter=c("B","S","Delta", "beta", "kappa",
+                               parameter=c("B", "S", "Delta", "beta", "kappa",
                                            "gamma", "sigma"), whichGene,
                                whichSample, whichPath){
   if (parameter == "B"){
@@ -73,14 +73,14 @@ assign.convergence <- function(test, burn_in=0, iter=2000,
   
   
   if (parameter == "beta"){
-    beta_pos <- test$beta_mcmc[burn_in:iter,whichPath,whichSample]
+    beta_pos <- test$beta_mcmc[burn_in:iter, whichPath, whichSample]
     graphics::plot(beta_pos, type="l", xlab="Iteration",
                    ylab=paste("Posterior beta of sample ", whichSample,
                               " pathway ", whichPath, sep=""),
                    main="Convergency of posterior beta")
     return(beta_pos)
   }
-  
+
   if (parameter == "kappa"){
     kappa_pos <- test$kappa_mcmc[burn_in:iter,whichPath,whichSample]
     graphics::plot(kappa_pos, type="l", xlab="Iteration",
@@ -89,7 +89,7 @@ assign.convergence <- function(test, burn_in=0, iter=2000,
                    main="Convergency of posterior kappa")
     return(kappa_pos)
   }
-  
+
   if (parameter == "gamma"){
     gamma_pos <- test$gamma_mcmc[burn_in:iter,whichPath,whichSample]
     graphics::plot(gamma_pos, type="l", xlab="Iteration",
