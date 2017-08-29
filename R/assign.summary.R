@@ -1,8 +1,8 @@
 #' Summary of the model parameters estimated by the Gibbs sampling algorithm
-#' 
+#'
 #' The assign.summary function computes the posterior mean of the model
 #' parameters estimated in every iteration during the Gibbs sampling.
-#' 
+#'
 #' The assign.summary function is suggested to run after the assign.convergence
 #' function, which is used to check the convergency of the MCMC chain. If the
 #' MCMC chain does not converge to a stationary phase, more iterations are
@@ -10,7 +10,7 @@
 #' usually set to be half of the number of total iterations, meaning that the
 #' first half of the MCMC chain is discarded when computing the posterior
 #' means.
-#' 
+#'
 #' @param test The list object returned from the assign.mcmc function. The list
 #' components are the MCMC chains of the B, S, Delta, beta, gamma, and sigma.
 #' @param burn_in The number of burn-in iterations. These iterations are
@@ -38,17 +38,17 @@
 #' being significant in the associated pathways.}
 #' @author Ying Shen
 #' @examples
-#' 
+#'
 #' \dontshow{
 #' data(trainingData1)
 #' data(testData1)
 #' data(geneList1)
-#' trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10, myc=1:10, 
-#'                                       ras=1:10, src=1:10), 
-#'                        bcat = 11:19, e2f3 = 20:28, myc= 29:38, 
+#' trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10, myc=1:10,
+#'                                       ras=1:10, src=1:10),
+#'                        bcat = 11:19, e2f3 = 20:28, myc= 29:38,
 #'                        ras = 39:48, src = 49:55)
-#'                        
-#' processed.data <- assign.preprocess(trainingData=trainingData1, 
+#'
+#' processed.data <- assign.preprocess(trainingData=trainingData1,
 #' testData=testData1, trainingLabel=trainingLabel1, geneList=geneList1)
 #' mcmc.chain <- assign.mcmc(Y=processed.data$testData_sub,
 #'                           Bg = processed.data$B_vector,
@@ -60,7 +60,7 @@
 #'                                 adaptive_B=TRUE, adaptive_S=FALSE,
 #'                                 mixture_beta = TRUE)
 #' }
-#' 
+#'
 #' @export assign.summary
 assign.summary <- function(test, burn_in=1000, iter=2000, adaptive_B=TRUE,
                            adaptive_S=FALSE, mixture_beta=TRUE){

@@ -18,7 +18,7 @@
 #' "bad", "egfr", etc.) or list of pathways to run those pathways only.
 #' @param run_ASSIGN_only a logical value indicating if you want to run the
 #' ASSIGN predictions only. Use this to parallelize ASSIGN runs across a compute
-#' cluster or across compute threads 
+#' cluster or across compute threads
 #' @param correlation_only a logical value indicating if you want to run the
 #' correlation step only. The function will find the ASSIGN runs in the cwd and
 #' optimize them based on the correlation data matrix.
@@ -32,11 +32,11 @@
 #' @param iter The number of iterations in the MCMC.
 #' @param burn_in The number of burn-in iterations. These iterations are
 #' discarded when computing the posterior means of the model parameters.
-#' 
+#'
 #' @return ASSIGN runs are output to the current workingdirectory. This function
 #' returns the correlation data and the optimized gene lists that you can use
 #' with runassignGFRN to try these lists on other data.
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' testData <- read.table("https://dl.dropboxusercontent.com/u/62447/ASSIGN/icbp_Rsubread_tpmlog.txt",
@@ -55,7 +55,7 @@
 #'                 krasgv=c("EGFR","EGFRp1068"),
 #'                 krasqh=c("EGFR","EGFRp1068"),
 #'                 raf=c("MEK1","PKCalphap657","PKCalpha"))
-#' 
+#'
 #' combat.data <- ComBat.step2(testData, pcaPlots = TRUE)
 #'
 #' optimization_results <- optimizeGFRN(combat.data, corData, corList)
@@ -71,7 +71,7 @@ optimizeGFRN <- function(indata, correlation, correlationList,
                                            seq(300, 500, 50)), iter=100000,
                          burn_in=50000) {
   #check that correlationList and run list are identical
-  if(!identical(names(correlationList), run)){
+  if (!identical(names(correlationList), run)){
     stop("Make sure the run list and correlationList list names are identical and in the same order")
   }
 
@@ -79,7 +79,7 @@ optimizeGFRN <- function(indata, correlation, correlationList,
   gfrn_geneList <- get("gfrn_geneList", envir = environment())
 
   # run the pathway predictions
-  if(!(correlation_only)){
+  if (!(correlation_only)){
     for (curr_path in run){
       for (curr_len in pathway_lengths){
         geneList <- list()
@@ -96,14 +96,14 @@ optimizeGFRN <- function(indata, correlation, correlationList,
   results <- ASSIGN::gather_assign_results()
 
   #check the rownames, warnings if there are extras
-  if(sum(!(rownames(results) %in% rownames(correlation))) != 0){
+  if (sum(!(rownames(results) %in% rownames(correlation))) != 0){
     warning(sum(!(rownames(results) %in% rownames(correlation))),
             " out of ", length(rownames(results)),
             " samples in input data not in correlation data:\n",
             paste(rownames(results)[!(rownames(results) %in% rownames(correlation))], collapse = ", "),
             "\nThese samples will be removed from the correlation results.")
   }
-  if(sum(!(rownames(correlation) %in% rownames(results))) != 0){
+  if (sum(!(rownames(correlation) %in% rownames(results))) != 0){
     warning(sum(!(rownames(correlation) %in% rownames(results))),
             " out of ", length(rownames(correlation)),
             " samples in correlation data not in input data:\n",
@@ -133,7 +133,7 @@ optimizeGFRN <- function(indata, correlation, correlationList,
                       dimnames = list(colnames(results)[run_column_idx],
                                       colnames(correlation)[cor_column_idx]))
     for (cor_column in cor_column_idx){
-      for(run_column in run_column_idx){
+      for (run_column in run_column_idx){
         temp <- stats::cor.test(correlation[, cor_column], results[, run_column],
                                 use = "pairwise", method = "spearman")
         cor_mat[colnames(results)[run_column], colnames(correlation)[cor_column]] <- temp$estimate
@@ -151,7 +151,7 @@ optimizeGFRN <- function(indata, correlation, correlationList,
   }
 
   #delete the non-optimal outputs if keep_optimized_only is set
-  if(keep_optimized_only){
+  if (keep_optimized_only){
     message("Deleting the results that are not optimium")
     unlink(dir(pattern = "gene_list")[!(dir(pattern = "_gene_list") %in% as.vector(unlist(optimized_path)))], recursive = T)
   }

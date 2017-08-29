@@ -38,7 +38,7 @@ merge_drop <- function(x, y, by=0, ...){
 #' @export pcaplot
 #'
 pcaplot <- function(mat, sub, center=T, scale=T, plottitle="PCA"){
-  if(length(sub) != length(mat)){
+  if (length(sub) != length(mat)){
     stop("verify the subscripts...exiting now")
   }
   else{
@@ -48,9 +48,9 @@ pcaplot <- function(mat, sub, center=T, scale=T, plottitle="PCA"){
     pca_mat_plot$Sample <- colnames(mat)
     explained_var <- ((pca_mat$sdev) ^ 2) / sum(pca_mat$sdev ^ 2)
     return(ggplot2::ggplot(pca_mat_plot,
-                           ggplot2::aes_string(x = 'PC1', y = 'PC2',
-                                               label = 'Sample')) +
-             ggplot2::geom_point(ggplot2::aes_string(colour = 'Group'), size = 2) +
+                           ggplot2::aes_string(x = "PC1", y = "PC2",
+                                               label = "Sample")) +
+             ggplot2::geom_point(ggplot2::aes_string(colour = "Group"), size = 2) +
              ggplot2::xlab(paste("PC1 (", round(explained_var[1] * 100, 2), "%)", sep = "")) +
              ggplot2::ylab(paste("PC2 (", round(explained_var[2] * 100, 2), "%)", sep = "")) +
              ggplot2::ggtitle(plottitle) +
@@ -61,7 +61,7 @@ pcaplot <- function(mat, sub, center=T, scale=T, plottitle="PCA"){
 #' Gather the ASSIGN results in a specific directory
 #'
 #' @return A data frame of ASSIGN predictions from each run in the directory
-#' 
+#'
 #' @export gather_assign_results
 #'
 gather_assign_results <- function(){
@@ -71,7 +71,7 @@ gather_assign_results <- function(){
   for (i in curr_files){
     curr <- utils::read.csv(i, header = T, row.names = 1)
     colnames(curr) <- strsplit(i, split = "/")[[1]][1]
-    if(ncol(results_df) == 0){
+    if (ncol(results_df) == 0){
       results_df <- curr
     }
     else{

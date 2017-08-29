@@ -1,16 +1,16 @@
 #' ASSIGN All-in-one function
-#' 
+#'
 #' The assign.wrapper function integrates the assign.preprocess, assign.mcmc,
 #' assign.summary, assign.output, assign.cv.output functions into one wrapper
 #' function.
-#' 
+#'
 #' The assign.wrapper function is an all-in-one function which outputs the
 #' necessary results for basic users. For users who need more
 #' intermediate results for model diagnosis, it is better to run the
 #' assign.preprocess, assign.mcmc, assign.convergence, assign.summary functions
 #' separately and extract the output values from the returned list objects of
 #' those functions.
-#' 
+#'
 #' @param trainingData The genomic measure matrix of training samples (i.g.,
 #' gene expression matrix). The dimension of this matrix is probe number x
 #' sample number. The default is NULL.
@@ -83,7 +83,7 @@
 #' data
 #' @author Ying Shen and W. Evan Johnson
 #' @examples
-#' 
+#'
 #' \dontshow{
 #' setwd(tempdir())
 #' tempdir <- tempdir()
@@ -91,30 +91,30 @@
 #' data(trainingData1)
 #' data(testData1)
 #' data(geneList1)
-#' 
+#'
 #' trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10, myc=1:10,
 #'                                       ras=1:10, src=1:10),
 #'                        bcat = 11:19, e2f3 = 20:28, myc= 29:38, ras = 39:48,
 #'                        src = 49:55)
 #' testLabel1 <- rep(c("subtypeA","subtypeB"), c(53,58))
-#' 
+#'
 #' assign.wrapper(trainingData=trainingData1, testData=testData1,
 #'                trainingLabel=trainingLabel1, testLabel=testLabel1,
 #'                geneList=geneList1, adaptive_B=TRUE, adaptive_S=FALSE,
 #'                mixture_beta=TRUE, outputDir=tempdir, p_beta=0.01,
 #'                theta0=0.05, theta1=0.9, iter=20, burn_in=10)
-#' 
+#'
 #' @export assign.wrapper
-assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
-                            testLabel = NULL, geneList = NULL,
-                            anchorGenes = NULL, excludeGenes = NULL,
-                            n_sigGene = NA, adaptive_B = TRUE,
-                            adaptive_S = FALSE, mixture_beta = TRUE, outputDir,
-                            p_beta = 0.01, theta0 = 0.05, theta1 = 0.9,
-                            iter = 2000, burn_in = 1000, sigma_sZero = 0.01,
-                            sigma_sNonZero = 1, S_zeroPrior=FALSE, pctUp=0.5,
-                            geneselect_iter=500, geneselect_burn_in=100,
-                            outputSignature_convergence = FALSE, ECM = FALSE){
+assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
+                           testLabel = NULL, geneList = NULL,
+                           anchorGenes = NULL, excludeGenes = NULL,
+                           n_sigGene = NA, adaptive_B = TRUE,
+                           adaptive_S = FALSE, mixture_beta = TRUE, outputDir,
+                           p_beta = 0.01, theta0 = 0.05, theta1 = 0.9,
+                           iter = 2000, burn_in = 1000, sigma_sZero = 0.01,
+                           sigma_sNonZero = 1, S_zeroPrior=FALSE, pctUp=0.5,
+                           geneselect_iter=500, geneselect_burn_in=100,
+                           outputSignature_convergence = FALSE, ECM = FALSE){
   if (is.null(geneList)) {
     pathName <- names(trainingLabel)[-1]
   }
@@ -169,15 +169,15 @@ assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
   message("Outputing results...")
   if (mixture_beta) {
     if (!is.null(trainingData)) {
-      coef_train = mcmc.pos.mean.trainingData$kappa_pos
+      coef_train <- mcmc.pos.mean.trainingData$kappa_pos
     }
-    coef_test = mcmc.pos.mean.testData$kappa_pos
+    coef_test <- mcmc.pos.mean.testData$kappa_pos
   }
   else {
     if (!is.null(trainingData)) {
-      coef_train = mcmc.pos.mean.trainingData$beta_pos
+      coef_train <- mcmc.pos.mean.trainingData$beta_pos
     }
-    coef_test = mcmc.pos.mean.testData$beta_pos
+    coef_test <- mcmc.pos.mean.testData$beta_pos
   }
   cwd <- getwd()
 
@@ -186,16 +186,16 @@ assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
   setwd(outputDir)
 
   ###moom added this
-  param = as.matrix(paste(pathName,
-                          "analysis was run using the following parameters :",
-                          "n_sigGene=", n_sigGene, "adaptive_B=", adaptive_B,
-                          "adaptive_S=", adaptive_S, "mixture_beta=",
-                          mixture_beta, "p_beta=", p_beta, "theta0=", theta0,
-                          "theta1=", theta1, "iter=", iter, "burn_in=", burn_in,
-                          "The output files are located at:", outputDir,
-                          sep = ' '))
+  param <- as.matrix(paste(pathName,
+                           "analysis was run using the following parameters :",
+                           "n_sigGene=", n_sigGene, "adaptive_B=", adaptive_B,
+                           "adaptive_S=", adaptive_S, "mixture_beta=",
+                           mixture_beta, "p_beta=", p_beta, "theta0=", theta0,
+                           "theta1=", theta1, "iter=", iter, "burn_in=",
+                           burn_in, "The output files are located at:",
+                           outputDir, sep = " "))
 
-  utils::write.table(param, "parameters.txt", col.names = F, sep = '\t')
+  utils::write.table(param, "parameters.txt", col.names = F, sep = "\t")
 
   ###moom added this to include the gene list and prior coefficient
   if (!is.null(trainingData)) {
@@ -222,14 +222,14 @@ assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
                      trainingLabel, testLabel, Delta_cutoff = 0.95,
                      coef_test, geneList)
     ####Added by moom####
-    if(outputSignature_convergence){
+    if (outputSignature_convergence){
       grDevices::pdf("Signature_convergence.pdf")
       graphics::plot(mcmc.chain.testData$S_mcmc)
       graphics::abline(h = 0, col = "red")
       invisible(grDevices::dev.off())
     }
 
-    dimnames(mcmc.pos.mean.testData$Delta_pos) = dimnames(processed.data$S_matrix)
+    dimnames(mcmc.pos.mean.testData$Delta_pos) <- dimnames(processed.data$S_matrix)
     deltas <- cbind(processed.data$S_matrix, processed.data$Delta_matrix,
                     mcmc.pos.mean.testData$S_pos,
                     mcmc.pos.mean.testData$Delta_pos)
@@ -244,8 +244,8 @@ assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
                                 pathName, sep = ":"))
     delta_in <- NULL
 
-    for(i in 1:ncol(deltas)){
-      delta_in[i] = (strsplit(colnames(deltas), ":")[[i]][2])
+    for (i in 1:ncol(deltas)){
+      delta_in[i] <- (strsplit(colnames(deltas), ":")[[i]][2])
     }
 
     utils::write.csv(round(deltas[, order(delta_in)], digits = 4),

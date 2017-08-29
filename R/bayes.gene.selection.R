@@ -72,7 +72,7 @@ bayes.gene.selection <- function(n_sigGene, dat, trainingLabel, iter=500,
 
   diffGeneList <- vector("list")
   for (j in 1:m){
-    if(!is.null(pctUp)){
+    if (!is.null(pctUp)){
       tmp_up   <- order((S_pos[, j] * r_pos[, j]), decreasing = TRUE)[1:floor(n_sigGene[j] / (1 / (pctUp)))]
       tmp_down <- order((S_pos[, j] * r_pos[, j]), decreasing = FALSE)[1:ceiling(n_sigGene[j] / (1 / (1 - pctUp)))]
       tmp <- c(tmp_up, tmp_down)

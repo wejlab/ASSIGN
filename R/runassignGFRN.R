@@ -34,7 +34,7 @@
 #'
 #' @return Data is output to the current working directory in a results
 #' directory.
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' testData <- read.table("https://dl.dropboxusercontent.com/u/62447/ASSIGN/icbp_Rsubread_tpmlog.txt",
@@ -61,53 +61,53 @@ runassignGFRN <- function(indata, run=c("akt", "bad", "egfr", "her2", "igf1r",
   gfpList <- list(akt = "gfp", bad = "gfp", egfr = "egfr_gfp", her2 = "gfp",
                   igf1r = "gfp", krasgv = "kras_gfp", raf = "gfp")
 
-  if(is.null(optimized_geneList)){
-    utils::data('gfrn_geneList', package = 'ASSIGN', envir = environment())
+  if (is.null(optimized_geneList)){
+    utils::data('gfrn_geneList', package = "ASSIGN", envir = environment())
     gfrn_geneList <- get("gfrn_geneList", envir = environment())
-    optimized_geneList = list(akt = c(gfrn_geneList$akt_up[1:10],
-                                      gfrn_geneList$akt_down[1:10]),
-                              bad = c(gfrn_geneList$bad_up[1:125],
-                                      gfrn_geneList$bad_down[1:125]),
-                              egfr = c(gfrn_geneList$egfr_up[1:25],
-                                       gfrn_geneList$egfr_down[1:25]),
-                              her2 = c(gfrn_geneList$her2_up[1:5],
-                                       gfrn_geneList$her2_down[1:5]),
-                              igf1r = c(gfrn_geneList$igf1r_up[1:50],
-                                        gfrn_geneList$igf1r_down[1:50]),
-                              krasgv = c(gfrn_geneList$krasgv_up[1:100],
-                                         gfrn_geneList$krasgv_down[1:100]),
-                              raf = c(gfrn_geneList$raf_up[1:175],
-                                      gfrn_geneList$raf_down[1:175]))
+    optimized_geneList <- list(akt = c(gfrn_geneList$akt_up[1:10],
+                                       gfrn_geneList$akt_down[1:10]),
+                               bad = c(gfrn_geneList$bad_up[1:125],
+                                       gfrn_geneList$bad_down[1:125]),
+                               egfr = c(gfrn_geneList$egfr_up[1:25],
+                                        gfrn_geneList$egfr_down[1:25]),
+                               her2 = c(gfrn_geneList$her2_up[1:5],
+                                        gfrn_geneList$her2_down[1:5]),
+                               igf1r = c(gfrn_geneList$igf1r_up[1:50],
+                                         gfrn_geneList$igf1r_down[1:50]),
+                               krasgv = c(gfrn_geneList$krasgv_up[1:100],
+                                          gfrn_geneList$krasgv_down[1:100]),
+                               raf = c(gfrn_geneList$raf_up[1:175],
+                                       gfrn_geneList$raf_down[1:175]))
   }
 
   for (curr_path in run){
     trainingLabel <- list()
-    trainingLabel[['control']] <- list()
-    trainingLabel[['control']][[curr_path]] <- 1:
+    trainingLabel[["control"]] <- list()
+    trainingLabel[["control"]][[curr_path]] <- 1:
       ncol(indata[[gfpList[[curr_path]]]])
     trainingLabel[[curr_path]] <- (ncol(indata[[gfpList[[curr_path]]]]) + 1):
       (ncol(indata[[gfpList[[curr_path]]]]) + ncol(indata[[curr_path]]))
 
-    if(!(anchorGeneList[curr_path] %in% rownames(indata[['test']]))){
+    if (!(anchorGeneList[curr_path] %in% rownames(indata[["test"]]))){
       warning(anchorGeneList[curr_path], " not in input data. No anchor gene ",
               "will be used.")
       anchorGeneList[curr_path] <- list(NULL)
     }
 
     excludeGeneList <- NULL
-    if(exclude_common_genes){
+    if (exclude_common_genes){
       excludegenes <- get("excludegenes", envir = environment())
       excludeGeneList <- list()
       excludeGeneList[curr_path] <- list(excludegenes)
     }
 
-    if(use_seed){
+    if (use_seed){
       set.seed(use_seed)
     }
 
     assign.wrapper(trainingData = cbind(indata[[gfpList[[curr_path]]]],
                                         indata[[curr_path]]),
-                   testData = indata[['test']],
+                   testData = indata[["test"]],
                    anchorGenes = anchorGeneList[curr_path],
                    excludeGenes = excludeGeneList,
                    trainingLabel = trainingLabel,

@@ -1,5 +1,4 @@
 geneMatch_sub2 <- function(dat, diffGeneList, trainingLabel){
-  nPath <- length(trainingLabel) - 1
   bgPosB <- NULL; edPosB <- NULL
   for (i in 1:length(trainingLabel[[1]])){
     bgPosB <- c(bgPosB, trainingLabel[[1]][[i]][1])

@@ -20,7 +20,7 @@ heatmap.test.pos <- function(testData, Delta_pos, trainingLabel, testLabel=NULL,
     tmp <- match(diffGeneList[[i]], row.names(testData))
     path <- testData[tmp, ]
     #do not print heatmaps if there is 1 or fewer genes in the heatmap
-    if(nrow(path) <= 1){
+    if (nrow(path) <= 1){
       next
     }
     if (!is.null(testLabel)){

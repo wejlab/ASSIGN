@@ -1,33 +1,33 @@
 #' Input data preprocessing
-#' 
+#'
 #' The assign.preprocess function is used to perform quality control on the
 #' user-provided input data and generate starting values and/or prior values
 #' for the model parameters. The assign.preprocess function is optional. For
 #' users who already have the correct format for the input of the assign
 #' function, they can skip this step and go directly to the assign.mcmc
 #' function.
-#' 
+#'
 #' The assign.preprocess is applied to perform quality control on the
 #' user-provided genomic data and meta data, re-format the data in a way that
 #' can be used in the following analysis, and generate starting/prior values
 #' for the pathway signature matrix. The output values of the assign.preprocess
 #' function will be used as input values for the assign.mcmc function.
-#' 
+#'
 #' For training data with 1 control group and 3 experimental groups (10
 #' samples/group; all 3 experimental groups share 1 control group), the
 #' trainingLabel can be specified as: trainingLabel <- list(control =
 #' list(expr1=1:10, expr2=1:10, expr3=1:10), expr1 = 11:20, expr2 = 21:30,
 #' expr3 = 31:40)
-#' 
+#'
 #' For training data with 3 control groups and 3 experimental groups (10
 #' samples/group; Each experimental group has its corresponding control group),
 #' the trainingLabel can be specified as: trainingLabel <- list(control =
 #' list(expr1=1:10, expr2=21:30, expr3=41:50), expr1 = 11:20, expr2 = 31:40,
 #' expr3 = 51:60)
-#' 
+#'
 #' It is highly recommended that the user use the same expriment name when
 #' specifying control indice and exprimental indice.
-#' 
+#'
 #' @param trainingData The genomic measure matrix of training samples (i.g.,
 #' gene expression matrix). The dimension of this matrix is probe number x
 #' sample number. The default is NULL.
@@ -85,19 +85,19 @@
 #' the signature genes associated with one pathway. }
 #' @author Ying Shen
 #' @examples
-#' 
+#'
 #' \dontshow{
 #' data(trainingData1)
 #' data(testData1)
 #' data(geneList1)
-#' trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10, myc=1:10, 
-#'                                       ras=1:10, src=1:10), 
-#'                        bcat = 11:19, e2f3 = 20:28, myc= 29:38, 
+#' trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10, myc=1:10,
+#'                                       ras=1:10, src=1:10),
+#'                        bcat = 11:19, e2f3 = 20:28, myc= 29:38,
 #'                        ras = 39:48, src = 49:55)
-#' }                       
-#' processed.data <- assign.preprocess(trainingData=trainingData1, 
+#' }
+#' processed.data <- assign.preprocess(trainingData=trainingData1,
 #' testData=testData1, trainingLabel=trainingLabel1, geneList=geneList1)
-#' 
+#'
 #' @export assign.preprocess
 assign.preprocess <- function(trainingData=NULL, testData, anchorGenes=NULL,
                               excludeGenes=NULL, trainingLabel, geneList=NULL,

@@ -1,31 +1,31 @@
 #' The Gibbs sampling algorithm to approximate the joint distribution of the
 #' model parameters
-#' 
+#'
 #' The assign.mcmc function uses a Bayesian sparse factor analysis model to
 #' estimate the adaptive baseline/background, adaptive pathway signature, and
 #' pathway activation status of individual test (disease) samples.
-#' 
+#'
 #' The assign.mcmc function can be set as following major modes. The
 #' combination of logical values of adaptive_B, adaptive_S and mixture_beta can
 #' form different modes.
-#' 
+#'
 #' Mode A: adaptive_B = FALSE, adaptive_S = FALSE, mixture_beta = FALSE. This
 #' is a regression mode without adaptation of baseline/background, signature,
 #' and no shrinkage of the pathway activation level.
-#' 
+#'
 #' Mode B: adaptive_B = TRUE, adaptive_S = FALSE, mixture_beta = FALSE. This is
 #' a regression mode with adaptation of baseline/background, but without
 #' signature, and with no shrinkage of the pathway activation level.
-#' 
+#'
 #' Mode C: adaptive_B = TRUE, adaptive_S = FALSE, mixture_beta = TRUE. This is
 #' a regression mode with adaptation of baseline/background, but without
 #' signature, and with shrinkage of the pathway activation level when it is not
 #' significantly activated.
-#' 
+#'
 #' Mode D: adaptive_B = TRUE, adaptive_S = TRUE, mixture_beta = TRUE. This is a
 #' Bayesian factor analysis mode with adaptation of baseline/background,
 #' adaptation signature, and with shrinkage of the pathway activation level.
-#' 
+#'
 #' @param Y The G x J matrix of genomic measures (i.g., gene expession) of test
 #' samples. Y is the testData_sub variable returned from the data.process
 #' function. Genes/probes present in at least one pathway signature are
@@ -85,17 +85,17 @@
 #' significant estimated in every iteration of MCMC.}
 #' @author Ying Shen
 #' @examples
-#' 
+#'
 #' \dontshow{
 #' data(trainingData1)
 #' data(testData1)
 #' data(geneList1)
-#' trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10, myc=1:10, 
-#'                                       ras=1:10, src=1:10), 
-#'                        bcat = 11:19, e2f3 = 20:28, myc= 29:38, 
+#' trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10, myc=1:10,
+#'                                       ras=1:10, src=1:10),
+#'                        bcat = 11:19, e2f3 = 20:28, myc= 29:38,
 #'                        ras = 39:48, src = 49:55)
-#'                        
-#' processed.data <- assign.preprocess(trainingData=trainingData1, 
+#'
+#' processed.data <- assign.preprocess(trainingData=trainingData1,
 #' testData=testData1, trainingLabel=trainingLabel1, geneList=geneList1)
 #' }
 #' mcmc.chain <- assign.mcmc(Y=processed.data$testData_sub,
@@ -104,7 +104,7 @@
 #'                           Delta_prior_p = processed.data$Pi_matrix,
 #'                           iter = 20, adaptive_B=TRUE, adaptive_S=FALSE,
 #'                           mixture_beta=TRUE)
-#' 
+#'
 #' @export assign.mcmc
 assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
                         adaptive_S=FALSE, mixture_beta=TRUE, sigma_sZero = 0.01,
@@ -223,14 +223,14 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
       s_B_1 <- 1 / (k * tau_temp + s_B_0_inv)
       J <- apply(Y - tmp0, 1, sum)
       mu_B_1 <- s_B_1 * (tau_temp * J + sB0_inv_muB0)
-      if(ECM == TRUE) {
+      if (ECM == TRUE) {
         B_temp <- mu_B_1
       } else {
         B_temp <- stats::rnorm(n, mu_B_1, sqrt(s_B_1))
       }
     }
 
-    B_rep = matrix(rep(B_temp, k), n, k)
+    B_rep <- matrix(rep(B_temp, k), n, k)
     Y_minus_B_rep <- Y - B_rep
 
     for (s in 1:m){
@@ -266,8 +266,7 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
     }
 
     if (mixture_beta == TRUE){
-      for (s in 1:m)
-      {
+      for (s in 1:m){
         gamma_b_div_a <- (stats::pnorm(1) - stats::pnorm(0)) * odds_beta * (sigma_b2 / sigma_b1) * exp(-1 / 2 * (beta_temp[s, ] ^ 2 / sigma_b1 ^ 2 - beta_temp[s, ] ^ 2 / sigma_b2 ^ 2))
         gamma_pr_temp[s, ] <- ifelse(beta_temp[s, ] < 0,  0, 1 / (1 + gamma_b_div_a))
         gamma_temp[s, ] <- Rlab::rbern(k, gamma_pr_temp[s, ])
@@ -277,8 +276,8 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
     #update S
     if (adaptive_S == TRUE){
       mu_S_0 <- ifelse(delta_temp == 1, S_0, 0)
-      sigma_s2 = ((i %% 500 + 1) ^ 2 + 1 / sigma_sNonZero) / (i %% 500 + 1) ^ 2 * sigma_sNonZero
-      sigma_s1 = ((i %% 500 + 1) ^ 2 + 1 / sigma_sNonZero) / (i %% 500 + 1) ^ 2 * sigma_sZero  ## add a little tempering every 500 iterations to not get stuck in local modes
+      sigma_s2 <- ((i %% 500 + 1) ^ 2 + 1 / sigma_sNonZero) / (i %% 500 + 1) ^ 2 * sigma_sNonZero
+      sigma_s1 <- ((i %% 500 + 1) ^ 2 + 1 / sigma_sNonZero) / (i %% 500 + 1) ^ 2 * sigma_sZero  ## add a little tempering every 500 iterations to not get stuck in local modes
       s_S_inv_0 <- 1 / ifelse(delta_temp == 1, sigma_s2 ^ 2, sigma_s1 ^ 2)
       tmp4 <- s_S_inv_0 * mu_S_0
       s_S_inv_1 <- 1 / (as.matrix(tau_temp) %*% t(as.matrix(apply(beta_temp ^ 2, 1, sum))) + s_S_inv_0)
