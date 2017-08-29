@@ -182,7 +182,7 @@ assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
   cwd <- getwd()
 
   ##moom added this to create the output folder if doesn't exist already.
-  dir.create(outputDir,showWarnings = F)
+  dir.create(outputDir, showWarnings = F)
   setwd(outputDir)
 
   ###moom added this
@@ -191,11 +191,11 @@ assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
                           "n_sigGene=", n_sigGene, "adaptive_B=", adaptive_B,
                           "adaptive_S=", adaptive_S, "mixture_beta=",
                           mixture_beta, "p_beta=", p_beta, "theta0=", theta0,
-                          "theta1=", theta1, "iter=",iter, "burn_in=", burn_in,
+                          "theta1=", theta1, "iter=", iter, "burn_in=", burn_in,
                           "The output files are located at:", outputDir,
                           sep = ' '))
 
-  utils::write.table(param,"parameters.txt", col.names = F, sep = '\t')
+  utils::write.table(param, "parameters.txt", col.names = F, sep = '\t')
 
   ###moom added this to include the gene list and prior coefficient
   if (!is.null(trainingData)) {
@@ -235,13 +235,13 @@ assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
                     mcmc.pos.mean.testData$Delta_pos)
 
     colnames(deltas) <- c(paste("Prior change in expression",
-                                pathName,sep = ":"),
+                                pathName, sep = ":"),
                           paste("Prior probability of inclusion",
-                                pathName,sep = ":"),
+                                pathName, sep = ":"),
                           paste("Posterior change in expression",
-                                pathName,sep = ":"),
+                                pathName, sep = ":"),
                           paste("Posterior probability of inclusion",
-                                pathName,sep = ":"))
+                                pathName, sep = ":"))
     delta_in <- NULL
 
     for(i in 1:ncol(deltas)){

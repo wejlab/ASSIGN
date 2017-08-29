@@ -81,7 +81,7 @@ assign.convergence <- function(test, burn_in=0, iter=2000,
   }
 
   if (parameter == "kappa"){
-    kappa_pos <- test$kappa_mcmc[burn_in:iter,whichPath,whichSample]
+    kappa_pos <- test$kappa_mcmc[burn_in:iter, whichPath, whichSample]
     graphics::plot(kappa_pos, type = "l", xlab = "Iteration",
                    ylab = paste("Posterior kappa of sample ", whichSample,
                                 " pathway ", whichPath, sep = ""),
@@ -90,7 +90,7 @@ assign.convergence <- function(test, burn_in=0, iter=2000,
   }
 
   if (parameter == "gamma"){
-    gamma_pos <- test$gamma_mcmc[burn_in:iter,whichPath,whichSample]
+    gamma_pos <- test$gamma_mcmc[burn_in:iter, whichPath, whichSample]
     graphics::plot(gamma_pos, type = "l", xlab = "Iteration",
                    ylab = paste("Posterior gamma of sample ", whichSample,
                                 " pathway ", whichPath, sep = ""),
@@ -100,7 +100,7 @@ assign.convergence <- function(test, burn_in=0, iter=2000,
 
   if (parameter == "sigma"){
     sigma_pos <- 1 / test$tau2_mcmc[burn_in:iter, whichGene]
-    graphics::plot(sigma_pos, type = "l",xlab = "Iteration",
+    graphics::plot(sigma_pos, type = "l", xlab = "Iteration",
                    ylab = paste("Posterior sigma^2 of gene ", whichGene, sep = ""),
                    main = "Convergency of posterior sigma^2")
     return(sigma_pos)

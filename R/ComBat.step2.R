@@ -31,7 +31,7 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL,
          "Use devtools to install the github version of sva:\ndevtools::install_github('jtleek/sva-devel')")
   }
   if(is.null(combat_train)){
-    combat_train_file <- tempfile(pattern = "combat_train",fileext = ".rda")
+    combat_train_file <- tempfile(pattern = "combat_train", fileext = ".rda")
     utils::download.file("https://dl.dropboxusercontent.com/u/62447/ASSIGN/combat_train.rda",
                          combat_train_file)
     load(combat_train_file)
@@ -39,19 +39,19 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL,
     rm(combat_train_file)
   }
 
-  dat <- merge_drop(combat_train,testData)
-  sub <- c(rep("gfp_egfr",6),
-           rep("egfr",6),
-           rep("gfp",12),
-           rep("akt",6),
-           rep("bad",6),
-           rep("her2",5),
-           rep("igf1r",6),
-           rep("raf",6),
-           rep("gfp_kras",9),
-           rep("krasgv",9),
-           rep("test",ncol(testData)))
-  bat <- c(rep(1,ncol(combat_train)),rep(2,ncol(testData)))
+  dat <- merge_drop(combat_train, testData)
+  sub <- c(rep("gfp_egfr", 6),
+           rep("egfr", 6),
+           rep("gfp", 12),
+           rep("akt", 6),
+           rep("bad", 6),
+           rep("her2", 5),
+           rep("igf1r", 6),
+           rep("raf", 6),
+           rep("gfp_kras", 9),
+           rep("krasgv", 9),
+           rep("test", ncol(testData)))
+  bat <- c(rep(1, ncol(combat_train)), rep(2, ncol(testData)))
   if(pcaPlots){
     pcaplotbefore <- pcaplot(dat,sub, plottitle = "PCA: Before ComBat")
     if(plots_to_console){

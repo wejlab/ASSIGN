@@ -123,7 +123,7 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
     mu_B_0 <- Bg
   } else {
     if (Bg_zeroPrior == TRUE){
-      mu_B_0 <- rep(0,n)
+      mu_B_0 <- rep(0, n)
     } else {
       mu_B_0 <- Bg
     }
@@ -138,7 +138,7 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
     S_0 <- S
   } else {
     if (S_zeroPrior == TRUE){
-      S_0 <- matrix(0,n,m)
+      S_0 <- matrix(0, n, m)
     } else {
       S_0 <- S
     }
@@ -152,30 +152,30 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
   sigma_b1 <- sigma_bZero
   sigma_b2 <- sigma_bNonZero
   odds_beta <- (1 - p_beta) / p_beta
-  onesMK <- matrix(rep(1,m * k),m,k)
+  onesMK <- matrix(rep(1, m * k), m, k)
 
   # prior of delta
   p_delta <- Delta_prior_p
   odds <- (1 - p_delta) / p_delta
-  onesNM <- matrix(rep(1,n * m),n,m)
+  onesNM <- matrix(rep(1, n * m), n, m)
 
   # prior of tau
   u <- alpha_tau
   v <- beta_tau
 
   P_B <- matrix(nrow = iter, ncol = n)
-  P_S <- array(dim = c(iter,n,m))
-  P_delta <- array(dim = c(iter,n,m))
-  P_delta_pr <- array(dim = c(iter,n,m))
-  P_beta <- array(dim = c(iter, m,k))
-  P_gamma <- array(dim = c(iter, m,k))
-  P_kappa <- array(dim = c(iter, m,k))
-  P_gamma_pr <- array(dim = c(iter, m,k))
+  P_S <- array(dim = c(iter, n, m))
+  P_delta <- array(dim = c(iter, n, m))
+  P_delta_pr <- array(dim = c(iter, n, m))
+  P_beta <- array(dim = c(iter, m, k))
+  P_gamma <- array(dim = c(iter, m, k))
+  P_kappa <- array(dim = c(iter, m, k))
+  P_gamma_pr <- array(dim = c(iter, m, k))
   P_tau2 <- matrix(nrow = iter, ncol = n)
 
   #initial values
   if (adaptive_B == TRUE){
-    B_temp <- msm::rtnorm(n,0,1,lower = 0)
+    B_temp <- msm::rtnorm(n, 0, 1, lower = 0)
   } else {
     B_temp <- mu_B_0
   }
@@ -186,9 +186,9 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
   }
   delta_temp <- matrix(Rlab::rbern(onesNM, p_delta), n, m)
   delta_pr_temp <- p_delta
-  beta_temp <- matrix(0,m,k)
+  beta_temp <- matrix(0, m, k)
   if (mixture_beta == TRUE){
-    gamma_temp <- matrix(Rlab::rbern(onesMK,p_beta), m, k)
+    gamma_temp <- matrix(Rlab::rbern(onesMK, p_beta), m, k)
     gamma_pr_temp <- matrix(p_beta, m, k)
   } else {
     gamma_temp <- matrix(rep(1, m * k), m, k)
@@ -200,16 +200,16 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
   #update first row
   P_B[1, ] <- B_temp
   if (adaptive_S == TRUE){
-    P_S[1, , ] <- S_temp
-    P_delta[1, , ] <- delta_temp
-    P_delta_pr[1, , ] <- delta_pr_temp
+    P_S[1,, ] <- S_temp
+    P_delta[1,, ] <- delta_temp
+    P_delta_pr[1,, ] <- delta_pr_temp
   }
-  P_beta[1, , ] <- beta_temp
+  P_beta[1,, ] <- beta_temp
   if (mixture_beta == TRUE){
-    P_gamma[1, , ] <- gamma_temp
-    P_gamma_pr[1, , ] <- gamma_pr_temp
+    P_gamma[1,, ] <- gamma_temp
+    P_gamma_pr[1,, ] <- gamma_pr_temp
   }
-  P_kappa[1, , ] <- kappa_temp
+  P_kappa[1,, ] <- kappa_temp
   P_tau2[1, ] <- tau_temp
 
   pb <- utils::txtProgressBar(min = 0, max = iter, width = 80, file = stderr())
@@ -230,19 +230,19 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
       }
     }
 
-    B_rep = matrix(rep(B_temp,k), n, k)
+    B_rep = matrix(rep(B_temp, k), n, k)
     Y_minus_B_rep <- Y - B_rep
 
     for (s in 1:m){
       if (m == 1){
-        tmp1 <- S_temp[ ,s] ^ 2 * tau_temp
+        tmp1 <- S_temp[,s] ^ 2 * tau_temp
         tmp2 <- S_temp[ ,s] * tau_temp
         s_beta_0_inv <- 1 / ifelse(gamma_temp[s, ] == 1, sigma_b2 ^ 2,
                                    sigma_b1 ^ 2)
         s_beta_1 <- 1 / (sum(tmp1) + s_beta_0_inv)
         mu_beta_1 <- s_beta_1 * (colSums(tmp2 * (Y - B_rep)))
       } else {
-        tmp1 <- S_temp[ ,s] ^ 2 * tau_temp
+        tmp1 <- S_temp[,s] ^ 2 * tau_temp
         tmp2 <- S_temp[ ,s] * tau_temp
         tmp3 <- S_temp[,-s,drop = FALSE] %*% beta_temp[-s,,drop = FALSE]
         s_beta_0_inv <- 1 / ifelse(gamma_temp[s, ] == 1, sigma_b2 ^ 2, sigma_b1 ^ 2)
