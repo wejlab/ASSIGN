@@ -123,9 +123,9 @@ assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
   }
   processed.data <- assign.preprocess(trainingData, testData, anchorGenes,
                                       excludeGenes, trainingLabel, geneList,
-                                      n_sigGene, theta0, theta1, pctUp=pctUp,
-                                      geneselect_iter=geneselect_iter,
-                                      geneselect_burn_in=geneselect_burn_in)
+                                      n_sigGene, theta0, theta1, pctUp = pctUp,
+                                      geneselect_iter = geneselect_iter,
+                                      geneselect_burn_in = geneselect_burn_in)
   if (!is.null(trainingData)) {
     message("Estimating model parameters in the training dataset...")
     mcmc.chain.trainingData <- assign.mcmc(Y = processed.data$trainingData_sub,
@@ -135,7 +135,7 @@ assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
                                            iter = iter,
                                            sigma_sZero = sigma_sZero,
                                            sigma_sNonZero = sigma_sNonZero,
-                                           S_zeroPrior=S_zeroPrior,
+                                           S_zeroPrior = S_zeroPrior,
                                            adaptive_B = FALSE,
                                            adaptive_S = FALSE,
                                            mixture_beta = TRUE,
@@ -154,7 +154,7 @@ assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
                                      Delta_prior_p = processed.data$Pi_matrix,
                                      iter = iter, sigma_sZero = sigma_sZero,
                                      sigma_sNonZero = sigma_sNonZero,
-                                     S_zeroPrior=S_zeroPrior,
+                                     S_zeroPrior = S_zeroPrior,
                                      adaptive_B = adaptive_B,
                                      adaptive_S = adaptive_S,
                                      mixture_beta = mixture_beta,
@@ -186,15 +186,16 @@ assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
   setwd(outputDir)
 
   ###moom added this
-  param=as.matrix(paste(pathName,
-                        "analysis was run using the following parameters :",
-                        "n_sigGene=", n_sigGene, "adaptive_B=", adaptive_B,
-                        "adaptive_S=", adaptive_S, "mixture_beta=",
-                        mixture_beta, "p_beta=", p_beta, "theta0=", theta0,
-                        "theta1=", theta1, "iter=",iter, "burn_in=",burn_in,
-                        "The output files are located at:", outputDir,sep=' '))
+  param = as.matrix(paste(pathName,
+                          "analysis was run using the following parameters :",
+                          "n_sigGene=", n_sigGene, "adaptive_B=", adaptive_B,
+                          "adaptive_S=", adaptive_S, "mixture_beta=",
+                          mixture_beta, "p_beta=", p_beta, "theta0=", theta0,
+                          "theta1=", theta1, "iter=",iter, "burn_in=", burn_in,
+                          "The output files are located at:", outputDir,
+                          sep = ' '))
 
-  utils::write.table(param,"parameters.txt",col.names=F,sep='\t')
+  utils::write.table(param,"parameters.txt", col.names = F, sep = '\t')
 
   ###moom added this to include the gene list and prior coefficient
   if (!is.null(trainingData)) {
@@ -224,31 +225,31 @@ assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
     if(outputSignature_convergence){
       grDevices::pdf("Signature_convergence.pdf")
       graphics::plot(mcmc.chain.testData$S_mcmc)
-      graphics::abline(h=0,col="red")
+      graphics::abline(h = 0, col = "red")
       invisible(grDevices::dev.off())
     }
 
-    dimnames(mcmc.pos.mean.testData$Delta_pos)=dimnames(processed.data$S_matrix)
+    dimnames(mcmc.pos.mean.testData$Delta_pos) = dimnames(processed.data$S_matrix)
     deltas <- cbind(processed.data$S_matrix, processed.data$Delta_matrix,
                     mcmc.pos.mean.testData$S_pos,
                     mcmc.pos.mean.testData$Delta_pos)
 
     colnames(deltas) <- c(paste("Prior change in expression",
-                                pathName,sep=":"),
+                                pathName,sep = ":"),
                           paste("Prior probability of inclusion",
-                                pathName,sep=":"),
+                                pathName,sep = ":"),
                           paste("Posterior change in expression",
-                                pathName,sep=":"),
+                                pathName,sep = ":"),
                           paste("Posterior probability of inclusion",
-                                pathName,sep=":"))
+                                pathName,sep = ":"))
     delta_in <- NULL
 
     for(i in 1:ncol(deltas)){
-      delta_in[i]=(strsplit(colnames(deltas),":")[[i]][2])
+      delta_in[i] = (strsplit(colnames(deltas),":")[[i]][2])
     }
 
-    utils::write.csv(round(deltas[,order(delta_in)],digits = 4),
-                     "posterior_delta.csv",quote=F)
+    utils::write.csv(round(deltas[,order(delta_in)], digits = 4),
+                     "posterior_delta.csv", quote = F)
   }
 
   if (!is.null(trainingData)) {

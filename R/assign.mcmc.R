@@ -268,7 +268,7 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
     if (mixture_beta == TRUE){
       for (s in 1:m)
       {
-        gamma_b_div_a <- (stats::pnorm(1) - stats::pnorm(0)) * odds_beta * (sigma_b2 / sigma_b1) * exp(-1 / 2 * (beta_temp[s,] ^ 2 / sigma_b1^2 - beta_temp[s,]^2/sigma_b2^2))
+        gamma_b_div_a <- (stats::pnorm(1) - stats::pnorm(0)) * odds_beta * (sigma_b2 / sigma_b1) * exp(-1 / 2 * (beta_temp[s,] ^ 2 / sigma_b1 ^ 2 - beta_temp[s,] ^ 2 / sigma_b2 ^ 2))
         gamma_pr_temp[s, ] <- ifelse(beta_temp[s, ] < 0,  0, 1 / (1 + gamma_b_div_a))
         gamma_temp[s, ] <- Rlab::rbern(k, gamma_pr_temp[s, ])
       }
@@ -277,33 +277,34 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
     #update S
     if (adaptive_S == TRUE){
       mu_S_0 <- ifelse(delta_temp == 1, S_0, 0)
-      sigma_s2=((i %% 500 + 1) ^ 2 + 1 / sigma_sNonZero) / (i%%500+1)^2*sigma_sNonZero;sigma_s1=((i%%500+1)^2+1/sigma_sNonZero)/(i%%500+1)^2*sigma_sZero  ## add a little tempering every 500 iterations to not get stuck in local modes
+      sigma_s2 = ((i %% 500 + 1) ^ 2 + 1 / sigma_sNonZero) / (i %% 500 + 1) ^ 2 * sigma_sNonZero
+      sigma_s1 = ((i %% 500 + 1) ^ 2 + 1 / sigma_sNonZero) / (i %% 500 + 1) ^ 2 * sigma_sZero  ## add a little tempering every 500 iterations to not get stuck in local modes
       s_S_inv_0 <- 1 / ifelse(delta_temp == 1, sigma_s2 ^ 2, sigma_s1 ^ 2)
       tmp4 <- s_S_inv_0 * mu_S_0
       s_S_inv_1 <- 1 / (as.matrix(tau_temp) %*% t(as.matrix(apply(beta_temp ^ 2, 1, sum))) + s_S_inv_0)
 
       for (j in 1:m){
-        E1 <-  Y_minus_B_rep - S_temp[,-j,drop=FALSE] %*% beta_temp[-j,,drop = FALSE]
-        mu_S_1 <- s_S_inv_1[, j] *(tau_temp*(E1 %*% beta_temp[j, ]) + tmp4[, j])
-        lower <- ifelse(mu_S_0[,j]>0, 0, -Inf)
-        upper <- ifelse(mu_S_0[,j]>=0, Inf, 0)
-        S_temp[,j] <- msm::rtnorm(n, mu_S_1, sqrt(s_S_inv_1[, j]),lower, upper)
+        E1 <-  Y_minus_B_rep - S_temp[,-j,drop = FALSE] %*% beta_temp[-j,,drop = FALSE]
+        mu_S_1 <- s_S_inv_1[, j] * (tau_temp * (E1 %*% beta_temp[j, ]) + tmp4[, j])
+        lower <- ifelse(mu_S_0[,j] > 0, 0, -Inf)
+        upper <- ifelse(mu_S_0[,j] >= 0, Inf, 0)
+        S_temp[,j] <- msm::rtnorm(n, mu_S_1, sqrt(s_S_inv_1[, j]), lower, upper)
       }
 
       # update delta
 
-      delta_b_div_a <- (sigma_s2 / sigma_s1) * odds * exp(-1/2 * (S_temp^2/sigma_s1^2 - (S_temp - S)^2/sigma_s2^2))
-      delta_pr_temp <- 1/(1+delta_b_div_a)
-      delta_temp <- matrix(Rlab::rbern(onesNM, 1/(1 + delta_b_div_a)), n, m)
+      delta_b_div_a <- (sigma_s2 / sigma_s1) * odds * exp(-1 / 2 * (S_temp ^ 2 / sigma_s1 ^ 2 - (S_temp - S) ^ 2 / sigma_s2 ^ 2))
+      delta_pr_temp <- 1 / (1 + delta_b_div_a)
+      delta_temp <- matrix(Rlab::rbern(onesNM, 1 / (1 + delta_b_div_a)), n, m)
     }
 
     # update tau
     tmp5 <- S_temp %*% beta_temp
 
     res <- Y_minus_B_rep - tmp5
-    un <- u + k/2
-    vn <- apply((res)^2, 1, sum)/2 + v
-    tau_temp <- Rlab::rgamma(n,un,vn)
+    un <- u + k / 2
+    vn <- apply((res) ^ 2, 1, sum) / 2 + v
+    tau_temp <- Rlab::rgamma(n, un, vn)
 
     # update
     if (adaptive_B == TRUE){

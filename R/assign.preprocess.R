@@ -123,7 +123,7 @@ assign.preprocess <- function(trainingData=NULL, testData, anchorGenes=NULL,
                       pctUp = pctUp, iter = geneselect_iter,
                       burn_in = geneselect_burn_in)
     return(list(trainingData_sub = x$trainingData_sub,
-                testData_sub = x$testData_sub, B_vector=x$trainingBaseline_sub,
+                testData_sub = x$testData_sub, B_vector = x$trainingBaseline_sub,
                 S_matrix = x$S_matrix, Delta_matrix = x$Delta_matrix,
                 Pi_matrix = x$Pi_matrix, diffGeneList = x$diffGeneList))
   }

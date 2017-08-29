@@ -31,7 +31,7 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL,
          "Use devtools to install the github version of sva:\ndevtools::install_github('jtleek/sva-devel')")
   }
   if(is.null(combat_train)){
-    combat_train_file <- tempfile(pattern="combat_train",fileext = ".rda")
+    combat_train_file <- tempfile(pattern = "combat_train",fileext = ".rda")
     utils::download.file("https://dl.dropboxusercontent.com/u/62447/ASSIGN/combat_train.rda",
                          combat_train_file)
     load(combat_train_file)
@@ -53,16 +53,16 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL,
            rep("test",ncol(testData)))
   bat <- c(rep(1,ncol(combat_train)),rep(2,ncol(testData)))
   if(pcaPlots){
-    pcaplotbefore <- pcaplot(dat,sub, plottitle="PCA: Before ComBat")
+    pcaplotbefore <- pcaplot(dat,sub, plottitle = "PCA: Before ComBat")
     if(plots_to_console){
       print(pcaplotbefore)
     }
     grDevices::pdf("pca_refcombat_twostep.pdf")
     print(pcaplotbefore)
   }
-  combat_expr1 <- sva::ComBat(dat=dat, batch=bat, mod=NULL, ref.batch=1)
+  combat_expr1 <- sva::ComBat(dat = dat, batch = bat, mod = NULL, ref.batch = 1)
   if(pcaPlots){
-    pcaplotafter <- pcaplot(combat_expr1,sub, plottitle="PCA: After ComBat")
+    pcaplotafter <- pcaplot(combat_expr1, sub, plottitle = "PCA: After ComBat")
     print(pcaplotafter)
     invisible(grDevices::dev.off())
     if(plots_to_console){
@@ -79,9 +79,10 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL,
   c_egfr     <- combat_expr1[,7:12]
   c_kras_gfp <- combat_expr1[,54:62]
   c_krasgv   <- combat_expr1[,63:71]
-  c_test     <- combat_expr1[,(ncol(combat_train)+1):ncol(combat_expr1)]
-  results <- list(gfp=c_gfp, akt=c_akt, bad=c_bad, her2=c_her2, igf1r=c_igf1r,
-                  raf=c_raf, egfr_gfp=c_egfr_gfp, egfr=c_egfr,
-                  kras_gfp=c_kras_gfp, krasgv=c_krasgv, test=c_test)
+  c_test     <- combat_expr1[,(ncol(combat_train) + 1):ncol(combat_expr1)]
+  results <- list(gfp = c_gfp, akt = c_akt, bad = c_bad, her2 = c_her2,
+                  igf1r = c_igf1r, raf = c_raf, egfr_gfp = c_egfr_gfp,
+                  egfr = c_egfr, kras_gfp = c_kras_gfp, krasgv = c_krasgv,
+                  test = c_test)
   return(results)
 }

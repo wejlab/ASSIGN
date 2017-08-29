@@ -2,13 +2,15 @@
 
 data_prep_s1 <- function(n_sigGene, trainingData, testData, trainingLabel,
                          geneList, anchorGenes, excludeGenes, theta0,
-                         theta1, pctUp=0.5, iter=500, burn_in=100)
+                         theta1, pctUp = 0.5, iter = 500, burn_in = 100)
 {
   if (is.null(geneList)){
-    geneSelection <- bayes.gene.selection(n_sigGene, dat=trainingData, trainingLabel,
-                                          iter=iter, burn_in=burn_in, sigmaZero = 0.1,
-                                          sigmaNonZero = 1, alpha_tau = 1, beta_tau=0.01,
-                                          p = 0.01, pctUp=pctUp)
+    geneSelection <- bayes.gene.selection(n_sigGene, dat = trainingData,
+                                          trainingLabel, iter = iter,
+                                          burn_in = burn_in, sigmaZero = 0.1,
+                                          sigmaNonZero = 1, alpha_tau = 1,
+                                          beta_tau = 0.01, p = 0.01,
+                                          pctUp = pctUp)
     diffGeneList <- geneSelection$diffGeneList
   } else {
     diffGeneList <- geneList
@@ -23,7 +25,7 @@ data_prep_s1 <- function(n_sigGene, trainingData, testData, trainingLabel,
         replaced <- 0
         for (k in 1:length(anchorGenes[[j]])){
           if(!(anchorGenes[[j]][k] %in% diffGeneList[[j]])){
-            diffGeneList[[j]][length(diffGeneList[[1]])-replaced] <- anchorGenes[[j]][k]
+            diffGeneList[[j]][length(diffGeneList[[1]]) - replaced] <- anchorGenes[[j]][k]
             replaced <- replaced + 1
           }
         }
@@ -42,7 +44,7 @@ data_prep_s1 <- function(n_sigGene, trainingData, testData, trainingLabel,
     }
   }
 
-  signature <- geneMatch_sub2(dat=trainingData, diffGeneList, trainingLabel)
+  signature <- geneMatch_sub2(dat = trainingData, diffGeneList, trainingLabel)
 
   tmp1 <- match(unique(unlist(diffGeneList)), row.names(trainingData))
 
