@@ -62,7 +62,7 @@ runassignGFRN <- function(indata, run=c("akt", "bad", "egfr", "her2", "igf1r",
                   igf1r = "gfp", krasgv = "kras_gfp", raf = "gfp")
 
   if (is.null(optimized_geneList)){
-    utils::data('gfrn_geneList', package = "ASSIGN", envir = environment())
+    utils::data("gfrn_geneList", package = "ASSIGN", envir = environment())
     gfrn_geneList <- get("gfrn_geneList", envir = environment())
     optimized_geneList <- list(akt = c(gfrn_geneList$akt_up[1:10],
                                        gfrn_geneList$akt_down[1:10]),

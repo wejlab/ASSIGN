@@ -75,7 +75,7 @@ optimizeGFRN <- function(indata, correlation, correlationList,
     stop("Make sure the run list and correlationList list names are identical and in the same order")
   }
 
-  utils::data('gfrn_geneList', package = 'ASSIGN', envir = environment())
+  utils::data("gfrn_geneList", package = "ASSIGN", envir = environment())
   gfrn_geneList <- get("gfrn_geneList", envir = environment())
 
   # run the pathway predictions
