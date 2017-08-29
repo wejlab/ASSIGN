@@ -7,7 +7,7 @@ heatmap.test.prior <- function(diffGeneList, testData, trainingLabel,
     nPath <- length(geneList)
     pathName <- names(geneList)
   }
-  
+
   grDevices::pdf("signature_heatmap_testset_prior.pdf")
   if (!is.null(testLabel)){
     cc <- as.numeric(as.factor(testLabel))

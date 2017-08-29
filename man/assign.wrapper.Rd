@@ -11,7 +11,7 @@ assign.wrapper(trainingData = NULL, testData, trainingLabel,
   theta0 = 0.05, theta1 = 0.9, iter = 2000, burn_in = 1000,
   sigma_sZero = 0.01, sigma_sNonZero = 1, S_zeroPrior = FALSE,
   pctUp = 0.5, geneselect_iter = 500, geneselect_burn_in = 100,
-  outputSignature_convergence = FALSE)
+  outputSignature_convergence = FALSE, ECM = FALSE)
 }
 \arguments{
 \item{trainingData}{The genomic measure matrix of training samples (i.g.,
@@ -98,6 +98,9 @@ selection. The default is 100}
 
 \item{outputSignature_convergence}{Create a pdf of the MCMC chain. The
 default is FALSE.}
+
+\item{ECM}{Logicals. If TRUE, ECM algorithm, rather than Gibbs sampling, is
+applied to approximate the model parameters. The default is FALSE.}
 }
 \value{
 The assign.wrapper returns one/multiple pathway activity for each

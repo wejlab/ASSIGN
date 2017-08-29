@@ -1,5 +1,4 @@
-geneMatch_sub2 <- function(dat, diffGeneList, trainingLabel)
-{  
+geneMatch_sub2 <- function(dat, diffGeneList, trainingLabel){
   nPath <- length(trainingLabel) - 1
   bgPosB <- NULL; edPosB <- NULL
   for (i in 1:length(trainingLabel[[1]])){
@@ -10,8 +9,7 @@ geneMatch_sub2 <- function(dat, diffGeneList, trainingLabel)
   for (i in 2:length(trainingLabel)){
     bgPosS <- c(bgPosS, trainingLabel[[i]][1])
     edPosS <- c(edPosS, trainingLabel[[i]][length(trainingLabel[[i]])])
-  }	
-  
+  }
   geneName2 <- diffGeneList
   geneName1 <- unique(unlist(geneName2))
   tmp <- match(geneName1, row.names(dat))

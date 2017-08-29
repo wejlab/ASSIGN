@@ -47,11 +47,11 @@ pcaplot<-function(mat,sub,center=T,scale=T, plottitle="PCA"){
     pca_mat_plot$Group <- factor(sub)
     pca_mat_plot$Sample <- colnames(mat)
     explained_var <- ((pca_mat$sdev)^2) / sum(pca_mat$sdev^2)
-    return(ggplot2::ggplot(pca_mat_plot, ggplot2::aes_string(x='PC1', y='PC2', label='Sample')) + 
+    return(ggplot2::ggplot(pca_mat_plot, ggplot2::aes_string(x='PC1', y='PC2', label='Sample')) +
              ggplot2::geom_point(ggplot2::aes_string(colour = 'Group'), size=2) +
              ggplot2::xlab(paste("PC1 (",round(explained_var[1]*100,2),"%)", sep="")) +
              ggplot2::ylab(paste("PC2 (",round(explained_var[2]*100,2),"%)", sep="")) +
-             ggplot2::ggtitle(plottitle) + 
+             ggplot2::ggtitle(plottitle) +
              ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5)))
   }
 }

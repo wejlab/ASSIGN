@@ -6,7 +6,7 @@ box.plot.test <- function(coef_test, trainingLabel, testLabel, geneList=NULL){
     nPath <- length(geneList)
     pathName <- names(geneList)
   }
-  
+
   grDevices::pdf("pathway_activity_boxplot_testset.pdf")
   for(i in 1:nPath){
     graphics::boxplot(coef_test[,i] ~ as.factor(testLabel),

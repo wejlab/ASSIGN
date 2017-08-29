@@ -4,7 +4,7 @@ data_prep_s1 <- function(n_sigGene, trainingData, testData, trainingLabel,
                          geneList, anchorGenes, excludeGenes, theta0,
                          theta1, pctUp=0.5, iter=500, burn_in=100)
 {
-  if (is.null(geneList)){  
+  if (is.null(geneList)){
     geneSelection <- bayes.gene.selection(n_sigGene, dat=trainingData, trainingLabel,
                                           iter=iter, burn_in=burn_in, sigmaZero = 0.1,
                                           sigmaNonZero = 1, alpha_tau = 1, beta_tau=0.01,
@@ -13,7 +13,7 @@ data_prep_s1 <- function(n_sigGene, trainingData, testData, trainingLabel,
   } else {
     diffGeneList <- geneList
   }
-  
+
   #Add anchor genes to list if they aren't in there
   if(!is.null(anchorGenes)){
     for (j in 1:length(names(anchorGenes))){
@@ -41,24 +41,24 @@ data_prep_s1 <- function(n_sigGene, trainingData, testData, trainingLabel,
       }
     }
   }
-  
+
   signature <- geneMatch_sub2(dat=trainingData, diffGeneList, trainingLabel)
-  
+
   tmp1 <- match(unique(unlist(diffGeneList)), row.names(trainingData))
-  
+
   trainingBaseline_sub <- rowMeans(trainingData[tmp1, unique(unlist(trainingLabel$control))])
   trainingData_sub <- trainingData[tmp1, ]
   testData_sub <- testData[tmp1, ]
-  
+
   if (is.null(geneList)){
     Pi_matrix <- geneSelection$prior_p[tmp1, ]
-    Pi_matrix <- Pi_matrix * signature$Delta_matrix #??Do we force the non-signatue genes to be 0?? 
+    Pi_matrix <- Pi_matrix * signature$Delta_matrix #??Do we force the non-signatue genes to be 0??
     Pi_matrix <- theta0 + Pi_matrix * theta1
   } else {
     Pi_matrix <- signature$Delta_matrix
     Pi_matrix <- theta0 + Pi_matrix * theta1
   }
-  
+
   #change the Pi_matrix values for the anchor genes to 1
   if(!is.null(anchorGenes)){
     for (j in 1:length(names(anchorGenes))){

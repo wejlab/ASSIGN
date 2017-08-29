@@ -7,13 +7,13 @@ scatter.plot.test <- function(coef_test, trainingLabel, testLabel=NULL,
     nPath <- length(geneList)
     pathName <- names(geneList)
   }
-  
+
   if (!is.null(testLabel)){
     cc <- as.factor(testLabel)
   } else {
     cc <- rep(1, NROW(coef_test))
   }
-  
+
   grDevices::pdf("pathway_activity_scatterplot_testset.pdf")
   for(i in 1:nPath){
     ord <- order(coef_test[,i])

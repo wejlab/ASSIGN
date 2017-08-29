@@ -38,7 +38,7 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL,
     unlink(combat_train_file)
     rm(combat_train_file)
   }
-  
+
   dat <- merge_drop(combat_train,testData)
   sub <- c(rep("gfp_egfr",6),
            rep("egfr",6),

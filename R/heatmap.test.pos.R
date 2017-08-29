@@ -1,6 +1,5 @@
 heatmap.test.pos <- function(testData, Delta_pos, trainingLabel, testLabel=NULL,
                              Delta_cutoff = 0.95, coef_test, geneList = NULL){
-  
   if (is.null(geneList)){
     nPath <- length(trainingLabel) - 1
     pathName <- names(trainingLabel)[-1]
@@ -8,7 +7,6 @@ heatmap.test.pos <- function(testData, Delta_pos, trainingLabel, testLabel=NULL,
     nPath <- length(geneList)
     pathName <- names(geneList)
   }
-  
   diffGeneList <- vector("list")
   for (i in 1:nPath){
     ##the cutoff can be modified
@@ -16,7 +14,7 @@ heatmap.test.pos <- function(testData, Delta_pos, trainingLabel, testLabel=NULL,
   }
   if (!is.null(testLabel)){
     cc <- as.numeric(as.factor(testLabel))
-  } 
+  }
   grDevices::pdf("signature_heatmap_testset_posterior.pdf")
   for (i in 1:nPath){
     tmp <- match(diffGeneList[[i]], row.names(testData))

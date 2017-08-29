@@ -53,15 +53,16 @@ runassignGFRN <- function(indata, run=c("akt","bad","egfr","her2","igf1r",
                           exclude_common_genes=FALSE, adaptive_S=TRUE) {
 
   #list of anchor genes
-  anchorGeneList <- list(akt="AKT1", bad="BAD", egfr="EGFR", her2="ERBB2",
-                         igf1r="IGF1R", krasgv="KRAS", raf="RAF1")
-  
+  anchorGeneList <- list(akt = "AKT1", bad = "BAD", egfr = "EGFR",
+                         her2 = "ERBB2", igf1r = "IGF1R", krasgv = "KRAS",
+                         raf = "RAF1")
+
   #list of corresponding controls for each pathway
-  gfpList <- list(akt="gfp", bad="gfp", egfr="egfr_gfp", her2="gfp",
-                  igf1r="gfp", krasgv="kras_gfp", raf="gfp")
-  
+  gfpList <- list(akt = "gfp", bad = "gfp", egfr = "egfr_gfp", her2 = "gfp",
+                  igf1r = "gfp", krasgv = "kras_gfp", raf = "gfp")
+
   if(is.null(optimized_geneList)){
-    utils::data('gfrn_geneList', package='ASSIGN', envir=environment()) 
+    utils::data('gfrn_geneList', package = 'ASSIGN', envir = environment())
     gfrn_geneList <- get("gfrn_geneList", envir=environment())
     optimized_geneList=list(akt=c(gfrn_geneList$akt_up[1:10],
                                   gfrn_geneList$akt_down[1:10]),
@@ -78,7 +79,7 @@ runassignGFRN <- function(indata, run=c("akt","bad","egfr","her2","igf1r",
                             raf=c(gfrn_geneList$raf_up[1:175],
                                   gfrn_geneList$raf_down[1:175]))
   }
-  
+
   for (curr_path in run){
     trainingLabel <- list()
     trainingLabel[['control']] <- list()
@@ -86,24 +87,24 @@ runassignGFRN <- function(indata, run=c("akt","bad","egfr","her2","igf1r",
       ncol(indata[[gfpList[[curr_path]]]])
     trainingLabel[[curr_path]] <- (ncol(indata[[gfpList[[curr_path]]]])+1):
       (ncol(indata[[gfpList[[curr_path]]]])+ncol(indata[[curr_path]]))
-    
+
     if(!(anchorGeneList[curr_path] %in% rownames(indata[['test']]))){
       warning(anchorGeneList[curr_path], " not in input data. No anchor gene ",
               "will be used.")
       anchorGeneList[curr_path] <- list(NULL)
     }
-    
+
     excludeGeneList <- NULL
     if(exclude_common_genes){
       excludegenes <- get("excludegenes", envir=environment())
       excludeGeneList <- list()
       excludeGeneList[curr_path] <- list(excludegenes)
     }
-    
+
     if(use_seed){
       set.seed(use_seed)
     }
-    
+
     assign.wrapper(trainingData=cbind(indata[[gfpList[[curr_path]]]],
                                       indata[[curr_path]]),
                    testData=indata[['test']],

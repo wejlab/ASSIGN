@@ -14,7 +14,7 @@ scatter.plot.train <- function(coef_train, trainingData, trainingLabel){
     }
   }
   trainL <- trainL[trainL != ""]
-  
+
   grDevices::pdf("pathway_activity_scatterplot_trainingset.pdf")
   for (i in 1:nPath){
     HMEC_samples <- 1:ncol(trainingData)
@@ -27,6 +27,6 @@ scatter.plot.train <- function(coef_train, trainingData, trainingLabel){
                    pch=19, cex=0.7)
     graphics::legend("topleft", legend=unique(trainL), pch=19, cex=0.7,
                      col=as.numeric(as.factor(unique(trainL))))
-  }  
+  }
   invisible(grDevices::dev.off())
 }

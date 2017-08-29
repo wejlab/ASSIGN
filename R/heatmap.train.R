@@ -1,6 +1,6 @@
 heatmap.train <- function(diffGeneList, trainingData, trainingLabel){
   nPath <- length(trainingLabel) - 1
-  
+
   bgPosB <- NULL; edPosB <- NULL
   for (i in 1:length(trainingLabel[[1]])){
     bgPosB <- c(bgPosB, trainingLabel[[1]][[i]][1])
@@ -12,7 +12,7 @@ heatmap.train <- function(diffGeneList, trainingData, trainingLabel){
     bgPosS <- c(bgPosS, trainingLabel[[i]][1])
     edPosS <- c(edPosS, trainingLabel[[i]][length(trainingLabel[[i]])])
   }
-  
+
   grDevices::pdf("signature_heatmap_trainingset.pdf")
   for (i in 1:nPath){
     tmp <- match(diffGeneList[[i]], row.names(trainingData))
@@ -21,10 +21,10 @@ heatmap.train <- function(diffGeneList, trainingData, trainingLabel){
     ord <- order(sig)
     path_ord <- path[ord, c(bgPosB[i]:edPosB[i], bgPosS[i]:edPosS[i])]
     cc <- rep(c(1,2),c((edPosB[i] - bgPosB[i] + 1), (edPosS[i] - bgPosS[i] + 1)))
-    stats::heatmap(as.matrix(path_ord), scale="row", Rowv=NA, Colv=NA,
-                   ColSideColors=as.character(cc), col=gplots::bluered(128),
-                   margins = c(10,10), main=paste(names(trainingLabel)[i+1],
-                                                  "signature",sep=" "))
+    stats::heatmap(as.matrix(path_ord), scale = "row", Rowv = NA, Colv = NA,
+                   ColSideColors = as.character(cc), col = gplots::bluered(128),
+                   margins = c(10,10), main = paste(names(trainingLabel)[i + 1],
+                                                    "signature", sep = " "))
   }
   invisible(grDevices::dev.off())
 }

@@ -72,6 +72,8 @@
 #' selection. The default is 100
 #' @param outputSignature_convergence Create a pdf of the MCMC chain. The
 #' default is FALSE.
+#' @param ECM Logicals. If TRUE, ECM algorithm, rather than Gibbs sampling, is
+#' applied to approximate the model parameters. The default is FALSE.
 #' @return The assign.wrapper returns one/multiple pathway activity for each
 #' individual training sample and test sample, scatter plots of pathway
 #' activity for each individual pathway in the training and test data,
@@ -103,16 +105,16 @@
 #'                theta0=0.05, theta1=0.9, iter=20, burn_in=10)
 #' 
 #' @export assign.wrapper
-assign.wrapper<-function (trainingData = NULL, testData, trainingLabel,
-                          testLabel = NULL, geneList = NULL, anchorGenes = NULL,
-                          excludeGenes = NULL, n_sigGene = NA,
-                          adaptive_B = TRUE, adaptive_S = FALSE,
-                          mixture_beta = TRUE, outputDir, p_beta = 0.01,
-                          theta0 = 0.05, theta1 = 0.9, iter = 2000,
-                          burn_in = 1000, sigma_sZero = 0.01,
-                          sigma_sNonZero = 1, S_zeroPrior=FALSE, pctUp=0.5,
-                          geneselect_iter=500, geneselect_burn_in=100,
-                          outputSignature_convergence=FALSE){
+assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
+                            testLabel = NULL, geneList = NULL,
+                            anchorGenes = NULL, excludeGenes = NULL,
+                            n_sigGene = NA, adaptive_B = TRUE,
+                            adaptive_S = FALSE, mixture_beta = TRUE, outputDir,
+                            p_beta = 0.01, theta0 = 0.05, theta1 = 0.9,
+                            iter = 2000, burn_in = 1000, sigma_sZero = 0.01,
+                            sigma_sNonZero = 1, S_zeroPrior=FALSE, pctUp=0.5,
+                            geneselect_iter=500, geneselect_burn_in=100,
+                            outputSignature_convergence = FALSE, ECM = FALSE){
   if (is.null(geneList)) {
     pathName <- names(trainingLabel)[-1]
   }
@@ -136,8 +138,9 @@ assign.wrapper<-function (trainingData = NULL, testData, trainingLabel,
                                            S_zeroPrior=S_zeroPrior,
                                            adaptive_B = FALSE,
                                            adaptive_S = FALSE,
-                                           mixture_beta = TRUE)
-    mcmc.pos.mean.trainingData <- assign.summary(test = mcmc.chain.trainingData, 
+                                           mixture_beta = TRUE,
+                                           ECM = ECM)
+    mcmc.pos.mean.trainingData <- assign.summary(test = mcmc.chain.trainingData,
                                                  burn_in = burn_in, iter = iter,
                                                  adaptive_B = FALSE,
                                                  adaptive_S = FALSE,
@@ -145,7 +148,7 @@ assign.wrapper<-function (trainingData = NULL, testData, trainingLabel,
 
   }
   message("Estimating model parameters in the test dataset...")
-  mcmc.chain.testData <- assign.mcmc(Y = processed.data$testData_sub, 
+  mcmc.chain.testData <- assign.mcmc(Y = processed.data$testData_sub,
                                      Bg = processed.data$B_vector,
                                      X = processed.data$S_matrix,
                                      Delta_prior_p = processed.data$Pi_matrix,
@@ -155,8 +158,9 @@ assign.wrapper<-function (trainingData = NULL, testData, trainingLabel,
                                      adaptive_B = adaptive_B,
                                      adaptive_S = adaptive_S,
                                      mixture_beta = mixture_beta,
-                                     p_beta = p_beta)
-  mcmc.pos.mean.testData <- assign.summary(test = mcmc.chain.testData, 
+                                     p_beta = p_beta,
+                                     ECM = ECM)
+  mcmc.pos.mean.testData <- assign.summary(test = mcmc.chain.testData,
                                            burn_in = burn_in, iter = iter,
                                            adaptive_B = adaptive_B,
                                            adaptive_S = adaptive_S,
@@ -204,29 +208,29 @@ assign.wrapper<-function (trainingData = NULL, testData, trainingLabel,
   colnames(coef_test) <- pathName
   utils::write.csv(coef_test, file = "pathway_activity_testset.csv")
   if (!is.null(trainingData)) {
-    heatmap.train(diffGeneList = processed.data$diffGeneList, 
+    heatmap.train(diffGeneList = processed.data$diffGeneList,
                   trainingData, trainingLabel)
   }
 
-  heatmap.test.prior(diffGeneList = processed.data$diffGeneList, 
+  heatmap.test.prior(diffGeneList = processed.data$diffGeneList,
                      testData, trainingLabel, testLabel, coef_test, geneList)
 
   if (adaptive_S) {
-    heatmap.test.pos(testData = processed.data$testData_sub, 
+    heatmap.test.pos(testData = processed.data$testData_sub,
                      Delta_pos = mcmc.pos.mean.testData$Delta_pos,
                      trainingLabel, testLabel, Delta_cutoff = 0.95,
                      coef_test, geneList)
     ####Added by moom####
     if(outputSignature_convergence){
-      grDevices::pdf("Signature_convergence.pdf") 
+      grDevices::pdf("Signature_convergence.pdf")
       graphics::plot(mcmc.chain.testData$S_mcmc)
       graphics::abline(h=0,col="red")
       invisible(grDevices::dev.off())
     }
 
-    dimnames(mcmc.pos.mean.testData$Delta_pos)=dimnames(processed.data$S_matrix)    
+    dimnames(mcmc.pos.mean.testData$Delta_pos)=dimnames(processed.data$S_matrix)
     deltas <- cbind(processed.data$S_matrix, processed.data$Delta_matrix,
-                    mcmc.pos.mean.testData$S_pos, 
+                    mcmc.pos.mean.testData$S_pos,
                     mcmc.pos.mean.testData$Delta_pos)
 
     colnames(deltas) <- c(paste("Prior change in expression",
@@ -255,12 +259,12 @@ assign.wrapper<-function (trainingData = NULL, testData, trainingLabel,
     box.plot.test(coef_test, trainingLabel, testLabel, geneList)
   }
   if (!is.null(trainingData)) {
-    output.data <- list(processed.data = processed.data, 
-                        mcmc.pos.mean.trainingData = mcmc.pos.mean.trainingData, 
+    output.data <- list(processed.data = processed.data,
+                        mcmc.pos.mean.trainingData = mcmc.pos.mean.trainingData,
                         mcmc.pos.mean.testData = mcmc.pos.mean.testData)
   }
   else {
-    output.data <- list(processed.data = processed.data, 
+    output.data <- list(processed.data = processed.data,
                         mcmc.pos.mean.testData = mcmc.pos.mean.testData)
   }
   save(output.data, file = "output.rda")
