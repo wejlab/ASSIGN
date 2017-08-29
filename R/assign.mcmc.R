@@ -200,16 +200,16 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
   #update first row
   P_B[1, ] <- B_temp
   if (adaptive_S == TRUE){
-    P_S[1,, ] <- S_temp
-    P_delta[1,, ] <- delta_temp
-    P_delta_pr[1,, ] <- delta_pr_temp
+    P_S[1, , ] <- S_temp
+    P_delta[1, , ] <- delta_temp
+    P_delta_pr[1, , ] <- delta_pr_temp
   }
-  P_beta[1,, ] <- beta_temp
+  P_beta[1, , ] <- beta_temp
   if (mixture_beta == TRUE){
-    P_gamma[1,, ] <- gamma_temp
-    P_gamma_pr[1,, ] <- gamma_pr_temp
+    P_gamma[1, , ] <- gamma_temp
+    P_gamma_pr[1, , ] <- gamma_pr_temp
   }
-  P_kappa[1,, ] <- kappa_temp
+  P_kappa[1, , ] <- kappa_temp
   P_tau2[1, ] <- tau_temp
 
   pb <- utils::txtProgressBar(min = 0, max = iter, width = 80, file = stderr())
@@ -235,16 +235,16 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
 
     for (s in 1:m){
       if (m == 1){
-        tmp1 <- S_temp[,s] ^ 2 * tau_temp
-        tmp2 <- S_temp[ ,s] * tau_temp
+        tmp1 <- S_temp[, s] ^ 2 * tau_temp
+        tmp2 <- S_temp[, s] * tau_temp
         s_beta_0_inv <- 1 / ifelse(gamma_temp[s, ] == 1, sigma_b2 ^ 2,
                                    sigma_b1 ^ 2)
         s_beta_1 <- 1 / (sum(tmp1) + s_beta_0_inv)
         mu_beta_1 <- s_beta_1 * (colSums(tmp2 * (Y - B_rep)))
       } else {
-        tmp1 <- S_temp[,s] ^ 2 * tau_temp
-        tmp2 <- S_temp[ ,s] * tau_temp
-        tmp3 <- S_temp[,-s,drop = FALSE] %*% beta_temp[-s,,drop = FALSE]
+        tmp1 <- S_temp[, s] ^ 2 * tau_temp
+        tmp2 <- S_temp[, s] * tau_temp
+        tmp3 <- S_temp[, -s, drop = FALSE] %*% beta_temp[-s, , drop = FALSE]
         s_beta_0_inv <- 1 / ifelse(gamma_temp[s, ] == 1, sigma_b2 ^ 2, sigma_b1 ^ 2)
         s_beta_1 <- 1 / (s_beta_0_inv + sum(tmp1))
         mu_beta_1 <- s_beta_1 * (t(tmp2) %*% (Y_minus_B_rep - tmp3))
@@ -254,12 +254,12 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
       } else {
         if (mixture_beta == TRUE){
           lower <- ifelse(gamma_temp[s, ] == 1, 0, -Inf)
-          upper <- ifelse(gamma_temp[s,] == 1, 1, Inf)
+          upper <- ifelse(gamma_temp[s, ] == 1, 1, Inf)
           beta_temp[s, ] <- msm::rtnorm(k, mu_beta_1, sqrt(s_beta_1), lower,
                                         upper)
           kappa_temp[s, ] <- beta_temp[s, ] * gamma_temp[s, ]
         } else {
-          beta_temp[s, ] <- msm::rtnorm(k, mu_beta_1, sqrt(s_beta_1),lower = 0,
+          beta_temp[s, ] <- msm::rtnorm(k, mu_beta_1, sqrt(s_beta_1), lower = 0,
                                         upper = 1)
         }
       }
@@ -268,7 +268,7 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
     if (mixture_beta == TRUE){
       for (s in 1:m)
       {
-        gamma_b_div_a <- (stats::pnorm(1) - stats::pnorm(0)) * odds_beta * (sigma_b2 / sigma_b1) * exp(-1 / 2 * (beta_temp[s,] ^ 2 / sigma_b1 ^ 2 - beta_temp[s,] ^ 2 / sigma_b2 ^ 2))
+        gamma_b_div_a <- (stats::pnorm(1) - stats::pnorm(0)) * odds_beta * (sigma_b2 / sigma_b1) * exp(-1 / 2 * (beta_temp[s, ] ^ 2 / sigma_b1 ^ 2 - beta_temp[s, ] ^ 2 / sigma_b2 ^ 2))
         gamma_pr_temp[s, ] <- ifelse(beta_temp[s, ] < 0,  0, 1 / (1 + gamma_b_div_a))
         gamma_temp[s, ] <- Rlab::rbern(k, gamma_pr_temp[s, ])
       }
@@ -284,11 +284,11 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
       s_S_inv_1 <- 1 / (as.matrix(tau_temp) %*% t(as.matrix(apply(beta_temp ^ 2, 1, sum))) + s_S_inv_0)
 
       for (j in 1:m){
-        E1 <-  Y_minus_B_rep - S_temp[,-j,drop = FALSE] %*% beta_temp[-j,,drop = FALSE]
+        E1 <-  Y_minus_B_rep - S_temp[, -j, drop = FALSE] %*% beta_temp[-j, , drop = FALSE]
         mu_S_1 <- s_S_inv_1[, j] * (tau_temp * (E1 %*% beta_temp[j, ]) + tmp4[, j])
-        lower <- ifelse(mu_S_0[,j] > 0, 0, -Inf)
-        upper <- ifelse(mu_S_0[,j] >= 0, Inf, 0)
-        S_temp[,j] <- msm::rtnorm(n, mu_S_1, sqrt(s_S_inv_1[, j]), lower, upper)
+        lower <- ifelse(mu_S_0[, j] > 0, 0, -Inf)
+        upper <- ifelse(mu_S_0[, j] >= 0, Inf, 0)
+        S_temp[, j] <- msm::rtnorm(n, mu_S_1, sqrt(s_S_inv_1[, j]), lower, upper)
       }
 
       # update delta

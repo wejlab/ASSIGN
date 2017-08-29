@@ -17,14 +17,16 @@ heatmap.train <- function(diffGeneList, trainingData, trainingLabel){
   for (i in 1:nPath){
     tmp <- match(diffGeneList[[i]], row.names(trainingData))
     path <- trainingData[tmp, ]
-    sig <- rowMeans(path[ ,bgPosS[i]:edPosS[i]]) - rowMeans(path[ ,bgPosB[i]:edPosB[i]])
+    sig <- rowMeans(path[, bgPosS[i]:edPosS[i]]) - rowMeans(path[, bgPosB[i]:edPosB[i]])
     ord <- order(sig)
     path_ord <- path[ord, c(bgPosB[i]:edPosB[i], bgPosS[i]:edPosS[i])]
-    cc <- rep(c(1,2),c((edPosB[i] - bgPosB[i] + 1), (edPosS[i] - bgPosS[i] + 1)))
+    cc <- rep(c(1, 2), c((edPosB[i] - bgPosB[i] + 1),
+                         (edPosS[i] - bgPosS[i] + 1)))
     stats::heatmap(as.matrix(path_ord), scale = "row", Rowv = NA, Colv = NA,
                    ColSideColors = as.character(cc), col = gplots::bluered(128),
-                   margins = c(10,10), main = paste(names(trainingLabel)[i + 1],
-                                                    "signature", sep = " "))
+                   margins = c(10, 10),
+                   main = paste(names(trainingLabel)[i + 1],
+                                "signature", sep = " "))
   }
   invisible(grDevices::dev.off())
 }

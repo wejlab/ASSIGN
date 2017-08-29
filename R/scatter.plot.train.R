@@ -18,7 +18,7 @@ scatter.plot.train <- function(coef_train, trainingData, trainingLabel){
   grDevices::pdf("pathway_activity_scatterplot_trainingset.pdf")
   for (i in 1:nPath){
     HMEC_samples <- 1:ncol(trainingData)
-    Pathway_strength_HMEC <- coef_train[,i]
+    Pathway_strength_HMEC <- coef_train[, i]
     graphics::plot(HMEC_samples, Pathway_strength_HMEC, col = as.factor(trainL),
                    xlab = "HMEC sample",
                    ylab = paste(names(trainingLabel)[i + 1], "pathway activity",

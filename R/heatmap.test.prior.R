@@ -16,16 +16,16 @@ heatmap.test.prior <- function(diffGeneList, testData, trainingLabel,
     tmp <- match(diffGeneList[[i]], row.names(testData))
     path <- testData[tmp, ]
     if (!is.null(testLabel)){
-      stats::heatmap(as.matrix(path[,order(coef_test[,i])]), Colv = NA,
+      stats::heatmap(as.matrix(path[, order(coef_test[, i])]), Colv = NA,
                      scale = "row",
-                     ColSideColors = as.character(cc[order(coef_test[,i])]),
-                     col = gplots::bluered(128), margins = c(10,10),
+                     ColSideColors = as.character(cc[order(coef_test[, i])]),
+                     col = gplots::bluered(128), margins = c(10, 10),
                      main = paste(pathName[i], "signature", sep = " "))
     } else {
-      stats::heatmap(as.matrix(path[,order(coef_test[,i])]), Colv = NA,
+      stats::heatmap(as.matrix(path[, order(coef_test[, i])]), Colv = NA,
                      scale = "row", col = gplots::bluered(128),
-                     margins = c(10,10), main = paste(pathName[i],
-                                                      "signature", sep = " "))
+                     margins = c(10, 10), main = paste(pathName[i],
+                                                       "signature", sep = " "))
     }
   }
   invisible(grDevices::dev.off())

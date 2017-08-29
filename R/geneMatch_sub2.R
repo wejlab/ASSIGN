@@ -17,11 +17,11 @@ geneMatch_sub2 <- function(dat, diffGeneList, trainingLabel){
   S1 <- matrix(0, nrow = nrow(dat1), ncol = length(bgPosB))
   S2 <- matrix(0, nrow = nrow(dat1), ncol = length(bgPosB))
   for (i in 1:length(bgPosB)){
-    pathBase <- rowMeans(dat1[,bgPosB[i]:edPosB[i]])
-    pathSig <- rowMeans(dat1[,bgPosS[i]:edPosS[i]]) - pathBase
+    pathBase <- rowMeans(dat1[, bgPosB[i]:edPosB[i]])
+    pathSig <- rowMeans(dat1[, bgPosS[i]:edPosS[i]]) - pathBase
     tmp2 <- match(geneName2[[i]], row.names(dat1))
     S1[, i] <- pathSig
-    S2[tmp2,i] <- 1
+    S2[tmp2, i] <- 1
   }
   rownames(S1) <- row.names(dat1)
   colnames(S1) <- names(trainingLabel)[-1]

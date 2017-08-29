@@ -10,7 +10,7 @@ heatmap.test.pos <- function(testData, Delta_pos, trainingLabel, testLabel=NULL,
   diffGeneList <- vector("list")
   for (i in 1:nPath){
     ##the cutoff can be modified
-    diffGeneList[[i]] <- row.names(testData)[Delta_pos[,i] >= Delta_cutoff]
+    diffGeneList[[i]] <- row.names(testData)[Delta_pos[, i] >= Delta_cutoff]
   }
   if (!is.null(testLabel)){
     cc <- as.numeric(as.factor(testLabel))
@@ -24,14 +24,15 @@ heatmap.test.pos <- function(testData, Delta_pos, trainingLabel, testLabel=NULL,
       next
     }
     if (!is.null(testLabel)){
-      stats::heatmap(as.matrix(path[,order(coef_test[,i])]), Colv = NA, scale = "row",
-                     ColSideColors = as.character(cc[order(coef_test[,i])]),
-                     col = gplots::bluered(128), margins = c(10,10),
-                     main = paste(pathName[i], "signature",sep = " "))
+      stats::heatmap(as.matrix(path[, order(coef_test[, i])]), Colv = NA, scale = "row",
+                     ColSideColors = as.character(cc[order(coef_test[, i])]),
+                     col = gplots::bluered(128), margins = c(10, 10),
+                     main = paste(pathName[i], "signature", sep = " "))
     } else {
-      stats::heatmap(as.matrix(path[,order(coef_test[,i])]), Colv = NA, scale = "row",
-                     col = gplots::bluered(128), margins = c(10,10),
-                     main = paste(pathName[i],"signature",sep = " "))
+      stats::heatmap(as.matrix(path[, order(coef_test[, i])]), Colv = NA,
+                     scale = "row", col = gplots::bluered(128),
+                     margins = c(10, 10), main = paste(pathName[i], "signature",
+                                                       sep = " "))
     }
   }
   invisible(grDevices::dev.off())

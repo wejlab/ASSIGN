@@ -16,9 +16,9 @@ scatter.plot.test <- function(coef_test, trainingLabel, testLabel=NULL,
 
   grDevices::pdf("pathway_activity_scatterplot_testset.pdf")
   for(i in 1:nPath){
-    ord <- order(coef_test[,i])
+    ord <- order(coef_test[, i])
     cc_ord <- cc[ord]
-    graphics::plot(coef_test[ord,i], col = cc_ord, pch = 19, cex = 0.7,
+    graphics::plot(coef_test[ord, i], col = cc_ord, pch = 19, cex = 0.7,
                    xlab = "Test sample", ylab = paste(pathName[i],
                                                       "pathway activity",
                                                       sep = " "),

@@ -53,7 +53,7 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL,
            rep("test", ncol(testData)))
   bat <- c(rep(1, ncol(combat_train)), rep(2, ncol(testData)))
   if(pcaPlots){
-    pcaplotbefore <- pcaplot(dat,sub, plottitle = "PCA: Before ComBat")
+    pcaplotbefore <- pcaplot(dat, sub, plottitle = "PCA: Before ComBat")
     if(plots_to_console){
       print(pcaplotbefore)
     }
@@ -69,17 +69,17 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL,
       print(pcaplotafter)
     }
   }
-  c_gfp      <- combat_expr1[,13:24]
-  c_akt      <- combat_expr1[,25:30]
-  c_bad      <- combat_expr1[,31:36]
-  c_her2     <- combat_expr1[,37:41]
-  c_igf1r    <- combat_expr1[,42:47]
-  c_raf      <- combat_expr1[,48:53]
-  c_egfr_gfp <- combat_expr1[,1:6]
-  c_egfr     <- combat_expr1[,7:12]
-  c_kras_gfp <- combat_expr1[,54:62]
-  c_krasgv   <- combat_expr1[,63:71]
-  c_test     <- combat_expr1[,(ncol(combat_train) + 1):ncol(combat_expr1)]
+  c_gfp      <- combat_expr1[, 13:24]
+  c_akt      <- combat_expr1[, 25:30]
+  c_bad      <- combat_expr1[, 31:36]
+  c_her2     <- combat_expr1[, 37:41]
+  c_igf1r    <- combat_expr1[, 42:47]
+  c_raf      <- combat_expr1[, 48:53]
+  c_egfr_gfp <- combat_expr1[, 1:6]
+  c_egfr     <- combat_expr1[, 7:12]
+  c_kras_gfp <- combat_expr1[, 54:62]
+  c_krasgv   <- combat_expr1[, 63:71]
+  c_test     <- combat_expr1[, (ncol(combat_train) + 1):ncol(combat_expr1)]
   results <- list(gfp = c_gfp, akt = c_akt, bad = c_bad, her2 = c_her2,
                   igf1r = c_igf1r, raf = c_raf, egfr_gfp = c_egfr_gfp,
                   egfr = c_egfr, kras_gfp = c_kras_gfp, krasgv = c_krasgv,

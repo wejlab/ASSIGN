@@ -245,10 +245,10 @@ assign.wrapper <- function (trainingData = NULL, testData, trainingLabel,
     delta_in <- NULL
 
     for(i in 1:ncol(deltas)){
-      delta_in[i] = (strsplit(colnames(deltas),":")[[i]][2])
+      delta_in[i] = (strsplit(colnames(deltas), ":")[[i]][2])
     }
 
-    utils::write.csv(round(deltas[,order(delta_in)], digits = 4),
+    utils::write.csv(round(deltas[, order(delta_in)], digits = 4),
                      "posterior_delta.csv", quote = F)
   }
 

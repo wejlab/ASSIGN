@@ -65,7 +65,7 @@ data_prep_s1 <- function(n_sigGene, trainingData, testData, trainingLabel,
   if(!is.null(anchorGenes)){
     for (j in 1:length(names(anchorGenes))){
       for (k in 1:length(anchorGenes[[j]])){
-        Pi_matrix[anchorGenes[[j]][k],names(anchorGenes)[j]] <- 1
+        Pi_matrix[anchorGenes[[j]][k], names(anchorGenes)[j]] <- 1
       }
     }
   }

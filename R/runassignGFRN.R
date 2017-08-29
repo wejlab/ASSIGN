@@ -45,8 +45,8 @@
 #'
 #' @export runassignGFRN
 #'
-runassignGFRN <- function(indata, run=c("akt","bad","egfr","her2","igf1r",
-                                        "krasgv","raf"),
+runassignGFRN <- function(indata, run=c("akt", "bad", "egfr", "her2", "igf1r",
+                                        "krasgv", "raf"),
                           optimized_geneList=NULL, use_seed=1234,
                           sigma_sZero=0.05, sigma_sNonZero=0.5,
                           S_zeroPrior=FALSE, iter=100000, burn_in=50000,
@@ -117,7 +117,7 @@ runassignGFRN <- function(indata, run=c("akt","bad","egfr","her2","igf1r",
                    adaptive_S = adaptive_S,
                    mixture_beta = FALSE,
                    S_zeroPrior = S_zeroPrior,
-                   outputDir = paste(curr_path,"_",
+                   outputDir = paste(curr_path, "_",
                                      length(optimized_geneList[[curr_path]]),
                                      "_gene_list", sep = ""),
                    sigma_sZero = sigma_sZero, sigma_sNonZero = sigma_sNonZero,

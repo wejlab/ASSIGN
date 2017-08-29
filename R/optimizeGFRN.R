@@ -64,11 +64,11 @@
 #' @export optimizeGFRN
 #'
 optimizeGFRN <- function(indata, correlation, correlationList,
-                         run=c("akt","bad","egfr","her2", "igf1r", "krasgv",
+                         run=c("akt", "bad", "egfr", "her2", "igf1r", "krasgv",
                                "krasqh", "raf"), run_ASSIGN_only=FALSE,
                          correlation_only=FALSE, keep_optimized_only=FALSE,
-                         pathway_lengths=c(seq(5,20,5), seq(25,275,25),
-                                           seq(300,500,50)), iter=100000,
+                         pathway_lengths=c(seq(5, 20, 5), seq(25, 275, 25),
+                                           seq(300, 500, 50)), iter=100000,
                          burn_in=50000) {
   #check that correlationList and run list are identical
   if(!identical(names(correlationList), run)){
@@ -83,8 +83,8 @@ optimizeGFRN <- function(indata, correlation, correlationList,
     for (curr_path in run){
       for (curr_len in pathway_lengths){
         geneList <- list()
-        geneList[[curr_path]] <- c(gfrn_geneList[[paste(curr_path,"up",sep = "_")]][1:floor(curr_len / 2)],
-                                   gfrn_geneList[[paste(curr_path,"down",sep = "_")]][1:ceiling(curr_len / 2)])
+        geneList[[curr_path]] <- c(gfrn_geneList[[paste(curr_path, "up", sep = "_")]][1:floor(curr_len / 2)],
+                                   gfrn_geneList[[paste(curr_path, "down", sep = "_")]][1:ceiling(curr_len / 2)])
         message("Running: ", curr_path, " ", curr_len, " genes")
         runassignGFRN(indata, run = curr_path, optimized_geneList = geneList,
                       iter = iter, burn_in = burn_in)
@@ -98,22 +98,22 @@ optimizeGFRN <- function(indata, correlation, correlationList,
   #check the rownames, warnings if there are extras
   if(sum(!(rownames(results) %in% rownames(correlation))) != 0){
     warning(sum(!(rownames(results) %in% rownames(correlation))),
-            " out of ",length(rownames(results)),
+            " out of ", length(rownames(results)),
             " samples in input data not in correlation data:\n",
             paste(rownames(results)[!(rownames(results) %in% rownames(correlation))], collapse = ", "),
             "\nThese samples will be removed from the correlation results.")
   }
   if(sum(!(rownames(correlation) %in% rownames(results))) != 0){
     warning(sum(!(rownames(correlation) %in% rownames(results))),
-            " out of ",length(rownames(correlation)),
+            " out of ", length(rownames(correlation)),
             " samples in correlation data not in input data:\n",
             paste(rownames(correlation)[!(rownames(correlation) %in% rownames(results))], collapse = ", "),
             "\nThese samples will be removed from the correlation results.")
   }
 
   combined <- ASSIGN::merge_drop(results, correlation)
-  results <- combined[,1:length(colnames(results))]
-  correlation <- combined[,(length(colnames(results)) + 1):(length(colnames(results)) + length(colnames(correlation)))]
+  results <- combined[, 1:length(colnames(results))]
+  correlation <- combined[, (length(colnames(results)) + 1):(length(colnames(results)) + length(colnames(correlation)))]
 
   #correlate the specific columns with the pathways according to the
   #correlationList, optimize the correlation and get the gene list
@@ -125,7 +125,7 @@ optimizeGFRN <- function(indata, correlation, correlationList,
     if (length(cor_column_idx) != length(correlationList[[curr_path]])){
       stop("correlationList columns do not match columns found in correlation data. Check the correlation column names")
     }
-    run_column_idx <- grep(paste("^",curr_path,"_", sep = ""), colnames(results))
+    run_column_idx <- grep(paste("^", curr_path, "_", sep = ""), colnames(results))
     #for each column in results
     cor_mat <- matrix(0,
                       nrow = length(run_column_idx),
@@ -134,9 +134,9 @@ optimizeGFRN <- function(indata, correlation, correlationList,
                                       colnames(correlation)[cor_column_idx]))
     for (cor_column in cor_column_idx){
       for(run_column in run_column_idx){
-        temp <- stats::cor.test(correlation[,cor_column], results[,run_column],
+        temp <- stats::cor.test(correlation[, cor_column], results[, run_column],
                                 use = "pairwise", method = "spearman")
-        cor_mat[colnames(results)[run_column],colnames(correlation)[cor_column]] <- temp$estimate
+        cor_mat[colnames(results)[run_column], colnames(correlation)[cor_column]] <- temp$estimate
       }
     }
     correlation_results[[curr_path]] <- cor_mat
@@ -146,8 +146,8 @@ optimizeGFRN <- function(indata, correlation, correlationList,
 
     #get the gene list for the optimized path
     optimum_length <- as.numeric(strsplit(optimized_path[[curr_path]], split = "_")[[1]][2])
-    optimizedGeneList[[curr_path]] <- c(gfrn_geneList[[paste(curr_path,"up",sep = "_")]][1:floor(optimum_length / 2)],
-                                        gfrn_geneList[[paste(curr_path,"down",sep = "_")]][1:ceiling(optimum_length / 2)])
+    optimizedGeneList[[curr_path]] <- c(gfrn_geneList[[paste(curr_path, "up", sep = "_")]][1:floor(optimum_length / 2)],
+                                        gfrn_geneList[[paste(curr_path, "down", sep = "_")]][1:ceiling(optimum_length / 2)])
   }
 
   #delete the non-optimal outputs if keep_optimized_only is set
