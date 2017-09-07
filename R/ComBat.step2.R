@@ -32,7 +32,7 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL,
   }
   if (is.null(combat_train)){
     combat_train_file <- tempfile(pattern = "combat_train", fileext = ".rda")
-    utils::download.file("https://dl.dropboxusercontent.com/u/62447/ASSIGN/combat_train.rda",
+    utils::download.file("https://www.dropbox.com/s/7x06nacpagd9dm0/combat_train.rda?dl=1",
                          combat_train_file)
     load(combat_train_file)
     unlink(combat_train_file)

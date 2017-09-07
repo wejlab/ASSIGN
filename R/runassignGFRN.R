@@ -37,7 +37,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' testData <- read.table("https://dl.dropboxusercontent.com/u/62447/ASSIGN/icbp_Rsubread_tpmlog.txt",
+#' testData <- read.table("https://www.dropbox.com/s/6iuxcr2f0fjbirv/icbp_Rsubread_tpmlog.txt?dl=1",
 #'                        sep='\t', row.names=1, header=1)
 #' combat.data <- ComBat.step2(testData, pcaPlots = TRUE)
 #' runassignGFRN(combat.data)
@@ -50,7 +50,7 @@ runassignGFRN <- function(indata, run=c("akt", "bad", "egfr", "her2", "igf1r",
                           optimized_geneList=NULL, use_seed=1234,
                           sigma_sZero=0.05, sigma_sNonZero=0.5,
                           S_zeroPrior=FALSE, iter=100000, burn_in=50000,
-                          exclude_common_genes=FALSE, adaptive_S=TRUE) {
+                          exclude_common_genes=FALSE, adaptive_S=TRUE, ECM=FALSE) {
 
   #list of anchor genes
   anchorGeneList <- list(akt = "AKT1", bad = "BAD", egfr = "EGFR",
@@ -121,6 +121,6 @@ runassignGFRN <- function(indata, run=c("akt", "bad", "egfr", "her2", "igf1r",
                                      length(optimized_geneList[[curr_path]]),
                                      "_gene_list", sep = ""),
                    sigma_sZero = sigma_sZero, sigma_sNonZero = sigma_sNonZero,
-                   iter = iter, burn_in = burn_in)
+                   iter = iter, burn_in = burn_in, ECM = ECM)
   }
 }
