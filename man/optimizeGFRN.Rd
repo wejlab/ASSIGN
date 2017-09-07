@@ -61,9 +61,9 @@ correlation step (quick) separately.
 }
 \examples{
 \dontrun{
-testData <- read.table("https://dl.dropboxusercontent.com/u/62447/ASSIGN/icbp_Rsubread_tpmlog.txt",
+testData <- read.table("https://www.dropbox.com/s/6iuxcr2f0fjbirv/icbp_Rsubread_tpmlog.txt?dl=1",
                        sep='\\t', row.names=1, header=1)
-corData <- read.table("https://dl.dropboxusercontent.com/u/62447/ASSIGN/proteomics.txt",
+corData <- read.table("https://www.dropbox.com/s/nm3m38ca6v4lu10/proteomics.txt?dl=1",
                       sep='\\t', row.names=1, header=1)
 corData$negAkt <- -1 * corData$Akt
 corData$negPDK1 <- -1 * corData$PDK1

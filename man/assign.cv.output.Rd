@@ -63,23 +63,23 @@ data(trainingData1)
 data(testData1)
 data(geneList1)
 
-trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10, myc=1:10, 
-                                      ras=1:10, src=1:10), 
-                       bcat = 11:19, e2f3 = 20:28, myc= 29:38, 
+trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10, myc=1:10,
+                                      ras=1:10, src=1:10),
+                       bcat = 11:19, e2f3 = 20:28, myc= 29:38,
                        ras = 39:48, src = 49:55)
-                       
-processed.data <- assign.preprocess(trainingData=trainingData1, 
+
+processed.data <- assign.preprocess(trainingData=trainingData1,
 testData=testData1, trainingLabel=trainingLabel1, geneList=geneList1)
-mcmc.chain <- assign.mcmc(Y=processed.data$trainingData_sub, 
-Bg = processed.data$B_vector, X=processed.data$S_matrix, 
-Delta_prior_p = processed.data$Pi_matrix, iter = 20, adaptive_B=TRUE, 
+mcmc.chain <- assign.mcmc(Y=processed.data$trainingData_sub,
+Bg = processed.data$B_vector, X=processed.data$S_matrix,
+Delta_prior_p = processed.data$Pi_matrix, iter = 20, adaptive_B=TRUE,
 adaptive_S=FALSE, mixture_beta=TRUE)
-mcmc.pos.mean <- assign.summary(test=mcmc.chain, burn_in=10, iter=20, 
+mcmc.pos.mean <- assign.summary(test=mcmc.chain, burn_in=10, iter=20,
 adaptive_B=FALSE, adaptive_S=FALSE, mixture_beta=TRUE)
 }
-assign.cv.output(processed.data=processed.data, 
+assign.cv.output(processed.data=processed.data,
 mcmc.pos.mean.trainingData=mcmc.pos.mean, trainingData=trainingData1,
-trainingLabel=trainingLabel1, 
+trainingLabel=trainingLabel1,
 adaptive_B=FALSE, adaptive_S=FALSE, mixture_beta=TRUE, outputDir=tempdir)
 
 }

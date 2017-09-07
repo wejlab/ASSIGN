@@ -80,16 +80,16 @@ trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10, myc=1:10,
                        ras = 39:48, src = 49:55)
 testLabel1 <- rep(c("subtypeA","subtypeB"),c(53,58))
 
-processed.data <- assign.preprocess(trainingData=trainingData1, 
+processed.data <- assign.preprocess(trainingData=trainingData1,
 testData=testData1, trainingLabel=trainingLabel1, geneList=geneList1)
-mcmc.chain <- assign.mcmc(Y=processed.data$testData_sub, 
-Bg = processed.data$B_vector, X=processed.data$S_matrix, 
-Delta_prior_p = processed.data$Pi_matrix, iter = 20, 
+mcmc.chain <- assign.mcmc(Y=processed.data$testData_sub,
+Bg = processed.data$B_vector, X=processed.data$S_matrix,
+Delta_prior_p = processed.data$Pi_matrix, iter = 20,
 adaptive_B=TRUE, adaptive_S=FALSE, mixture_beta=TRUE)
-mcmc.pos.mean <- assign.summary(test=mcmc.chain, burn_in=10, iter=20, 
+mcmc.pos.mean <- assign.summary(test=mcmc.chain, burn_in=10, iter=20,
 adaptive_B=FALSE, adaptive_S=FALSE,mixture_beta=TRUE)
 }
-assign.output(processed.data=processed.data, 
+assign.output(processed.data=processed.data,
               mcmc.pos.mean.testData=mcmc.pos.mean,
               trainingData=trainingData1, testData=testData1,
               trainingLabel=trainingLabel1, testLabel=testLabel1,

@@ -115,12 +115,12 @@ specifying control indice and exprimental indice.
 data(trainingData1)
 data(testData1)
 data(geneList1)
-trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10, myc=1:10, 
-                                      ras=1:10, src=1:10), 
-                       bcat = 11:19, e2f3 = 20:28, myc= 29:38, 
+trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10, myc=1:10,
+                                      ras=1:10, src=1:10),
+                       bcat = 11:19, e2f3 = 20:28, myc= 29:38,
                        ras = 39:48, src = 49:55)
-}                       
-processed.data <- assign.preprocess(trainingData=trainingData1, 
+}
+processed.data <- assign.preprocess(trainingData=trainingData1,
 testData=testData1, trainingLabel=trainingLabel1, geneList=geneList1)
 
 }
