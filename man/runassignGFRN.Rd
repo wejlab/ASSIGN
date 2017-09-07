@@ -46,6 +46,9 @@ for overexpression signatures. The default is FALSE.}
 
 \item{adaptive_S}{Logical. If TRUE, the model adapts the signatures (S) of
 genomic measures for the test samples. The default for GFRN analysis is TRUE.}
+
+\item{ECM}{Logicals. If TRUE, ECM algorithm, rather than Gibbs sampling, is
+applied to approximate the model parameters. The default is FALSE.}
 }
 \value{
 Data is output to the current working directory in a results
