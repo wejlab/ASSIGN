@@ -103,6 +103,18 @@ assign.preprocess <- function(trainingData=NULL, testData, anchorGenes=NULL,
                               excludeGenes=NULL, trainingLabel, geneList=NULL,
                               n_sigGene=NA, theta0=0.05, theta1=0.9, pctUp=0.5,
                               geneselect_iter=500, geneselect_burn_in=100){
+  if(!is.null(anchorGenes)){
+    if(names(trainingLabel1)[-1] != names(anchorGenes)){
+      stop("The anchorGene list must contain all pathways listed in the trainingLabel")
+    }
+  }
+
+  if(!is.null(excludeGenes)){
+    if(names(trainingLabel1)[-1] != names(excludeGenes)){
+      stop("The excludeGenes list must contain all pathways listed in the trainingLabel")
+    }
+  }
+
   message("Performing QC on the input data...")
   dat <- qc(trainingData, testData, geneList)
   if (!is.null(trainingLabel)){
@@ -116,6 +128,11 @@ assign.preprocess <- function(trainingData=NULL, testData, anchorGenes=NULL,
   if (is.null(trainingData) & is.null(geneList)){
     stop("trainingData and geneList are both set NULL. Need one of them for the analysis!")
   }
+
+  if(!is.null(trainingData) & is.null(trainingLabel)){
+    stop("You must supply trainingLabels when specifying trainingData!")
+  }
+
   if (!is.null(trainingData) & !is.null(trainingLabel)){
     x <- data_prep_s1(n_sigGene, trainingData = dat$trainingData,
                       testData = dat$testData, trainingLabel, anchorGenes,

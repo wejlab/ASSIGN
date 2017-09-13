@@ -117,8 +117,7 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
                            outputSignature_convergence = FALSE, ECM = FALSE){
   if (is.null(geneList)) {
     pathName <- names(trainingLabel)[-1]
-  }
-  else {
+  } else {
     pathName <- names(geneList)
   }
   processed.data <- assign.preprocess(trainingData, testData, anchorGenes,

@@ -9,7 +9,9 @@ data_prep_s1 <- function(n_sigGene, trainingData, testData, trainingLabel,
                                           burn_in = burn_in, sigmaZero = 0.1,
                                           sigmaNonZero = 1, alpha_tau = 1,
                                           beta_tau = 0.01, p = 0.01,
-                                          pctUp = pctUp)
+                                          pctUp = pctUp,
+                                          anchorGenes = anchorGenes,
+                                          excludeGenes = excludeGenes)
     diffGeneList <- geneSelection$diffGeneList
   } else {
     diffGeneList <- geneList

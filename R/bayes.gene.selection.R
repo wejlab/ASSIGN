@@ -1,7 +1,8 @@
 bayes.gene.selection <- function(n_sigGene, dat, trainingLabel, iter=500,
                                  burn_in=100, sigmaZero = 0.1, sigmaNonZero = 1,
                                  alpha_tau = 1, beta_tau = 0.01, p = 0.01,
-                                 pctUp=0.5){
+                                 pctUp=0.5, anchorGenes=NULL,
+                                 excludeGenes=NULL){
   nPath <- length(trainingLabel) - 1
   bgPosB <- NULL; edPosB <- NULL
   for (i in 1:length(trainingLabel[[1]])){
@@ -26,7 +27,7 @@ bayes.gene.selection <- function(n_sigGene, dat, trainingLabel, iter=500,
     k <- NCOL(Y)
     k1 <- edPosB[j] - bgPosB[j] + 1
     k2 <- edPosS[j] - bgPosS[j] + 1
-    sigma1 <- sigmaZero     	#need to be modified!!!
+    sigma1 <- sigmaZero #need to be modified!!!
     sigma2 <- sigmaNonZero
     u <- alpha_tau
     v <- beta_tau
@@ -41,7 +42,8 @@ bayes.gene.selection <- function(n_sigGene, dat, trainingLabel, iter=500,
     PHI_Delta[1, ] <- rep(0, n)
     PHI_tau2[1, ] <- rep(u / v, n)
     pb <- utils::txtProgressBar(min = 0, max = iter, width = 80, file = stderr())
-    message("| 0%                                  50%                                 100% |")
+    message("| 0%                                  50%",
+            "                                 100% |")
     for (i in 2:iter){
       utils::setTxtProgressBar(pb, i)
       s_B_1 <- 1 / (k * PHI_tau2[i - 1, ] + 1 / sigma2 ^ 2)
@@ -72,13 +74,27 @@ bayes.gene.selection <- function(n_sigGene, dat, trainingLabel, iter=500,
 
   diffGeneList <- vector("list")
   for (j in 1:m){
+    if(!is.null(excludeGenes[[j]])){
+      excludegene_index <- which(row.names(dat) %in% excludeGenes[[j]])
+    } else{
+      excludegene_index <- NULL
+    }
+    #check if we are excluding more genes than are available for signature
+    if(length(setdiff(order((abs(S_pos[, j]) * r_pos[, j]), decreasing = TRUE),
+                      excludegene_index)) < n_sigGene[j]){
+      stop("There aren't enough genes available in the data. ",
+           "Check excludeGenes and n_sigGene.")
+    }
     if (!is.null(pctUp)){
-      tmp_up   <- order((S_pos[, j] * r_pos[, j]), decreasing = TRUE)[1:floor(n_sigGene[j] / (1 / (pctUp)))]
-      tmp_down <- order((S_pos[, j] * r_pos[, j]), decreasing = FALSE)[1:ceiling(n_sigGene[j] / (1 / (1 - pctUp)))]
+      tmp_up   <- setdiff(order((S_pos[, j] * r_pos[, j]), decreasing = TRUE),
+                          excludegene_index)[1:floor(n_sigGene[j] / (1 / (pctUp)))]
+      tmp_down <- setdiff(order((S_pos[, j] * r_pos[, j]), decreasing = FALSE),
+                          excludegene_index)[1:ceiling(n_sigGene[j] / (1 / (1 - pctUp)))]
       tmp <- c(tmp_up, tmp_down)
     }
     else{
-      tmp <- order((abs(S_pos[, j]) * r_pos[, j]), decreasing = TRUE)[1:n_sigGene[j]]
+      tmp <- setdiff(order((abs(S_pos[, j]) * r_pos[, j]), decreasing = TRUE),
+                     excludegene_index)[1:n_sigGene[j]]
     }
     diffGeneList[[j]] <- row.names(dat)[tmp]
   }

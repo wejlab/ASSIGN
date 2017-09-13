@@ -213,7 +213,8 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
   P_tau2[1, ] <- tau_temp
 
   pb <- utils::txtProgressBar(min = 0, max = iter, width = 80, file = stderr())
-  message("| 0%                                  50%                                 100% |")
+  message("| 0%                                  50%",
+          "                                 100% |")
   for (i in 2:iter) {
     utils::setTxtProgressBar(pb, i)
     #update B
@@ -245,7 +246,8 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
         tmp1 <- S_temp[, s] ^ 2 * tau_temp
         tmp2 <- S_temp[, s] * tau_temp
         tmp3 <- S_temp[, -s, drop = FALSE] %*% beta_temp[-s, , drop = FALSE]
-        s_beta_0_inv <- 1 / ifelse(gamma_temp[s, ] == 1, sigma_b2 ^ 2, sigma_b1 ^ 2)
+        s_beta_0_inv <- 1 / ifelse(gamma_temp[s, ] == 1, sigma_b2 ^ 2,
+                                   sigma_b1 ^ 2)
         s_beta_1 <- 1 / (s_beta_0_inv + sum(tmp1))
         mu_beta_1 <- s_beta_1 * (t(tmp2) %*% (Y_minus_B_rep - tmp3))
       }
