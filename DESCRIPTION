@@ -33,5 +33,8 @@ Imports:
 biocViews: Software, GeneExpression, Pathways, Bayesian
 Suggests:
     testthat,
-    BiocStyle
+    BiocStyle,
+    knitr,
+    rmarkdown
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr
