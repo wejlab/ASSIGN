@@ -31,5 +31,5 @@ Or install the development version from github:
 
 ```
 # install.packages("devtools")
-devtools::install_github("dfjenkins3/ASSIGN")
+devtools::install_github("compbiomed/ASSIGN")
 ```
