@@ -1,0 +1,37 @@
+template:
+  params:
+    bootswatch: yeti
+
+reference:
+  - title: ASSIGN Functions
+    desc:  Main ASSIGN functions for prediction.
+    contents:
+    - starts_with("assign.")
+  - title: GFRN Functions
+    contents:
+    - ComBat.step2
+    - optimizeGFRN
+    - runassignGFRN
+  - title: Data
+    contents:
+    - excludegenes
+    - geneList1
+    - gfrn_geneList
+    - testData1
+    - trainingData1
+  - title: Helpers
+    contents:
+    - gather_assign_results
+    - merge_drop
+    - pcaplot
+
+navbar:
+  title: "ASSIGN"
+  left:
+    - text: "Primer"
+      href: articles/ASSIGN.vignette.html
+    - text: "Reference"
+      href: reference/index.html
+  right:
+    - icon: fa-github
+      href: https://github.com/compbiomed/ASSIGN

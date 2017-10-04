@@ -4,6 +4,11 @@ Title: Adaptive Signature Selection and InteGratioN (ASSIGN)
 Version: 1.13.2
 Date: 2014-10-30
 Author: Ying Shen, Andrea H. Bild, W. Evan Johnson, and Mumtehena Rahman
+Authors@R: c(person(given="Ying", family="Shen", email="yshen3@bu.edu", role=c("aut")),
+             person(given=c("Andrea","H."), family="Bild", email="abild@coh.org", role=c("aut")),
+             person(given=c("W.", "Evan"), family="Johnson", email="wej@bu.edu", role=c("aut")),
+             person(given="Mumtehena", family="Rahman", email="moom.rahman@utah.edu", role=c("aut")),
+             person(given="David", family="Jenkins", email="dfj@bu.edu", role=c("aut","cre")))
 Maintainer: Ying Shen <yshen3@bu.edu>, W. Evan Johnson <wej@bu.edu>,
     David Jenkins <dfj@bu.edu>, Mumtehena Rahman <moom.rahman@utah.edu>
 Depends:

@@ -27,32 +27,32 @@ vignette: >
 # Introduction
 
 This vignette provides an overview of the Bioconductor package
-`r Biocpkg("ASSIGN")` (Adaptive Signature Selection and InteGratioN) for
+`r BiocStyle::Biocpkg("ASSIGN")` (Adaptive Signature Selection and InteGratioN) for
 signature-based profiling of heterogeneous biological pathways.
-`r Biocpkg("ASSIGN")` is a computational tool used to evaluate the pathway
+`r BiocStyle::Biocpkg("ASSIGN")` is a computational tool used to evaluate the pathway
 deregulation/activation status in individual patient samples.
-`r Biocpkg("ASSIGN")` employs a flexible Bayesian factor analysis approach that
+`r BiocStyle::Biocpkg("ASSIGN")` employs a flexible Bayesian factor analysis approach that
 adapts predetermined pathway signatures derived either from a literature search
 or from perturbation experiments to create cell-/tissue-specific pathway
 signatures. The deregulation/activation level of each context-specific pathway
 is quantified to a score, which represents the extent to which a patient sample
 matches thepathway deregulation/activation signature.
 
-Some distinctive features of `r Biocpkg("ASSIGN")` are:
+Some distinctive features of `r BiocStyle::Biocpkg("ASSIGN")` are:
 
-1. __Multiple Pathway Profiling__: `r Biocpkg("ASSIGN")` can profile multiple
+1. __Multiple Pathway Profiling__: `r BiocStyle::Biocpkg("ASSIGN")` can profile multiple
 pathway signatures simultaneously, accounting for 'cross-talk' between
 interconnected pathway components.
 2. __Context specificity in baseline gene expression__: Baseline gene expression
 levels (i.e., the gene expression level under normal conditions) may vary widely
 due to differences across tissue types, disease statuses, or measurement
-platforms. `r Biocpkg("ASSIGN")` can adaptively estimate background gene
+platforms. `r BiocStyle::Biocpkg("ASSIGN")` can adaptively estimate background gene
 expression levels across a set of samples.
-3. __Context-specific signature estimation__: `r Biocpkg("ASSIGN")` provides the
+3. __Context-specific signature estimation__: `r BiocStyle::Biocpkg("ASSIGN")` provides the
 flexibility to use either an input gene list or magnitudes of signature genes as
 prior information, allowing for adaptive refinement of pathway signatures in
 specific cell or tissue types.
-4. __Regularization of signature strength estimates__: `r Biocpkg("ASSIGN")`
+4. __Regularization of signature strength estimates__: `r BiocStyle::Biocpkg("ASSIGN")`
 regularizes the signature strength coefficients using a Bayesian ridge
 regression formulation by shrinking the strength of the irrelevant signature
 genes toward zero. The parameter regularization constrains the pathway signature
@@ -62,12 +62,12 @@ to a small group of genes, making the results more biologically interpretable.
 
 ## Example Data
 
-In the following examples, we will illustrate how to run `r Biocpkg("ASSIGN")`
+In the following examples, we will illustrate how to run `r BiocStyle::Biocpkg("ASSIGN")`
 using either the easy to use `assign.wrapper` function for simple
-analysis or each individual `r Biocpkg("ASSIGN")` step for more detailed
+analysis or each individual `r BiocStyle::Biocpkg("ASSIGN")` step for more detailed
 intermediate results.
 
-For either analysis, we will first load `r Biocpkg("ASSIGN")` and create a
+For either analysis, we will first load `r BiocStyle::Biocpkg("ASSIGN")` and create a
 temporary directory `'tempdir'` under the user's current working directory. All
 output generated in this vignette will be saved in `'tempdir'`.
 
@@ -90,7 +90,7 @@ to be 39:48. The test dataset is a G (number of genomic measurements) x N
 the N test samples. In our example, test samples 1-53 are adenocarcinoma and
 samples 54-111 are squamous cell carcinoma. We specify `'Adeno'` and
 `'Squamous'` in the vector of test data labels. Note that the test data labels
-are optional. `r Biocpkg("ASSIGN")` outputs additional validation plots to
+are optional. `r BiocStyle::Biocpkg("ASSIGN")` outputs additional validation plots to
 evaluate classification accuracy when test data labels are provided.
 
 ```{r datasets-and-labels, eval=FALSE}
@@ -104,13 +104,13 @@ trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10,
 testLabel1 <- rep(c("Adeno", "Squamous"), c(53,58))
 ```
 
-## Run `r Biocpkg("ASSIGN")` all-in-one using `assign.wrapper`
+## Run `r BiocStyle::Biocpkg("ASSIGN")` all-in-one using `assign.wrapper`
 
 We developed an all-in-one `assign.wrapper` function to run
-`r Biocpkg("ASSIGN")` with one command. For most users, `assign.wrapper` will be
+`r BiocStyle::Biocpkg("ASSIGN")` with one command. For most users, `assign.wrapper` will be
 sufficient. The `assign.wrapper` function outputs the following files:
 
-* __pathway_activity_testset.csv__: `r Biocpkg("ASSIGN")` predicted
+* __pathway_activity_testset.csv__: `r BiocStyle::Biocpkg("ASSIGN")` predicted
   pathway activity in test samples.
 * __signature_heatmap_testset_prior.pdf__: heatmaps of the
   expression level of prior signature genes in training samples.
@@ -118,14 +118,14 @@ sufficient. The `assign.wrapper` function outputs the following files:
   pathway activity in test samples. The x-axis represents test samples ordered
   by pathway activity; the y-axis represents pathway activity.
 * __output.rda__: The intermediate results of individual
-  `r Biocpkg("ASSIGN")` functions.
+  `r BiocStyle::Biocpkg("ASSIGN")` functions.
 * __parameters.txt__: A log file containing the parameters used for
-  this `r Biocpkg("ASSIGN")` run.
+  this `r BiocStyle::Biocpkg("ASSIGN")` run.
 
 If training data is provided, `assign.wrapper` also outputs the
 following files:
 
-* __pathway_activity_trainingset.csv__: `r Biocpkg("ASSIGN")` predicted
+* __pathway_activity_trainingset.csv__: `r BiocStyle::Biocpkg("ASSIGN")` predicted
   pathway activity in training samples.
 * __signature_heatmap_trainingset.pdf__: heatmaps of the expression
   level of signature genes in training samples.
@@ -152,7 +152,7 @@ Finally, if the `testLabel` argument is not NULL,
 Here we illustrate how to run `assign.wrapper` function with three
 examples. To start, create a temporary directory `'tempdir'` and load training
 and test datasets. The individual parameters are described in detail in the
-sections below and the `r Biocpkg("ASSIGN")` reference manual.
+sections below and the `r BiocStyle::Biocpkg("ASSIGN")` reference manual.
 
 ### Example 1: Training data is available, but a gene list of pathway signature genes is not available:
 
@@ -190,7 +190,7 @@ assign.wrapper(trainingData=NULL, testData=testData1,
                iter=2000, burn_in=1000)
 ```
 
-## Run `r Biocpkg("ASSIGN")` step-by-step
+## Run `r BiocStyle::Biocpkg("ASSIGN")` step-by-step
 
 We developed a series of functions: `assign.preprocess`, `assign.mcmc`,
 `assign.convergence`, `assign.summary`, `assign.cv.output`, and `assign.output`
@@ -330,7 +330,7 @@ the `'value'` section of the manual page of `assign.summary` function.
 The `assign.cv.output` generates the cross-validation results in the
 training samples. Output files from `assign.cv.output` are:
 
-* __pathway_activity_trainingset.csv__: `r Biocpkg("ASSIGN")` predicted
+* __pathway_activity_trainingset.csv__: `r BiocStyle::Biocpkg("ASSIGN")` predicted
   pathway activity in training samples.
 * __signature_heatmap_trainingset.pdf__: heatmaps of the expression
   level of signature genes in training samples.
@@ -353,7 +353,7 @@ assign.cv.output(processed.data=processed.data,
 The `assign.output` generates the prediction results in the test
 samples. Output files from `assign.output` are:
 
-* __pathway_activity_testset.csv__: `r Biocpkg("ASSIGN")` predicted
+* __pathway_activity_testset.csv__: `r BiocStyle::Biocpkg("ASSIGN")` predicted
   pathway activity in test samples.
 * __signature_heatmap_testset_prior.pdf__: heatmaps of the
   expression level of prior signature genes in training samples.
@@ -384,19 +384,19 @@ assign.output(processed.data=processed.data,
 
 ## Anchor Gene Lists and Exclude Gene Lists
 
-The `r Biocpkg("ASSIGN")` package allows a signature to be adapted to fit other
+The `r BiocStyle::Biocpkg("ASSIGN")` package allows a signature to be adapted to fit other
 biological contexts, reducing the contribution of specific genes in the
 signature to better match heterogeneity observed in the test dataset.
 Occasionally, adapting a signature may reduce the importance of key signature
 genes. For example, if a signature is created by overexpressing an oncogenic
-gene in a cell line, but during the adaptation step, `r Biocpkg("ASSIGN")`
+gene in a cell line, but during the adaptation step, `r BiocStyle::Biocpkg("ASSIGN")`
 reduces the importance of that key gene, the quality of the
-`r Biocpkg("ASSIGN")` predictions may be reduced. Alternatively, if a gene in
+`r BiocStyle::Biocpkg("ASSIGN")` predictions may be reduced. Alternatively, if a gene in
 the signature is associated with some other heterogeneity in the data, such as
-smoking status, `r Biocpkg("ASSIGN")` may adapt to differences in that gene,
+smoking status, `r BiocStyle::Biocpkg("ASSIGN")` may adapt to differences in that gene,
 rather than the actual desired signature activity predictions. To this end, we
 have added the ability to provide a list of key genes to anchor in the
-signature, and genes to exclude from the signature. `r Biocpkg("ASSIGN")`
+signature, and genes to exclude from the signature. `r BiocStyle::Biocpkg("ASSIGN")`
 accomplishes this by setting the probability of inclusion into the signature to
 one for anchor genes, and zero for exclude genes. The change in expression
 values can still adapt, increasing or reducing the fold change associated with
@@ -428,7 +428,7 @@ assign.wrapper(trainingData=trainingData1, testData=testData1,
 
 ## Fraction of Upregulated Genes
 
-By default, `r Biocpkg("ASSIGN")` Bayesian gene selection chooses the signature
+By default, `r BiocStyle::Biocpkg("ASSIGN")` Bayesian gene selection chooses the signature
 genes with an equal fraction of genes that increase with pathway activity and
 genes that decrease with pathway activity. Use the pctUp parameter to modify
 this fraction. Set pctUP to NULL to select the most significant genes,
@@ -436,26 +436,26 @@ regardless of direction.
 
 # GFRN Optimization Procedure
 
-When running `r Biocpkg("ASSIGN")`, the number of genes in the gene list can
-affect the predictions that `r Biocpkg("ASSIGN")` produces, but it is not always
-clear how long the gene list should be. Included within `r Biocpkg("ASSIGN")` is
+When running `r BiocStyle::Biocpkg("ASSIGN")`, the number of genes in the gene list can
+affect the predictions that `r BiocStyle::Biocpkg("ASSIGN")` produces, but it is not always
+clear how long the gene list should be. Included within `r BiocStyle::Biocpkg("ASSIGN")` is
 the optimization procedure used in the publication [Activity of distinct growth factor receptor network components in breast tumors uncovers two biologically relevant subtypes](http://dx.doi.org/10.1186/s13073-017-0429-x).
 The function allows you to optimize the gene list lengths for the pathways
 included in the paper using your own correlation data and gene list lengths.
-This function runs `r Biocpkg("ASSIGN")` pathway prediction on various gene list
+This function runs `r BiocStyle::Biocpkg("ASSIGN")` pathway prediction on various gene list
 lengths to find the optimum gene list length for the GFRN pathways by
-correlating the `r Biocpkg("ASSIGN")` predictions to a matrix of correlation
+correlating the `r BiocStyle::Biocpkg("ASSIGN")` predictions to a matrix of correlation
 data that you provide. This function takes a long time to run because you are
-running `r Biocpkg("ASSIGN")` many times on many pathways, so I recommend
-parallelizing by pathway or running the `r Biocpkg("ASSIGN")` predictions first
+running `r BiocStyle::Biocpkg("ASSIGN")` many times on many pathways, so I recommend
+parallelizing by pathway or running the `r BiocStyle::Biocpkg("ASSIGN")` predictions first
 (long and parallelizable) and then running the correlation step (quick)
 separately.
 
 ## Example Optimization Procedure
 
 The following example optimizes the pathway length for the AKT pathway based on
-correlating `r Biocpkg("ASSIGN")` predictions with proteomics data. First, read
-in the test data that you want to predict using `r Biocpkg("ASSIGN")` and the
+correlating `r BiocStyle::Biocpkg("ASSIGN")` predictions with proteomics data. First, read
+in the test data that you want to predict using `r BiocStyle::Biocpkg("ASSIGN")` and the
 data (e.g. proteomics data) that will be used for correlation:
 
 ```{r gfrn-optimization-dl, eval=FALSE, results='hide'}
@@ -493,15 +493,15 @@ optimization_results <- optimizeGFRN(combat.data, corData,
                                      corList, run="akt")
 ```
 
-`r Biocpkg("ASSIGN")` will output the results for each gene list length in the
+`r BiocStyle::Biocpkg("ASSIGN")` will output the results for each gene list length in the
 current working directory. The `optimizeGFRN` function returns a list of
 optimized gene lists which can be used on other datasets and correlation
 results. Additional options and documentation is available in the
 `optimizeGFRN` function documentation.
 
-# Citing `r Biocpkg("ASSIGN")`
+# Citing `r BiocStyle::Biocpkg("ASSIGN")`
 
-If you use `r Biocpkg("ASSIGN")` in your publication, please cite:
+If you use `r BiocStyle::Biocpkg("ASSIGN")` in your publication, please cite:
 
 Shen, Y. et al. ASSIGN: context-specific genomic profiling of multiple
 heterogeneous biological pathways. Bioinformatics 31 (11), 1745-1753 (2015).
@@ -509,7 +509,7 @@ heterogeneous biological pathways. Bioinformatics 31 (11), 1745-1753 (2015).
 
 # Conclusion
 
-Please see the `r Biocpkg("ASSIGN")` reference manual for full descriptions of
+Please see the `r BiocStyle::Biocpkg("ASSIGN")` reference manual for full descriptions of
 functions and the various options they support.
 
 # Session info {.unnumbered}
