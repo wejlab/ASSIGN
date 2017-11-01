@@ -21,15 +21,14 @@ deregulation/activation signature.
 
 ASSIGN is available on Bioconductor:
 
-```
-## try http:// if https:// URLs are not supported
+```r
 source("https://bioconductor.org/biocLite.R")
 biocLite("ASSIGN")
 ```
 
 Or install the development version from github:
 
-```
+```r
 # install.packages("devtools")
 devtools::install_github("compbiomed/ASSIGN")
 ```
