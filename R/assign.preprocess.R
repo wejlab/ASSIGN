@@ -25,8 +25,8 @@
 #' list(expr1=1:10, expr2=21:30, expr3=41:50), expr1 = 11:20, expr2 = 31:40,
 #' expr3 = 51:60)
 #'
-#' It is highly recommended that the user use the same expriment name when
-#' specifying control indice and exprimental indice.
+#' It is highly recommended that the user use the same experiment name when
+#' specifying control indices and experimental indices.
 #'
 #' @param trainingData The genomic measure matrix of training samples (i.g.,
 #' gene expression matrix). The dimension of this matrix is probe number x
@@ -62,10 +62,10 @@
 #' @param geneselect_burn_in The number of burn-in iterations for bayesian gene
 #' selection. The default is 100
 #' @return \item{trainingData_sub}{The G x N matrix of G genomic measures
-#' (i.g., gene expession) of N training samples. Genes/probes present in at
+#' (i.g., gene expression) of N training samples. Genes/probes present in at
 #' least one pathway signature are retained. Only returned when the training
 #' dataset is available.} \item{testData_sub}{The G x N matrix of G genomic
-#' measures (i.g., gene expession) of N test samples. Genes/probes present in
+#' measures (i.g., gene expression) of N test samples. Genes/probes present in
 #' at least one pathway signature are retained.} \item{B_vector}{The G x 1
 #' vector of genomic measures of the baseline/background. Each element of the
 #' B_vector is calculated as the mean of the genomic measures of the control

@@ -19,7 +19,7 @@ The number of rows should be the same and in the same order as indata}
 \item{correlationList}{A list that shows which columns of correlation should
 be used for each pathway. See below for more details}
 
-\item{run}{specifys the pathways to predict. The default list will
+\item{run}{specifies the pathways to predict. The default list will
 cause all eight pathways to be run in serial. Specify a pathway ("akt",
 "bad", "egfr", etc.) or list of pathways to run those pathways only.}
 

@@ -12,7 +12,7 @@ assign.mcmc(Y, Bg, X, Delta_prior_p, iter = 2000, adaptive_B = TRUE,
   Bg_zeroPrior = TRUE, S_zeroPrior = FALSE, ECM = FALSE)
 }
 \arguments{
-\item{Y}{The G x J matrix of genomic measures (i.g., gene expession) of test
+\item{Y}{The G x J matrix of genomic measures (i.g., gene expression) of test
 samples. Y is the testData_sub variable returned from the data.process
 function. Genes/probes present in at least one pathway signature are
 retained.}
@@ -39,26 +39,26 @@ default is TRUE.}
 genomic measures for the test samples. The default is FALSE.}
 
 \item{mixture_beta}{Logicals. If TRUE, elements of the pathway activation
-matrix are modeled by a spike-and-slab mixuture distribution. The default is
+matrix are modeled by a spike-and-slab mixture distribution. The default is
 TRUE.}
 
 \item{sigma_sZero}{Each element of the signature matrix (S) is modeled by a
-spike-and-slab mixuture distribution. Sigma_sZero is the variance of the
+spike-and-slab mixture distribution. Sigma_sZero is the variance of the
 spike normal distribution. The default is 0.01.}
 
 \item{sigma_sNonZero}{Each element of the signature matrix (S) is modeled by
-a spike-and-slab mixuture distribution. Sigma_sNonZero is the variance of
+a spike-and-slab mixture distribution. Sigma_sNonZero is the variance of
 the slab normal distribution. The default is 1.}
 
 \item{p_beta}{p_beta is the prior probability of a pathway being activated
 in individual test samples. The default is 0.01.}
 
 \item{sigma_bZero}{Each element of the pathway activation matrix (A) is
-modeled by a spike-and-slab mixuture distribution. sigma_bZero is the
+modeled by a spike-and-slab mixture distribution. sigma_bZero is the
 variance of the spike normal distribution. The default is 0.01.}
 
 \item{sigma_bNonZero}{Each element of the pathway activation matrix (A) is
-modeled by a spike-and-slab mixuture distribution. sigma_bNonZero is the
+modeled by a spike-and-slab mixture distribution. sigma_bNonZero is the
 variance of the slab normal distribution. The default is 1.}
 
 \item{alpha_tau}{The shape parameter of the precision (inverse of the
@@ -67,11 +67,11 @@ variance) of a gene. The default is 1.}
 \item{beta_tau}{The rate parameter of the precision (inverse of the
 variance) of a gene. The default is 0.01.}
 
-\item{Bg_zeroPrior}{Logicals. If TRUE, the prior distritribution of
+\item{Bg_zeroPrior}{Logicals. If TRUE, the prior distribution of
 baseline/background level follows a normal distribution with mean zero. The
 default is TRUE.}
 
-\item{S_zeroPrior}{Logicals. If TRUE, the prior distritribution of signature
+\item{S_zeroPrior}{Logicals. If TRUE, the prior distribution of signature
 follows a normal distribution with mean zero. The default is TRUE.}
 
 \item{ECM}{Logicals. If TRUE, ECM algorithm, rather than Gibbs sampling, is

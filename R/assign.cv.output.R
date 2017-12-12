@@ -24,7 +24,7 @@
 #' @param adaptive_S Logicals. If TRUE, the model adapts the signatures (S) of
 #' genomic measures for the test samples. The default is FALSE.
 #' @param mixture_beta Logicals. If TRUE, elements of the pathway activation
-#' matrix are modeled by a spike-and-slab mixuture distribution. The default is
+#' matrix are modeled by a spike-and-slab mixture distribution. The default is
 #' TRUE.
 #' @param outputDir The path to the directory to save the output files. The
 #' path needs to be quoted in double quotation marks.

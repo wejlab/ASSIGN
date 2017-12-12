@@ -25,7 +25,7 @@ default is TRUE.}
 genomic measures for the test samples. The default is FALSE.}
 
 \item{mixture_beta}{Logicals. If TRUE, elements of the pathway activation
-matrix are modeled by a spike-and-slab mixuture distribution. The default is
+matrix are modeled by a spike-and-slab mixture distribution. The default is
 TRUE.}
 }
 \value{
@@ -47,7 +47,7 @@ parameters estimated in every iteration during the Gibbs sampling.
 }
 \details{
 The assign.summary function is suggested to run after the assign.convergence
-function, which is used to check the convergency of the MCMC chain. If the
+function, which is used to check the convergence of the MCMC chain. If the
 MCMC chain does not converge to a stationary phase, more iterations are
 required in the assign.mcmc function. The number of burn-in iterations is
 usually set to be half of the number of total iterations, meaning that the

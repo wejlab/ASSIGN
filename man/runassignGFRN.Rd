@@ -13,7 +13,7 @@ runassignGFRN(indata, run = c("akt", "bad", "egfr", "her2", "igf1r", "krasgv",
 \arguments{
 \item{indata}{The list of data frames from ComBat.step2}
 
-\item{run}{specifys the pathways to predict. The default list will
+\item{run}{specifies the pathways to predict. The default list will
 cause all eight pathways to be run in serial. Specify a pathway ("akt",
 "bad", "egfr", etc.) or list of pathways to run those pathways only.}
 
@@ -21,18 +21,18 @@ cause all eight pathways to be run in serial. Specify a pathway ("akt",
 pathways either created manually or output by optimizeGFRN}
 
 \item{use_seed}{Set the seed before running ASSIGN. This will make the result
-consistant between runs. The default is 1234. Set use_seed as FALSE to not
+consistent between runs. The default is 1234. Set use_seed as FALSE to not
 set a seed.}
 
 \item{sigma_sZero}{Each element of the signature matrix (S) is modeled by a
-spike-and-slab mixuture distribution. Sigma_sZero is the variance of the
+spike-and-slab mixture distribution. Sigma_sZero is the variance of the
 spike normal distribution. The default is 0.05.}
 
 \item{sigma_sNonZero}{Each element of the signature matrix (S) is modeled by
-a spike-and-slab mixuture distribution. Sigma_sNonZero is the variance of the
+a spike-and-slab mixture distribution. Sigma_sNonZero is the variance of the
 slab normal distribution. The default is 0.5.}
 
-\item{S_zeroPrior}{Logicals. If TRUE, the prior distritribution of signature
+\item{S_zeroPrior}{Logicals. If TRUE, the prior distribution of signature
 follows a normal distribution with mean zero. The default is FALSE.}
 
 \item{iter}{The number of iterations in the MCMC. The default is 100000.}

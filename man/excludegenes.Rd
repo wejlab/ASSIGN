@@ -9,7 +9,7 @@
 Bild et al.
 }
 \description{
-Overexpression signatures may contain genes that are consistantly
+Overexpression signatures may contain genes that are consistently
 differentially expressed. This list was compiled based on the GFRN gene list.
 These genes appear in at least 60% of all signatures at various lengths.
 }

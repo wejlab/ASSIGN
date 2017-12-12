@@ -4,7 +4,7 @@
 #' parameters estimated in every iteration during the Gibbs sampling.
 #'
 #' The assign.summary function is suggested to run after the assign.convergence
-#' function, which is used to check the convergency of the MCMC chain. If the
+#' function, which is used to check the convergence of the MCMC chain. If the
 #' MCMC chain does not converge to a stationary phase, more iterations are
 #' required in the assign.mcmc function. The number of burn-in iterations is
 #' usually set to be half of the number of total iterations, meaning that the
@@ -23,7 +23,7 @@
 #' @param adaptive_S Logicals. If TRUE, the model adapts the signatures (S) of
 #' genomic measures for the test samples. The default is FALSE.
 #' @param mixture_beta Logicals. If TRUE, elements of the pathway activation
-#' matrix are modeled by a spike-and-slab mixuture distribution. The default is
+#' matrix are modeled by a spike-and-slab mixture distribution. The default is
 #' TRUE.
 #' @return \item{beta_pos}{The N x K matrix of the posterior mean of the
 #' pathway activation level in test samples (transposed matrix A). Columns:K

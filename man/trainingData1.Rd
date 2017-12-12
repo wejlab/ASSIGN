@@ -3,7 +3,7 @@
 \docType{data}
 \name{trainingData1}
 \alias{trainingData1}
-\title{Gene expression profiling from cell line preturbation experiments (training
+\title{Gene expression profiling from cell line perturbation experiments (training
 dataset)}
 \format{Data frame with 1000 genes/probes (rows) and 55 samples (columns)}
 \source{
@@ -11,7 +11,7 @@ Bild et al. (2006) Oncogenic pathway signatures in human cancers as
 a guide to targeted therapies. Nature, 439, 353-357.
 }
 \description{
-Gene expression datasets for 5 oncogenic pathway preturbation experiments,
+Gene expression datasets for 5 oncogenic pathway perturbation experiments,
 including B-Catenin, E2F3, MYC, RAS, and SRC pathways.
 }
 \keyword{datasets}

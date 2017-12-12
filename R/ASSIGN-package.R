@@ -24,10 +24,10 @@ NULL
 #' @keywords datasets
 NULL
 
-#' Gene expression profiling from cell line preturbation experiments (training
+#' Gene expression profiling from cell line perturbation experiments (training
 #' dataset)
 #'
-#' Gene expression datasets for 5 oncogenic pathway preturbation experiments,
+#' Gene expression datasets for 5 oncogenic pathway perturbation experiments,
 #' including B-Catenin, E2F3, MYC, RAS, and SRC pathways.
 #'
 #' @name trainingData1
@@ -55,7 +55,7 @@ NULL
 
 #' Exclude Gene List
 #'
-#' Overexpression signatures may contain genes that are consistantly
+#' Overexpression signatures may contain genes that are consistently
 #' differentially expressed. This list was compiled based on the GFRN gene list.
 #' These genes appear in at least 60% of all signatures at various lengths.
 #'

@@ -50,7 +50,7 @@ default is TRUE.}
 genomic measures for the test samples. The default is FALSE.}
 
 \item{mixture_beta}{Logicals. If TRUE, elements of the pathway activation
-matrix are modeled by a spike-and-slab mixuture distribution. The default is
+matrix are modeled by a spike-and-slab mixture distribution. The default is
 TRUE.}
 
 \item{outputDir}{The path to the directory to save the output files. The
@@ -74,14 +74,14 @@ discarded when computing the posterior means of the model parameters. The
 default is 1000.}
 
 \item{sigma_sZero}{Each element of the signature matrix (S) is modeled by a
-spike-and-slab mixuture distribution. Sigma_sZero is the variance of the
+spike-and-slab mixture distribution. Sigma_sZero is the variance of the
 spike normal distribution. The default is 0.01.}
 
 \item{sigma_sNonZero}{Each element of the signature matrix (S) is modeled by
-a spike-and-slab mixuture distribution. Sigma_sNonZero is the variance of
+a spike-and-slab mixture distribution. Sigma_sNonZero is the variance of
 the slab normal distribution. The default is 1.}
 
-\item{S_zeroPrior}{Logicals. If TRUE, the prior distritribution of signature
+\item{S_zeroPrior}{Logicals. If TRUE, the prior distribution of signature
 follows a normal distribution with mean zero. The default is TRUE.}
 
 \item{pctUp}{By default, ASSIGN bayesian gene selection chooses the
@@ -108,7 +108,7 @@ individual training sample and test sample, scatter plots of pathway
 activity for each individual pathway in the training and test data,
 heatmap plots for gene expression signatures for each individual pathway,
 heatmap plots for the gene expression of the prior and posterior
-signtures (if adaptive_S equals TRUE) of each individual pathway in the test
+signatures (if adaptive_S equals TRUE) of each individual pathway in the test
 data
 }
 \description{

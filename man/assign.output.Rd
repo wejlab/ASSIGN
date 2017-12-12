@@ -41,7 +41,7 @@ default is TRUE.}
 genomic measures for the test samples. The default is FALSE.}
 
 \item{mixture_beta}{Logicals. If TRUE, elements of the pathway activation
-matrix are modeled by a spike-and-slab mixuture distribution. The default is
+matrix are modeled by a spike-and-slab mixture distribution. The default is
 TRUE.}
 
 \item{outputDir}{The path to the directory to save the output files. The
@@ -51,7 +51,7 @@ path needs to be quoted in double quotation marks.}
 The assign.output returns one .csv file containing one/multiple
 pathway activity for each individual test samples, scatter plots of pathway
 activity for each individual pathway in all the test samples, and heatmap
-plots for the gene expression of the prior signature and posterior signtures
+plots for the gene expression of the prior signature and posterior signatures
 (if adaptive_S equals TRUE) of each individual pathway in the test samples.
 }
 \description{

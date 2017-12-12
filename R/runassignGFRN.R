@@ -7,21 +7,21 @@
 #' values were used in the analysis for the paper.
 #'
 #' @param indata The list of data frames from ComBat.step2
-#' @param run specifys the pathways to predict. The default list will
+#' @param run specifies the pathways to predict. The default list will
 #' cause all eight pathways to be run in serial. Specify a pathway ("akt",
 #' "bad", "egfr", etc.) or list of pathways to run those pathways only.
 #' @param optimized_geneList a list of custom optimized gene lists for the gfrn
 #' pathways either created manually or output by optimizeGFRN
 #' @param use_seed Set the seed before running ASSIGN. This will make the result
-#' consistant between runs. The default is 1234. Set use_seed as FALSE to not
+#' consistent between runs. The default is 1234. Set use_seed as FALSE to not
 #' set a seed.
 #' @param sigma_sZero Each element of the signature matrix (S) is modeled by a
-#' spike-and-slab mixuture distribution. Sigma_sZero is the variance of the
+#' spike-and-slab mixture distribution. Sigma_sZero is the variance of the
 #' spike normal distribution. The default is 0.05.
 #' @param sigma_sNonZero Each element of the signature matrix (S) is modeled by
-#' a spike-and-slab mixuture distribution. Sigma_sNonZero is the variance of the
+#' a spike-and-slab mixture distribution. Sigma_sNonZero is the variance of the
 #' slab normal distribution. The default is 0.5.
-#' @param S_zeroPrior Logicals. If TRUE, the prior distritribution of signature
+#' @param S_zeroPrior Logicals. If TRUE, the prior distribution of signature
 #' follows a normal distribution with mean zero. The default is FALSE.
 #' @param iter The number of iterations in the MCMC. The default is 100000.
 #' @param burn_in The number of burn-in iterations. These iterations are

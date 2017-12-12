@@ -37,7 +37,7 @@
 #' @param adaptive_S Logicals. If TRUE, the model adapts the signatures (S) of
 #' genomic measures for the test samples. The default is FALSE.
 #' @param mixture_beta Logicals. If TRUE, elements of the pathway activation
-#' matrix are modeled by a spike-and-slab mixuture distribution. The default is
+#' matrix are modeled by a spike-and-slab mixture distribution. The default is
 #' TRUE.
 #' @param outputDir The path to the directory to save the output files. The
 #' path needs to be quoted in double quotation marks.
@@ -54,12 +54,12 @@
 #' discarded when computing the posterior means of the model parameters. The
 #' default is 1000.
 #' @param sigma_sZero Each element of the signature matrix (S) is modeled by a
-#' spike-and-slab mixuture distribution. Sigma_sZero is the variance of the
+#' spike-and-slab mixture distribution. Sigma_sZero is the variance of the
 #' spike normal distribution. The default is 0.01.
 #' @param sigma_sNonZero Each element of the signature matrix (S) is modeled by
-#' a spike-and-slab mixuture distribution. Sigma_sNonZero is the variance of
+#' a spike-and-slab mixture distribution. Sigma_sNonZero is the variance of
 #' the slab normal distribution. The default is 1.
-#' @param S_zeroPrior Logicals. If TRUE, the prior distritribution of signature
+#' @param S_zeroPrior Logicals. If TRUE, the prior distribution of signature
 #' follows a normal distribution with mean zero. The default is TRUE.
 #' @param pctUp By default, ASSIGN bayesian gene selection chooses the
 #' signature genes with an equal fraction of genes that increase with pathway
@@ -79,7 +79,7 @@
 #' activity for each individual pathway in the training and test data,
 #' heatmap plots for gene expression signatures for each individual pathway,
 #' heatmap plots for the gene expression of the prior and posterior
-#' signtures (if adaptive_S equals TRUE) of each individual pathway in the test
+#' signatures (if adaptive_S equals TRUE) of each individual pathway in the test
 #' data
 #' @author Ying Shen and W. Evan Johnson
 #' @examples

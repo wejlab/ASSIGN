@@ -31,7 +31,7 @@ default is FALSE.}
 genomic measures for the test samples. The default is FALSE.}
 
 \item{mixture_beta}{Logicals. If TRUE, elements of the pathway activation
-matrix are modeled by a spike-and-slab mixuture distribution. The default is
+matrix are modeled by a spike-and-slab mixture distribution. The default is
 TRUE.}
 
 \item{outputDir}{The path to the directory to save the output files. The
