@@ -109,8 +109,8 @@ default is 0.</p></td>
     </tr>
     <tr>
       <th>parameter</th>
-      <td><p>A charater string indicating which model parameter is to be
-checked for convergency. This must be one of "B", "S", "Delta", "beta",
+      <td><p>A character string indicating which model parameter is to be
+checked for convergence. This must be one of "B", "S", "Delta", "beta",
 "kappa", "gamma", and "sigma".</p></td>
     </tr>
     <tr>
@@ -138,11 +138,11 @@ to be checked, and a trace plot of this parameter.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>To compute the convergency of the gth gene in B, set whichGene=g,
+    <p>To compute the convergence of the gth gene in B, set whichGene=g,
 whichSample=NA, whichPath=NA.</p>
-<p>To compute the convergency of the gth gene in the kth pathway within the
+<p>To compute the convergence of the gth gene in the kth pathway within the
 signature matrix (S), set whichGene=g, whichSample=NA, whichPath=NA.</p>
-<p>To compute the convergency of the kth pathway in the jth test sample within
+<p>To compute the convergence of the kth pathway in the jth test sample within
 the pathway activation matrix (A), set whichGene=NA, whichSample=n,
 whichPath=k.</p>
     
@@ -150,7 +150,7 @@ whichPath=k.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 </div><span class='co'># NOT RUN {</span>
-<span class='co'># check the 10th gene in the 1st pathway for the convergency</span>
+<span class='co'># check the 10th gene in the 1st pathway for the convergence</span>
 <span class='no'>trace.plot</span> <span class='kw'>&lt;-</span> <span class='fu'>assign.convergence</span>(<span class='kw'>test</span><span class='kw'>=</span><span class='no'>mcmc.chain</span>, <span class='kw'>burn_in</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>2000</span>,
                                  <span class='kw'>parameter</span><span class='kw'>=</span><span class='st'>"S"</span>, <span class='kw'>whichGene</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>whichSample</span><span class='kw'>=</span><span class='fl'>NA</span>,
                                  <span class='kw'>whichPath</span><span class='kw'>=</span><span class='fl'>1</span>)

@@ -99,7 +99,7 @@ pathway activation status of individual test (disease) samples.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>Y</th>
-      <td><p>The G x J matrix of genomic measures (i.g., gene expession) of test
+      <td><p>The G x J matrix of genomic measures (i.g., gene expression) of test
 samples. Y is the testData_sub variable returned from the data.process
 function. Genes/probes present in at least one pathway signature are
 retained.</p></td>
@@ -140,19 +140,19 @@ genomic measures for the test samples. The default is FALSE.</p></td>
     <tr>
       <th>mixture_beta</th>
       <td><p>Logicals. If TRUE, elements of the pathway activation
-matrix are modeled by a spike-and-slab mixuture distribution. The default is
+matrix are modeled by a spike-and-slab mixture distribution. The default is
 TRUE.</p></td>
     </tr>
     <tr>
       <th>sigma_sZero</th>
       <td><p>Each element of the signature matrix (S) is modeled by a
-spike-and-slab mixuture distribution. Sigma_sZero is the variance of the
+spike-and-slab mixture distribution. Sigma_sZero is the variance of the
 spike normal distribution. The default is 0.01.</p></td>
     </tr>
     <tr>
       <th>sigma_sNonZero</th>
       <td><p>Each element of the signature matrix (S) is modeled by
-a spike-and-slab mixuture distribution. Sigma_sNonZero is the variance of
+a spike-and-slab mixture distribution. Sigma_sNonZero is the variance of
 the slab normal distribution. The default is 1.</p></td>
     </tr>
     <tr>
@@ -163,13 +163,13 @@ in individual test samples. The default is 0.01.</p></td>
     <tr>
       <th>sigma_bZero</th>
       <td><p>Each element of the pathway activation matrix (A) is
-modeled by a spike-and-slab mixuture distribution. sigma_bZero is the
+modeled by a spike-and-slab mixture distribution. sigma_bZero is the
 variance of the spike normal distribution. The default is 0.01.</p></td>
     </tr>
     <tr>
       <th>sigma_bNonZero</th>
       <td><p>Each element of the pathway activation matrix (A) is
-modeled by a spike-and-slab mixuture distribution. sigma_bNonZero is the
+modeled by a spike-and-slab mixture distribution. sigma_bNonZero is the
 variance of the slab normal distribution. The default is 1.</p></td>
     </tr>
     <tr>
@@ -184,13 +184,13 @@ variance) of a gene. The default is 0.01.</p></td>
     </tr>
     <tr>
       <th>Bg_zeroPrior</th>
-      <td><p>Logicals. If TRUE, the prior distritribution of
+      <td><p>Logicals. If TRUE, the prior distribution of
 baseline/background level follows a normal distribution with mean zero. The
 default is TRUE.</p></td>
     </tr>
     <tr>
       <th>S_zeroPrior</th>
-      <td><p>Logicals. If TRUE, the prior distritribution of signature
+      <td><p>Logicals. If TRUE, the prior distribution of signature
 follows a normal distribution with mean zero. The default is TRUE.</p></td>
     </tr>
     <tr>

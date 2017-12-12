@@ -103,7 +103,7 @@ values were used in the analysis for the paper.</p>
     </tr>
     <tr>
       <th>run</th>
-      <td><p>specifys the pathways to predict. The default list will
+      <td><p>specifies the pathways to predict. The default list will
 cause all eight pathways to be run in serial. Specify a pathway ("akt",
 "bad", "egfr", etc.) or list of pathways to run those pathways only.</p></td>
     </tr>
@@ -115,24 +115,24 @@ pathways either created manually or output by optimizeGFRN</p></td>
     <tr>
       <th>use_seed</th>
       <td><p>Set the seed before running ASSIGN. This will make the result
-consistant between runs. The default is 1234. Set use_seed as FALSE to not
+consistent between runs. The default is 1234. Set use_seed as FALSE to not
 set a seed.</p></td>
     </tr>
     <tr>
       <th>sigma_sZero</th>
       <td><p>Each element of the signature matrix (S) is modeled by a
-spike-and-slab mixuture distribution. Sigma_sZero is the variance of the
+spike-and-slab mixture distribution. Sigma_sZero is the variance of the
 spike normal distribution. The default is 0.05.</p></td>
     </tr>
     <tr>
       <th>sigma_sNonZero</th>
       <td><p>Each element of the signature matrix (S) is modeled by
-a spike-and-slab mixuture distribution. Sigma_sNonZero is the variance of the
+a spike-and-slab mixture distribution. Sigma_sNonZero is the variance of the
 slab normal distribution. The default is 0.5.</p></td>
     </tr>
     <tr>
       <th>S_zeroPrior</th>
-      <td><p>Logicals. If TRUE, the prior distritribution of signature
+      <td><p>Logicals. If TRUE, the prior distribution of signature
 follows a normal distribution with mean zero. The default is FALSE.</p></td>
     </tr>
     <tr>
