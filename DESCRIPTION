@@ -12,7 +12,7 @@ Authors@R: c(person(given="Ying", family="Shen", email="yshen3@bu.edu", role=c("
 Maintainer: Ying Shen <yshen3@bu.edu>, W. Evan Johnson <wej@bu.edu>,
     David Jenkins <dfj@bu.edu>, Mumtehena Rahman <moom.rahman@utah.edu>
 Depends:
-    R (>= 3.2)
+    R (>= 3.4)
 Description: ASSIGN is a computational tool to evaluate the pathway
     deregulation/activation status in individual patient samples.
     ASSIGN employs a flexible Bayesian factor analysis approach
