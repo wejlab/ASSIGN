@@ -37,7 +37,7 @@ merge_drop <- function(x, y, by=0, ...){
 #' @return A PCA plot is displayed
 #' @export pcaplot
 #'
-pcaplot <- function(mat, sub, center=T, scale=T, plottitle="PCA"){
+pcaplot <- function(mat, sub, center=TRUE, scale=TRUE, plottitle="PCA"){
   if (length(sub) != length(mat)){
     stop("verify the subscripts...exiting now")
   }
@@ -69,10 +69,10 @@ pcaplot <- function(mat, sub, center=T, scale=T, plottitle="PCA"){
 #'
 gather_assign_results <- function(){
   curr_files <- list.files(pattern = "pathway_activity_testset.csv",
-                           recursive = T)
+                           recursive = TRUE)
   results_df <- data.frame()
   for (i in curr_files){
-    curr <- utils::read.csv(i, header = T, row.names = 1)
+    curr <- utils::read.csv(i, header = TRUE, row.names = 1)
     colnames(curr) <- strsplit(i, split = "/")[[1]][1]
     if (ncol(results_df) == 0){
       results_df <- curr

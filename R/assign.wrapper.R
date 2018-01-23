@@ -181,7 +181,7 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
   cwd <- getwd()
 
   ##moom added this to create the output folder if doesn't exist already.
-  dir.create(outputDir, showWarnings = F)
+  dir.create(outputDir, showWarnings = FALSE)
   setwd(outputDir)
 
   ###moom added this
@@ -194,7 +194,7 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
                            burn_in, "The output files are located at:",
                            outputDir, sep = " "))
 
-  utils::write.table(param, "parameters.txt", col.names = F, sep = "\t")
+  utils::write.table(param, "parameters.txt", col.names = FALSE, sep = "\t")
 
   ###moom added this to include the gene list and prior coefficient
   if (!is.null(trainingData)) {
@@ -248,7 +248,7 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
     }
 
     utils::write.csv(round(deltas[, order(delta_in)], digits = 4),
-                     "posterior_delta.csv", quote = F)
+                     "posterior_delta.csv", quote = FALSE)
   }
 
   if (!is.null(trainingData)) {

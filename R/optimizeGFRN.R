@@ -153,7 +153,7 @@ optimizeGFRN <- function(indata, correlation, correlationList,
   #delete the non-optimal outputs if keep_optimized_only is set
   if (keep_optimized_only){
     message("Deleting the results that are not optimium")
-    unlink(dir(pattern = "gene_list")[!(dir(pattern = "_gene_list") %in% as.vector(unlist(optimized_path)))], recursive = T)
+    unlink(dir(pattern = "gene_list")[!(dir(pattern = "_gene_list") %in% as.vector(unlist(optimized_path)))], recursive = TRUE)
   }
 
   #return the optimized gene list and the correlation matrices
