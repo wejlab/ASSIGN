@@ -155,8 +155,23 @@ means.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-</div><div class='input'>
-</div></pre>
+<span class='fu'>data</span>(<span class='no'>trainingData1</span>)
+<span class='fu'>data</span>(<span class='no'>testData1</span>)
+<span class='fu'>data</span>(<span class='no'>geneList1</span>)
+<span class='no'>trainingLabel1</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>bcat</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>e2f3</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>myc</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>10</span>,
+                                      <span class='kw'>ras</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>src</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>10</span>),
+                       <span class='kw'>bcat</span> <span class='kw'>=</span> <span class='fl'>11</span>:<span class='fl'>19</span>, <span class='kw'>e2f3</span> <span class='kw'>=</span> <span class='fl'>20</span>:<span class='fl'>28</span>, <span class='kw'>myc</span><span class='kw'>=</span> <span class='fl'>29</span>:<span class='fl'>38</span>,
+                       <span class='kw'>ras</span> <span class='kw'>=</span> <span class='fl'>39</span>:<span class='fl'>48</span>, <span class='kw'>src</span> <span class='kw'>=</span> <span class='fl'>49</span>:<span class='fl'>55</span>)
+
+<span class='no'>processed.data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='assign.preprocess.html'>assign.preprocess</a></span>(<span class='kw'>trainingData</span><span class='kw'>=</span><span class='no'>trainingData1</span>,
+<span class='kw'>testData</span><span class='kw'>=</span><span class='no'>testData1</span>, <span class='kw'>trainingLabel</span><span class='kw'>=</span><span class='no'>trainingLabel1</span>, <span class='kw'>geneList</span><span class='kw'>=</span><span class='no'>geneList1</span>)</div><div class='output co'>#&gt; <span class='message'>Performing QC on the input data...</span></div><div class='output co'>#&gt; <span class='message'>Generating starting/prior values for model parameters...</span></div><div class='input'><span class='no'>mcmc.chain</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='assign.mcmc.html'>assign.mcmc</a></span>(<span class='kw'>Y</span><span class='kw'>=</span><span class='no'>processed.data</span>$<span class='no'>testData_sub</span>,
+                          <span class='kw'>Bg</span> <span class='kw'>=</span> <span class='no'>processed.data</span>$<span class='no'>B_vector</span>,
+                          <span class='kw'>X</span><span class='kw'>=</span><span class='no'>processed.data</span>$<span class='no'>S_matrix</span>,
+                          <span class='kw'>Delta_prior_p</span> <span class='kw'>=</span> <span class='no'>processed.data</span>$<span class='no'>Pi_matrix</span>,
+                          <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>adaptive_B</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>adaptive_S</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
+                          <span class='kw'>mixture_beta</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Start Gibbs sampling...</span></div><div class='output co'>#&gt; <span class='message'>| 0%                                  50%                                 100% |</span></div><div class='input'><span class='no'>mcmc.pos.mean</span> <span class='kw'>&lt;-</span> <span class='fu'>assign.summary</span>(<span class='kw'>test</span><span class='kw'>=</span><span class='no'>mcmc.chain</span>, <span class='kw'>burn_in</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>20</span>,
+                                <span class='kw'>adaptive_B</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>adaptive_S</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
+                                <span class='kw'>mixture_beta</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

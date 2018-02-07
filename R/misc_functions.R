@@ -63,16 +63,20 @@ pcaplot <- function(mat, sub, center=TRUE, scale=TRUE, plottitle="PCA"){
 
 #' Gather the ASSIGN results in a specific directory
 #'
+#' @param path The path to the directory containing ASSIGN results. The default
+#' is the current working directory.
+#'
 #' @return A data frame of ASSIGN predictions from each run in the directory
 #'
 #' @export gather_assign_results
 #'
-gather_assign_results <- function(){
-  curr_files <- list.files(pattern = "pathway_activity_testset.csv",
+gather_assign_results <- function(path = "."){
+  curr_files <- list.files(path = path,
+                           pattern = "pathway_activity_testset.csv",
                            recursive = TRUE)
   results_df <- data.frame()
   for (i in curr_files){
-    curr <- utils::read.csv(i, header = TRUE, row.names = 1)
+    curr <- utils::read.csv(file.path(path, i), header = TRUE, row.names = 1)
     colnames(curr) <- strsplit(i, split = "/")[[1]][1]
     if (ncol(results_df) == 0){
       results_df <- curr

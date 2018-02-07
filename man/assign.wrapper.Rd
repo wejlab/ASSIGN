@@ -11,7 +11,7 @@ assign.wrapper(trainingData = NULL, testData, trainingLabel,
   theta0 = 0.05, theta1 = 0.9, iter = 2000, burn_in = 1000,
   sigma_sZero = 0.01, sigma_sNonZero = 1, S_zeroPrior = FALSE,
   pctUp = 0.5, geneselect_iter = 500, geneselect_burn_in = 100,
-  outputSignature_convergence = FALSE, ECM = FALSE)
+  outputSignature_convergence = FALSE, ECM = FALSE, progress_bar = TRUE)
 }
 \arguments{
 \item{trainingData}{The genomic measure matrix of training samples (i.g.,
@@ -101,6 +101,9 @@ default is FALSE.}
 
 \item{ECM}{Logicals. If TRUE, ECM algorithm, rather than Gibbs sampling, is
 applied to approximate the model parameters. The default is FALSE.}
+
+\item{progress_bar}{Display a progress bar for MCMC and gene selection.
+Default is TRUE.}
 }
 \value{
 The assign.wrapper returns one/multiple pathway activity for each
@@ -127,7 +130,7 @@ those functions.
 \examples{
 
 \dontshow{
-setwd(tempdir())
+olddir <- setwd(tempdir())
 tempdir <- tempdir()
 }
 data(trainingData1)
@@ -145,6 +148,10 @@ assign.wrapper(trainingData=trainingData1, testData=testData1,
                geneList=geneList1, adaptive_B=TRUE, adaptive_S=FALSE,
                mixture_beta=TRUE, outputDir=tempdir, p_beta=0.01,
                theta0=0.05, theta1=0.9, iter=20, burn_in=10)
+
+\dontshow{
+setwd(olddir)
+}
 
 }
 \author{

@@ -16,7 +16,8 @@ test_that("test assign.preprocess on the lung data with multiple parameters", {
   processed_data <- assign.preprocess(trainingData = trainingData1,
                                       testData = testData1,
                                       trainingLabel = training_label1,
-                                      geneList = geneList1, n_sigGene = NULL)
+                                      geneList = geneList1, n_sigGene = NULL,
+                                      progress_bar = FALSE)
 
   line750 <- c(0.3609345, -0.0274970, 0.0000617, 1.0123866, 0.9085872)
   expect_equal(round(as.numeric(processed_data$"S_matrix"[750, ]), 7), line750)
@@ -45,7 +46,8 @@ test_that("exclude genes don't affect the number of genes in the signature", {
                                                                    "222227_at",
                                                                    "217356_s_at",
                                                                    "208835_s_at",
-                                                                   "202832_at")))
+                                                                   "202832_at")),
+                                      progress_bar = FALSE)
   expect_equal(nrow(processed_data$S_matrix), numgenes)
 })
 
@@ -72,6 +74,7 @@ test_that("excluding all available genes causes an error", {
                                                               "222227_at",
                                                               "217356_s_at",
                                                               "208835_s_at",
-                                                              "202832_at"))),
+                                                              "202832_at")),
+                                 progress_bar = FALSE),
                "There aren't enough genes available in the data. Check excludeGenes and n_sigGene.")
 })

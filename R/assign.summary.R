@@ -39,7 +39,6 @@
 #' @author Ying Shen
 #' @examples
 #'
-#' \dontshow{
 #' data(trainingData1)
 #' data(testData1)
 #' data(geneList1)
@@ -59,7 +58,6 @@
 #' mcmc.pos.mean <- assign.summary(test=mcmc.chain, burn_in=10, iter=20,
 #'                                 adaptive_B=TRUE, adaptive_S=FALSE,
 #'                                 mixture_beta = TRUE)
-#' }
 #'
 #' @export assign.summary
 assign.summary <- function(test, burn_in=1000, iter=2000, adaptive_B=TRUE,

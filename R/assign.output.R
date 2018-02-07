@@ -42,9 +42,8 @@
 #' (if adaptive_S equals TRUE) of each individual pathway in the test samples.
 #' @author Ying Shen
 #' @examples
-#'
 #' \dontshow{
-#' setwd(tempdir())
+#' olddir <- setwd(tempdir())
 #' tempdir <- tempdir()
 #'
 #' data(trainingData1)
@@ -72,6 +71,9 @@
 #'               trainingLabel=trainingLabel1, testLabel=testLabel1,
 #'               geneList=NULL, adaptive_B=TRUE, adaptive_S=FALSE,
 #'               mixture_beta=TRUE, outputDir=tempdir)
+#' \dontshow{
+#' setwd(olddir)
+#' }
 #'
 #' @export assign.output
 assign.output <- function(processed.data, mcmc.pos.mean.testData, trainingData,

@@ -7,7 +7,7 @@
 assign.preprocess(trainingData = NULL, testData, anchorGenes = NULL,
   excludeGenes = NULL, trainingLabel, geneList = NULL, n_sigGene = NA,
   theta0 = 0.05, theta1 = 0.9, pctUp = 0.5, geneselect_iter = 500,
-  geneselect_burn_in = 100)
+  geneselect_burn_in = 100, progress_bar = TRUE)
 }
 \arguments{
 \item{trainingData}{The genomic measure matrix of training samples (i.g.,
@@ -54,6 +54,8 @@ The default is 500.}
 
 \item{geneselect_burn_in}{The number of burn-in iterations for bayesian gene
 selection. The default is 100}
+
+\item{progress_bar}{Display a progress bar for gene selection. Default is TRUE.}
 }
 \value{
 \item{trainingData_sub}{The G x N matrix of G genomic measures
@@ -121,7 +123,9 @@ trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10, myc=1:10,
                        ras = 39:48, src = 49:55)
 }
 processed.data <- assign.preprocess(trainingData=trainingData1,
-testData=testData1, trainingLabel=trainingLabel1, geneList=geneList1)
+                                    testData=testData1,
+                                    trainingLabel=trainingLabel1,
+                                    geneList=geneList1)
 
 }
 \author{

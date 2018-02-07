@@ -2,7 +2,8 @@
 
 data_prep_s1 <- function(n_sigGene, trainingData, testData, trainingLabel,
                          geneList, anchorGenes, excludeGenes, theta0,
-                         theta1, pctUp = 0.5, iter = 500, burn_in = 100){
+                         theta1, pctUp = 0.5, iter = 500, burn_in = 100,
+                         progress_bar = TRUE){
   if (is.null(geneList)){
     geneSelection <- bayes.gene.selection(n_sigGene, dat = trainingData,
                                           trainingLabel, iter = iter,
@@ -11,7 +12,8 @@ data_prep_s1 <- function(n_sigGene, trainingData, testData, trainingLabel,
                                           beta_tau = 0.01, p = 0.01,
                                           pctUp = pctUp,
                                           anchorGenes = anchorGenes,
-                                          excludeGenes = excludeGenes)
+                                          excludeGenes = excludeGenes,
+                                          progress_bar = progress_bar)
     diffGeneList <- geneSelection$diffGeneList
   } else {
     diffGeneList <- geneList

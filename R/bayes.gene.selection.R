@@ -2,7 +2,7 @@ bayes.gene.selection <- function(n_sigGene, dat, trainingLabel, iter=500,
                                  burn_in=100, sigmaZero = 0.1, sigmaNonZero = 1,
                                  alpha_tau = 1, beta_tau = 0.01, p = 0.01,
                                  pctUp=0.5, anchorGenes=NULL,
-                                 excludeGenes=NULL){
+                                 excludeGenes=NULL, progress_bar = TRUE){
   nPath <- length(trainingLabel) - 1
   bgPosB <- NULL; edPosB <- NULL
   for (i in 1:length(trainingLabel[[1]])){
@@ -41,11 +41,15 @@ bayes.gene.selection <- function(n_sigGene, dat, trainingLabel, iter=500,
     PHI_S[1, ] <- rep(0, n)
     PHI_Delta[1, ] <- rep(0, n)
     PHI_tau2[1, ] <- rep(u / v, n)
-    pb <- utils::txtProgressBar(min = 0, max = iter, width = 80, file = stderr())
-    message("| 0%                                  50%",
-            "                                 100% |")
+    if(progress_bar){
+      pb <- utils::txtProgressBar(min = 0, max = iter, width = 80, file = stderr())
+      message("| 0%                                  50%",
+              "                                 100% |")
+    }
     for (i in 2:iter){
-      utils::setTxtProgressBar(pb, i)
+      if(progress_bar){
+        utils::setTxtProgressBar(pb, i)
+      }
       s_B_1 <- 1 / (k * PHI_tau2[i - 1, ] + 1 / sigma2 ^ 2)
       mu_B_1 <- s_B_1 * (apply(Y, 1, sum) - k2 * PHI_S[i - 1, ]) * PHI_tau2[i - 1, ]
       PHI_B[i, ] <- stats::rnorm(n, mu_B_1, sapply(s_B_1, sqrt))
@@ -65,7 +69,9 @@ bayes.gene.selection <- function(n_sigGene, dat, trainingLabel, iter=500,
       PHI_tau2[i, ] <- Rlab::rgamma(n, un, vn)
 
     }
-    close(pb)
+    if(progress_bar){
+      close(pb)
+    }
     B_pos[, j] <- apply(PHI_B[-c(1:burn_in), ], 2, mean)
     S_pos[, j] <- apply(PHI_S[-c(1:burn_in), ], 2, mean)
     r_pos[, j] <- apply(PHI_Delta[-c(1:burn_in), ], 2, mean)

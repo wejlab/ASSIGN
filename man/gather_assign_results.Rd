@@ -4,7 +4,11 @@
 \alias{gather_assign_results}
 \title{Gather the ASSIGN results in a specific directory}
 \usage{
-gather_assign_results()
+gather_assign_results(path = ".")
+}
+\arguments{
+\item{path}{The path to the directory containing ASSIGN results. The default
+is the current working directory.}
 }
 \value{
 A data frame of ASSIGN predictions from each run in the directory

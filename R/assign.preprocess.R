@@ -61,6 +61,7 @@
 #' The default is 500.
 #' @param geneselect_burn_in The number of burn-in iterations for bayesian gene
 #' selection. The default is 100
+#' @param progress_bar Display a progress bar for gene selection. Default is TRUE.
 #' @return \item{trainingData_sub}{The G x N matrix of G genomic measures
 #' (i.g., gene expression) of N training samples. Genes/probes present in at
 #' least one pathway signature are retained. Only returned when the training
@@ -96,13 +97,16 @@
 #'                        ras = 39:48, src = 49:55)
 #' }
 #' processed.data <- assign.preprocess(trainingData=trainingData1,
-#' testData=testData1, trainingLabel=trainingLabel1, geneList=geneList1)
+#'                                     testData=testData1,
+#'                                     trainingLabel=trainingLabel1,
+#'                                     geneList=geneList1)
 #'
 #' @export assign.preprocess
 assign.preprocess <- function(trainingData=NULL, testData, anchorGenes=NULL,
                               excludeGenes=NULL, trainingLabel, geneList=NULL,
                               n_sigGene=NA, theta0=0.05, theta1=0.9, pctUp=0.5,
-                              geneselect_iter=500, geneselect_burn_in=100){
+                              geneselect_iter=500, geneselect_burn_in=100,
+                              progress_bar = TRUE){
   if(!is.null(anchorGenes)){
     if(names(trainingLabel)[-1] != names(anchorGenes)){
       stop("The anchorGene list must contain all pathways listed in the trainingLabel")
@@ -138,7 +142,7 @@ assign.preprocess <- function(trainingData=NULL, testData, anchorGenes=NULL,
                       testData = dat$testData, trainingLabel, anchorGenes,
                       excludeGenes, geneList = dat$geneList, theta0, theta1,
                       pctUp = pctUp, iter = geneselect_iter,
-                      burn_in = geneselect_burn_in)
+                      burn_in = geneselect_burn_in, progress_bar = progress_bar)
     return(list(trainingData_sub = x$trainingData_sub,
                 testData_sub = x$testData_sub, B_vector = x$trainingBaseline_sub,
                 S_matrix = x$S_matrix, Delta_matrix = x$Delta_matrix,

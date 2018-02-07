@@ -93,7 +93,7 @@ function.</p>
   <span class='kw'>theta0</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>theta1</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>2000</span>, <span class='kw'>burn_in</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
   <span class='kw'>sigma_sZero</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>sigma_sNonZero</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>S_zeroPrior</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>pctUp</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>geneselect_iter</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>geneselect_burn_in</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>outputSignature_convergence</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ECM</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>outputSignature_convergence</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ECM</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>progress_bar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -236,6 +236,11 @@ default is FALSE.</p></td>
       <td><p>Logicals. If TRUE, ECM algorithm, rather than Gibbs sampling, is
 applied to approximate the model parameters. The default is FALSE.</p></td>
     </tr>
+    <tr>
+      <th>progress_bar</th>
+      <td><p>Display a progress bar for MCMC and gene selection.
+Default is TRUE.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -275,6 +280,7 @@ those functions.</p>
                <span class='kw'>geneList</span><span class='kw'>=</span><span class='no'>geneList1</span>, <span class='kw'>adaptive_B</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>adaptive_S</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
                <span class='kw'>mixture_beta</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>outputDir</span><span class='kw'>=</span><span class='no'>tempdir</span>, <span class='kw'>p_beta</span><span class='kw'>=</span><span class='fl'>0.01</span>,
                <span class='kw'>theta0</span><span class='kw'>=</span><span class='fl'>0.05</span>, <span class='kw'>theta1</span><span class='kw'>=</span><span class='fl'>0.9</span>, <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>20</span>, <span class='kw'>burn_in</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='message'>Performing QC on the input data...</span></div><div class='output co'>#&gt; <span class='message'>Generating starting/prior values for model parameters...</span></div><div class='output co'>#&gt; <span class='message'>Estimating model parameters in the training dataset...</span></div><div class='output co'>#&gt; <span class='message'>Start Gibbs sampling...</span></div><div class='output co'>#&gt; <span class='message'>| 0%                                  50%                                 100% |</span></div><div class='output co'>#&gt; <span class='message'>Estimating model parameters in the test dataset...</span></div><div class='output co'>#&gt; <span class='message'>Start Gibbs sampling...</span></div><div class='output co'>#&gt; <span class='message'>| 0%                                  50%                                 100% |</span></div><div class='output co'>#&gt; <span class='message'>Outputing results...</span></div><div class='input'>
+</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

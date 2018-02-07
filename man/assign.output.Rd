@@ -65,9 +65,8 @@ the test dataset, The Y argument in the assign.mcmc function is the output
 value "testData_sub" from the assign.preprocess function.
 }
 \examples{
-
 \dontshow{
-setwd(tempdir())
+olddir <- setwd(tempdir())
 tempdir <- tempdir()
 
 data(trainingData1)
@@ -95,6 +94,9 @@ assign.output(processed.data=processed.data,
               trainingLabel=trainingLabel1, testLabel=testLabel1,
               geneList=NULL, adaptive_B=TRUE, adaptive_S=FALSE,
               mixture_beta=TRUE, outputDir=tempdir)
+\dontshow{
+setwd(olddir)
+}
 
 }
 \author{

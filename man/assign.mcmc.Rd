@@ -9,7 +9,8 @@ assign.mcmc(Y, Bg, X, Delta_prior_p, iter = 2000, adaptive_B = TRUE,
   adaptive_S = FALSE, mixture_beta = TRUE, sigma_sZero = 0.01,
   sigma_sNonZero = 1, p_beta = 0.01, sigma_bZero = 0.01,
   sigma_bNonZero = 1, alpha_tau = 1, beta_tau = 0.01,
-  Bg_zeroPrior = TRUE, S_zeroPrior = FALSE, ECM = FALSE)
+  Bg_zeroPrior = TRUE, S_zeroPrior = FALSE, ECM = FALSE,
+  progress_bar = TRUE)
 }
 \arguments{
 \item{Y}{The G x J matrix of genomic measures (i.g., gene expression) of test
@@ -76,6 +77,8 @@ follows a normal distribution with mean zero. The default is TRUE.}
 
 \item{ECM}{Logicals. If TRUE, ECM algorithm, rather than Gibbs sampling, is
 applied to approximate the model parameters. The default is FALSE.}
+
+\item{progress_bar}{Display a progress bar for MCMC. Default is TRUE.}
 }
 \value{
 \item{beta_mcmc}{The iter x K x J array of the pathway activation

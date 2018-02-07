@@ -104,10 +104,10 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(trainingData1)
 <span class="kw">data</span>(testData1)
 <span class="kw">data</span>(geneList1)
-trainingLabel1 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">bcat=</span><span class="dv">1</span>:<span class="dv">10</span>, <span class="dt">e2f3=</span><span class="dv">1</span>:<span class="dv">10</span>,
-                                      <span class="dt">myc=</span><span class="dv">1</span>:<span class="dv">10</span>, <span class="dt">ras=</span><span class="dv">1</span>:<span class="dv">10</span>, <span class="dt">src=</span><span class="dv">1</span>:<span class="dv">10</span>),
-                       <span class="dt">bcat =</span> <span class="dv">11</span>:<span class="dv">19</span>, <span class="dt">e2f3 =</span> <span class="dv">20</span>:<span class="dv">28</span>, <span class="dt">myc=</span> <span class="dv">29</span>:<span class="dv">38</span>,
-                       <span class="dt">ras =</span> <span class="dv">39</span>:<span class="dv">48</span>, <span class="dt">src =</span> <span class="dv">49</span>:<span class="dv">55</span>)
+trainingLabel1 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">bcat=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">e2f3=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,
+                                      <span class="dt">myc=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">ras=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">src=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>),
+                       <span class="dt">bcat =</span> <span class="dv">11</span><span class="op">:</span><span class="dv">19</span>, <span class="dt">e2f3 =</span> <span class="dv">20</span><span class="op">:</span><span class="dv">28</span>, <span class="dt">myc=</span> <span class="dv">29</span><span class="op">:</span><span class="dv">38</span>,
+                       <span class="dt">ras =</span> <span class="dv">39</span><span class="op">:</span><span class="dv">48</span>, <span class="dt">src =</span> <span class="dv">49</span><span class="op">:</span><span class="dv">55</span>)
 testLabel1 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">"Adeno"</span>, <span class="st">"Squamous"</span>), <span class="kw">c</span>(<span class="dv">53</span>,<span class="dv">58</span>))</code></pre></div>
 </div>
 <div id="run-assign-all-in-one-using-assign-wrapper" class="section level2">
@@ -223,10 +223,10 @@ processed.data &lt;-<span class="st"> </span><span class="kw"><a href="../refere
 <a href="#assign-mcmc" class="anchor"></a><code>assign.mcmc</code>
 </h3>
 <p>For the <code>assign.mcmc</code> function, Y, Bg, and X are specified as the output of the <code>assign.preprocess</code> function. The <code>adaptive_B</code> (adaptive background), <code>Adaptive_S</code> (adaptive signature) and <code>mixture_beta</code> (regularization of signature strength) can be specified TRUE or FALSE based on the analysis context. When training and test samples are from the different cell or tissue types, we recommend the adaptive background option to be TRUE. Notice that when the training dataset is not available, the adaptive signature option must be set TRUE, meaning that the magnitude of the signature should be estimated from the test dataset. The default <code>iter</code> (iteration) is 2000. Particularly, when training datasets are unavailable, it is better to specify the <code>X</code> option in the <code>assign.mcmc</code> using a more informative X (specify up- or down- regulated genes) to initiate the model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mcmc.chain &lt;-<span class="st"> </span><span class="kw"><a href="../reference/assign.mcmc.html">assign.mcmc</a></span>(<span class="dt">Y=</span>processed.data$testData_sub,
-                          <span class="dt">Bg =</span> processed.data$B_vector,
-                          <span class="dt">X=</span>processed.data$S_matrix,
-                          <span class="dt">Delta_prior_p =</span> processed.data$Pi_matrix,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mcmc.chain &lt;-<span class="st"> </span><span class="kw"><a href="../reference/assign.mcmc.html">assign.mcmc</a></span>(<span class="dt">Y=</span>processed.data<span class="op">$</span>testData_sub,
+                          <span class="dt">Bg =</span> processed.data<span class="op">$</span>B_vector,
+                          <span class="dt">X=</span>processed.data<span class="op">$</span>S_matrix,
+                          <span class="dt">Delta_prior_p =</span> processed.data<span class="op">$</span>Pi_matrix,
                           <span class="dt">iter =</span> <span class="dv">2000</span>, <span class="dt">adaptive_B=</span><span class="ot">TRUE</span>,
                           <span class="dt">adaptive_S=</span><span class="ot">FALSE</span>, <span class="dt">mixture_beta=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p>The <code>assign.mcmc</code> function returns the MCMC chain recording default 2000 iterations for each parameter. The details of <code>assign.mcmc</code> output are described in the <code>'value'</code> section of the manual page of <code>assign.mcmc</code> function.</p>
@@ -380,9 +380,9 @@ optimization_results &lt;-<span class="st"> </span><span class="kw"><a href="../
 <div id="session-info" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session info</h1>
-<pre><code>## R version 3.4.2 (2017-09-28)
+<pre><code>## R version 3.4.3 (2017-11-30)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
-## Running under: macOS High Sierra 10.13.2
+## Running under: macOS High Sierra 10.13.3
 ## 
 ## Matrix products: default
 ## BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
@@ -395,13 +395,13 @@ optimization_results &lt;-<span class="st"> </span><span class="kw"><a href="../
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] ASSIGN_1.15.1
+## [1] ASSIGN_1.15.3
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] compiler_3.4.2  backports_1.1.1 BiocStyle_2.6.1 magrittr_1.5   
-##  [5] rprojroot_1.2   tools_3.4.2     htmltools_0.3.6 yaml_2.1.15    
-##  [9] Rcpp_0.12.14    stringi_1.1.6   rmarkdown_1.8   knitr_1.17     
-## [13] stringr_1.2.0   digest_0.6.12   evaluate_0.10.1</code></pre>
+##  [1] compiler_3.4.3  backports_1.1.2 BiocStyle_2.6.1 magrittr_1.5   
+##  [5] rprojroot_1.3-2 tools_3.4.3     htmltools_0.3.6 yaml_2.1.16    
+##  [9] Rcpp_0.12.15    stringi_1.1.6   rmarkdown_1.8   knitr_1.19     
+## [13] stringr_1.2.0   digest_0.6.15   evaluate_0.10.1</code></pre>
 </div>
 </div>
   </div>

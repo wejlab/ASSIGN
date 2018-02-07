@@ -74,6 +74,8 @@
 #' default is FALSE.
 #' @param ECM Logicals. If TRUE, ECM algorithm, rather than Gibbs sampling, is
 #' applied to approximate the model parameters. The default is FALSE.
+#' @param progress_bar Display a progress bar for MCMC and gene selection.
+#' Default is TRUE.
 #' @return The assign.wrapper returns one/multiple pathway activity for each
 #' individual training sample and test sample, scatter plots of pathway
 #' activity for each individual pathway in the training and test data,
@@ -85,7 +87,7 @@
 #' @examples
 #'
 #' \dontshow{
-#' setwd(tempdir())
+#' olddir <- setwd(tempdir())
 #' tempdir <- tempdir()
 #' }
 #' data(trainingData1)
@@ -104,6 +106,10 @@
 #'                mixture_beta=TRUE, outputDir=tempdir, p_beta=0.01,
 #'                theta0=0.05, theta1=0.9, iter=20, burn_in=10)
 #'
+#' \dontshow{
+#' setwd(olddir)
+#' }
+#'
 #' @export assign.wrapper
 assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
                            testLabel = NULL, geneList = NULL,
@@ -114,7 +120,8 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
                            iter = 2000, burn_in = 1000, sigma_sZero = 0.01,
                            sigma_sNonZero = 1, S_zeroPrior=FALSE, pctUp=0.5,
                            geneselect_iter=500, geneselect_burn_in=100,
-                           outputSignature_convergence = FALSE, ECM = FALSE){
+                           outputSignature_convergence = FALSE, ECM = FALSE,
+                           progress_bar = TRUE){
   if (is.null(geneList)) {
     pathName <- names(trainingLabel)[-1]
   } else {
@@ -124,7 +131,8 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
                                       excludeGenes, trainingLabel, geneList,
                                       n_sigGene, theta0, theta1, pctUp = pctUp,
                                       geneselect_iter = geneselect_iter,
-                                      geneselect_burn_in = geneselect_burn_in)
+                                      geneselect_burn_in = geneselect_burn_in,
+                                      progress_bar = progress_bar)
   if (!is.null(trainingData)) {
     message("Estimating model parameters in the training dataset...")
     mcmc.chain.trainingData <- assign.mcmc(Y = processed.data$trainingData_sub,
@@ -138,7 +146,8 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
                                            adaptive_B = FALSE,
                                            adaptive_S = FALSE,
                                            mixture_beta = TRUE,
-                                           ECM = ECM)
+                                           ECM = ECM,
+                                           progress_bar = progress_bar)
     mcmc.pos.mean.trainingData <- assign.summary(test = mcmc.chain.trainingData,
                                                  burn_in = burn_in, iter = iter,
                                                  adaptive_B = FALSE,

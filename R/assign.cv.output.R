@@ -37,7 +37,7 @@
 #' @examples
 #'
 #' \dontshow{
-#' setwd(tempdir())
+#' olddir <- setwd(tempdir())
 #' tempdir <- tempdir()
 #' data(trainingData1)
 #' data(testData1)
@@ -58,9 +58,14 @@
 #' adaptive_B=FALSE, adaptive_S=FALSE, mixture_beta=TRUE)
 #' }
 #' assign.cv.output(processed.data=processed.data,
-#' mcmc.pos.mean.trainingData=mcmc.pos.mean, trainingData=trainingData1,
-#' trainingLabel=trainingLabel1,
-#' adaptive_B=FALSE, adaptive_S=FALSE, mixture_beta=TRUE, outputDir=tempdir)
+#'                  mcmc.pos.mean.trainingData=mcmc.pos.mean,
+#'                  trainingData=trainingData1,
+#'                  trainingLabel=trainingLabel1,
+#'                  adaptive_B=FALSE, adaptive_S=FALSE,
+#'                  mixture_beta=TRUE, outputDir=tempdir)
+#' \dontshow{
+#' setwd(olddir)
+#' }
 #'
 #' @export assign.cv.output
 assign.cv.output <- function(processed.data, mcmc.pos.mean.trainingData,
