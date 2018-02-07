@@ -1,9 +1,8 @@
 language: r
+cache: packages
 dist: trusty
-sudo: required
+sudo: false
 warnings_are_errors: true
 bioc_required: true
-r_packages:
- - Rlab
- - msm
- - gplots
+before_install:
+- Rscript -e 'update.packages(ask = FALSE)'
