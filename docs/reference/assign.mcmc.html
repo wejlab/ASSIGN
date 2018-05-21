@@ -19,13 +19,25 @@ model parameters — assign.mcmc • ASSIGN</title>
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="The Gibbs sampling algorithm to approximate the joint distribution of the
+model parameters — assign.mcmc" />
+
+<meta property="og:description" content="The assign.mcmc function uses a Bayesian sparse factor analysis model to
+estimate the adaptive baseline/background, adaptive pathway signature, and
+pathway activation status of individual test (disease) samples." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -48,8 +60,12 @@ model parameters — assign.mcmc • ASSIGN</title>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">ASSIGN</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">ASSIGN</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.17.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -68,6 +84,7 @@ model parameters — assign.mcmc • ASSIGN</title>
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -75,18 +92,22 @@ model parameters — assign.mcmc • ASSIGN</title>
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>The Gibbs sampling algorithm to approximate the joint distribution of the
 model parameters</h1>
+    
+    <div class="hidden name"><code>assign.mcmc.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The assign.mcmc function uses a Bayesian sparse factor analysis model to
 estimate the adaptive baseline/background, adaptive pathway signature, and
 pathway activation status of individual test (disease) samples.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>assign.mcmc</span>(<span class='no'>Y</span>, <span class='no'>Bg</span>, <span class='no'>X</span>, <span class='no'>Delta_prior_p</span>, <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>2000</span>, <span class='kw'>adaptive_B</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>adaptive_S</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mixture_beta</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>sigma_sZero</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
@@ -95,7 +116,7 @@ pathway activation status of individual test (disease) samples.</p>
   <span class='kw'>Bg_zeroPrior</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>S_zeroPrior</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ECM</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>progress_bar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -276,11 +297,14 @@ Ying Shen
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

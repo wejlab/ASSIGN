@@ -8,14 +8,17 @@
 <title>Introduction to the ASSIGN Package • ASSIGN</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to the ASSIGN Package">
+<meta property="og:description" content="">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -24,8 +27,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">ASSIGN</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">ASSIGN</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.17.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
@@ -52,7 +59,7 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Introduction to the ASSIGN Package</h1>
                         <h4 class="author">Ying Shen</h4>
@@ -64,13 +71,16 @@
       The Section of Computational Biomedicine, Boston University School of Medicine, Boston, MA<br><a class="author_email" href="mailto:#"></a><a href="mailto:wej@bu.edu">wej@bu.edu</a>
       </address>
                   
-          </address>
+      
+      
+      <div class="hidden name"><code>ASSIGN.vignette.Rmd</code></div>
+
+    </address>
 </address>
 </div>
 
     
     
-<div class="contents">
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
@@ -380,13 +390,13 @@ optimization_results &lt;-<span class="st"> </span><span class="kw"><a href="../
 <div id="session-info" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session info</h1>
-<pre><code>## R version 3.4.3 (2017-11-30)
+<pre><code>## R version 3.5.0 (2018-04-23)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
-## Running under: macOS High Sierra 10.13.3
+## Running under: macOS High Sierra 10.13.4
 ## 
 ## Matrix products: default
-## BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
-## LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
 ## 
 ## locale:
 ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -395,14 +405,17 @@ optimization_results &lt;-<span class="st"> </span><span class="kw"><a href="../
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] ASSIGN_1.15.3
+## [1] ASSIGN_1.17.1   BiocStyle_2.8.0
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] compiler_3.4.3  backports_1.1.2 BiocStyle_2.6.1 magrittr_1.5   
-##  [5] rprojroot_1.3-2 tools_3.4.3     htmltools_0.3.6 yaml_2.1.16    
-##  [9] Rcpp_0.12.15    stringi_1.1.6   rmarkdown_1.8   knitr_1.19     
-## [13] stringr_1.2.0   digest_0.6.15   evaluate_0.10.1</code></pre>
-</div>
+##  [1] Rcpp_0.12.16     rstudioapi_0.7   knitr_1.20       xml2_1.2.0      
+##  [5] magrittr_1.5     roxygen2_6.0.1   MASS_7.3-50      R6_2.2.2        
+##  [9] rlang_0.2.0      stringr_1.3.1    tools_3.5.0      xfun_0.1        
+## [13] htmltools_0.3.6  commonmark_1.5   yaml_2.1.19      rprojroot_1.3-2 
+## [17] digest_0.6.15    assertthat_0.2.0 bookdown_0.7     pkgdown_1.0.0   
+## [21] crayon_1.3.4     fs_1.2.2         memoise_1.1.0    evaluate_0.10.1 
+## [25] rmarkdown_1.9    stringi_1.2.2    compiler_3.5.0   desc_1.2.0      
+## [29] backports_1.1.2</code></pre>
 </div>
   </div>
 
@@ -445,11 +458,13 @@ optimization_results &lt;-<span class="st"> </span><span class="kw"><a href="../
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>

@@ -18,13 +18,28 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Optimize GFRN gene lists lengths — optimizeGFRN" />
+
+<meta property="og:description" content="This function runs ASSIGN pathway prediction on gene list lengths from 5 to
+500 to find the optimum gene list length for the GFRN pathways by correlating
+the ASSIGN predictions to a matrix of correlation data that you provide. This
+function takes a long time to run because you are running ASSIGN many times
+on many pathways, so I recommend parallelizing by pathway or running the
+ASSIGN predictions first (long and parallelizable) and then running the
+correlation step (quick) separately." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +62,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">ASSIGN</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">ASSIGN</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.17.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -67,6 +86,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -74,12 +94,15 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Optimize GFRN gene lists lengths</h1>
+    
+    <div class="hidden name"><code>optimizeGFRN.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This function runs ASSIGN pathway prediction on gene list lengths from 5 to
 500 to find the optimum gene list length for the GFRN pathways by correlating
@@ -89,6 +112,7 @@ on many pathways, so I recommend parallelizing by pathway or running the
 ASSIGN predictions first (long and parallelizable) and then running the
 correlation step (quick) separately.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>optimizeGFRN</span>(<span class='no'>indata</span>, <span class='no'>correlation</span>, <span class='no'>correlationList</span>, <span class='kw'>run</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"akt"</span>, <span class='st'>"bad"</span>,
   <span class='st'>"egfr"</span>, <span class='st'>"her2"</span>, <span class='st'>"igf1r"</span>, <span class='st'>"krasgv"</span>, <span class='st'>"krasqh"</span>, <span class='st'>"raf"</span>),
@@ -96,7 +120,7 @@ correlation step (quick) separately.</p>
   <span class='kw'>keep_optimized_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pathway_lengths</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fu'>seq</span>(<span class='fl'>5</span>, <span class='fl'>20</span>, <span class='fl'>5</span>), <span class='fu'>seq</span>(<span class='fl'>25</span>,
   <span class='fl'>275</span>, <span class='fl'>25</span>), <span class='fu'>seq</span>(<span class='fl'>300</span>, <span class='fl'>500</span>, <span class='fl'>50</span>)), <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>1e+05</span>, <span class='kw'>burn_in</span> <span class='kw'>=</span> <span class='fl'>50000</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -206,11 +230,14 @@ with runassignGFRN to try these lists on other data.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

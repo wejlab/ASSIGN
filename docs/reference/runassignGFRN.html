@@ -18,13 +18,26 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Run optimized single pathway ASSIGN — runassignGFRN" />
+
+<meta property="og:description" content="This function runs eight ASSIGN runs based on the pathway optimizations
+from the paper. You can run all eight pathways in serial, or call this
+function and specify the run parameter to run a specific pathway.
+Some ASSIGN parameters can be customized using this function. The default
+values were used in the analysis for the paper." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +60,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">ASSIGN</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">ASSIGN</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.17.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -67,6 +84,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -74,12 +92,15 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Run optimized single pathway ASSIGN</h1>
+    
+    <div class="hidden name"><code>runassignGFRN.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This function runs eight ASSIGN runs based on the pathway optimizations
 from the paper. You can run all eight pathways in serial, or call this
@@ -87,6 +108,7 @@ function and specify the run parameter to run a specific pathway.
 Some ASSIGN parameters can be customized using this function. The default
 values were used in the analysis for the paper.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>runassignGFRN</span>(<span class='no'>indata</span>, <span class='kw'>run</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"akt"</span>, <span class='st'>"bad"</span>, <span class='st'>"egfr"</span>, <span class='st'>"her2"</span>, <span class='st'>"igf1r"</span>, <span class='st'>"krasgv"</span>,
   <span class='st'>"raf"</span>), <span class='kw'>optimized_geneList</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>use_seed</span> <span class='kw'>=</span> <span class='fl'>1234</span>, <span class='kw'>sigma_sZero</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
@@ -94,7 +116,7 @@ values were used in the analysis for the paper.</p>
   <span class='kw'>burn_in</span> <span class='kw'>=</span> <span class='fl'>50000</span>, <span class='kw'>exclude_common_genes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>adaptive_S</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>ECM</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -196,11 +218,14 @@ directory.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

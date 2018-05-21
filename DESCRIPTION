@@ -1,7 +1,7 @@
 Package: ASSIGN
 Type: Package
 Title: Adaptive Signature Selection and InteGratioN (ASSIGN)
-Version: 1.17.0
+Version: 1.17.1
 Date: 2014-10-30
 Author: Ying Shen, Andrea H. Bild, W. Evan Johnson, and Mumtehena Rahman
 Authors@R: c(person(given="Ying", family="Shen", email="yshen3@bu.edu", role=c("aut")),
@@ -43,3 +43,5 @@ Suggests:
     rmarkdown
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
+URL: https://compbiomed.github.io/ASSIGN/
+BugReports: https://github.com/compbiomed/ASSIGN/issues
