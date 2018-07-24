@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -34,6 +36,7 @@
 assign.summary, assign.output, assign.cv.output functions into one wrapper
 function." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -60,7 +63,7 @@ function." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ASSIGN</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.17.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.17.2</span>
       </span>
     </div>
 
@@ -113,7 +116,8 @@ function.</p>
   <span class='kw'>theta0</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>theta1</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>2000</span>, <span class='kw'>burn_in</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
   <span class='kw'>sigma_sZero</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>sigma_sNonZero</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>S_zeroPrior</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>pctUp</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>geneselect_iter</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>geneselect_burn_in</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>outputSignature_convergence</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ECM</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>progress_bar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>outputSignature_convergence</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ECM</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>progress_bar</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>override_S_matrix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -260,6 +264,13 @@ applied to approximate the model parameters. The default is FALSE.</p></td>
       <th>progress_bar</th>
       <td><p>Display a progress bar for MCMC and gene selection.
 Default is TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>override_S_matrix</th>
+      <td><p>Replace the S_matrix created by assign.preprocess
+with the matrix provided in override_S_matrix. This can be used to indicate
+the expected directions of genes in a signature if training data is not
+provided.</p></td>
     </tr>
     </table>
     

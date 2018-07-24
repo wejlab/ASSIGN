@@ -1,0 +1,5 @@
+Changes in Version 1.17.2
+
+* Bugfix ComBat.step2 by forcing ComBat input to be a matrix
+* Added new argument to assign.wrapper to specify direction of signature genes.
+* parameters file in assign.wrapper is now in yaml format.

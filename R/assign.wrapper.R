@@ -76,6 +76,10 @@
 #' applied to approximate the model parameters. The default is FALSE.
 #' @param progress_bar Display a progress bar for MCMC and gene selection.
 #' Default is TRUE.
+#' @param override_S_matrix Replace the S_matrix created by assign.preprocess
+#' with the matrix provided in override_S_matrix. This can be used to indicate
+#' the expected directions of genes in a signature if training data is not
+#' provided.
 #' @return The assign.wrapper returns one/multiple pathway activity for each
 #' individual training sample and test sample, scatter plots of pathway
 #' activity for each individual pathway in the training and test data,
@@ -121,7 +125,7 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
                            sigma_sNonZero = 1, S_zeroPrior=FALSE, pctUp=0.5,
                            geneselect_iter=500, geneselect_burn_in=100,
                            outputSignature_convergence = FALSE, ECM = FALSE,
-                           progress_bar = TRUE){
+                           progress_bar = TRUE, override_S_matrix = NULL){
   if (is.null(geneList)) {
     pathName <- names(trainingLabel)[-1]
   } else {
@@ -156,9 +160,17 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
 
   }
   message("Estimating model parameters in the test dataset...")
+
+  if (is.null(trainingData) & !is.null(override_S_matrix)) {
+    Smat <- override_S_matrix
+    message("Using override_S_matrix")
+  } else {
+    Smat <- processed.data$S_matrix
+  }
+
   mcmc.chain.testData <- assign.mcmc(Y = processed.data$testData_sub,
                                      Bg = processed.data$B_vector,
-                                     X = processed.data$S_matrix,
+                                     X = Smat,
                                      Delta_prior_p = processed.data$Pi_matrix,
                                      iter = iter, sigma_sZero = sigma_sZero,
                                      sigma_sNonZero = sigma_sNonZero,
@@ -194,16 +206,27 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
   setwd(outputDir)
 
   ###moom added this
-  param <- as.matrix(paste(pathName,
-                           "analysis was run using the following parameters :",
-                           "n_sigGene=", n_sigGene, "adaptive_B=", adaptive_B,
-                           "adaptive_S=", adaptive_S, "mixture_beta=",
-                           mixture_beta, "p_beta=", p_beta, "theta0=", theta0,
-                           "theta1=", theta1, "iter=", iter, "burn_in=",
-                           burn_in, "The output files are located at:",
-                           outputDir, sep = " "))
-
-  utils::write.table(param, "parameters.txt", col.names = FALSE, sep = "\t")
+  param <- data.frame(ASSIGN='ASSIGN parameters',
+                      version=as.character(utils::packageVersion("ASSIGN")),
+                      n_sigGene=n_sigGene,
+                      adaptive_B=adaptive_B,
+                      adaptive_S=adaptive_S,
+                      mixture_beta=mixture_beta,
+                      p_beta=p_beta,
+                      theta0=theta0,
+                      theta1=theta1,
+                      iter=iter,
+                      burn_in=burn_in,
+                      sigma_sZero=sigma_sZero,
+                      sigma_sNonZero=sigma_sNonZero,
+                      S_zeroPrior=S_zeroPrior,
+                      pctUp=pctUp,
+                      geneselect_iter=geneselect_iter,
+                      geneselect_burn_in=geneselect_burn_in,
+                      ECM=ECM,
+                      outputDir=outputDir)
+  y1 <- yaml::as.yaml(param, column.major = FALSE)
+  writeLines(y1, con = "parameters.yaml")
 
   ###moom added this to include the gene list and prior coefficient
   if (!is.null(trainingData)) {
@@ -238,7 +261,7 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
     }
 
     dimnames(mcmc.pos.mean.testData$Delta_pos) <- dimnames(processed.data$S_matrix)
-    deltas <- cbind(processed.data$S_matrix, processed.data$Delta_matrix,
+    deltas <- cbind(Smat, processed.data$Delta_matrix,
                     mcmc.pos.mean.testData$S_pos,
                     mcmc.pos.mean.testData$Delta_pos)
 
@@ -276,6 +299,6 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
     output.data <- list(processed.data = processed.data,
                         mcmc.pos.mean.testData = mcmc.pos.mean.testData)
   }
-  save(output.data, file = "output.rda")
+  saveRDS(output.data, file = "output.rds")
   setwd(cwd)
 }

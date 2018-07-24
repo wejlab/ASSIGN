@@ -38,7 +38,7 @@ merge_drop <- function(x, y, by=0, ...){
 #' @export pcaplot
 #'
 pcaplot <- function(mat, sub, center=TRUE, scale=TRUE, plottitle="PCA"){
-  if (length(sub) != length(mat)){
+  if (length(sub) != ncol(mat)){
     stop("verify the subscripts...exiting now")
   }
   else{

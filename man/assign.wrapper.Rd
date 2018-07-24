@@ -11,7 +11,8 @@ assign.wrapper(trainingData = NULL, testData, trainingLabel,
   theta0 = 0.05, theta1 = 0.9, iter = 2000, burn_in = 1000,
   sigma_sZero = 0.01, sigma_sNonZero = 1, S_zeroPrior = FALSE,
   pctUp = 0.5, geneselect_iter = 500, geneselect_burn_in = 100,
-  outputSignature_convergence = FALSE, ECM = FALSE, progress_bar = TRUE)
+  outputSignature_convergence = FALSE, ECM = FALSE, progress_bar = TRUE,
+  override_S_matrix = NULL)
 }
 \arguments{
 \item{trainingData}{The genomic measure matrix of training samples (i.g.,
@@ -104,6 +105,11 @@ applied to approximate the model parameters. The default is FALSE.}
 
 \item{progress_bar}{Display a progress bar for MCMC and gene selection.
 Default is TRUE.}
+
+\item{override_S_matrix}{Replace the S_matrix created by assign.preprocess
+with the matrix provided in override_S_matrix. This can be used to indicate
+the expected directions of genes in a signature if training data is not
+provided.}
 }
 \value{
 The assign.wrapper returns one/multiple pathway activity for each

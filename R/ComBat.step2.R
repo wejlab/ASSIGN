@@ -60,7 +60,7 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL,
     grDevices::pdf("pca_refcombat_twostep.pdf")
     print(pcaplotbefore)
   }
-  combat_expr1 <- sva::ComBat(dat = dat, batch = bat, mod = NULL, ref.batch = 1)
+  combat_expr1 <- sva::ComBat(dat = as.matrix(dat), batch = bat, mod = NULL, ref.batch = 1)
   if (pcaPlots){
     pcaplotafter <- pcaplot(combat_expr1, sub, plottitle = "PCA: After ComBat")
     print(pcaplotafter)
