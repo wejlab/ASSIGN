@@ -20,8 +20,9 @@ signature.
 ASSIGN is available on Bioconductor:
 
 ```r
-source("https://bioconductor.org/biocLite.R")
-biocLite("ASSIGN")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("ASSIGN")
 ```
 
 Or install the development version from github:
