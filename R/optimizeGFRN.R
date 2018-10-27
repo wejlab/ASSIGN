@@ -39,9 +39,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' testData <- read.table("https://www.dropbox.com/s/6iuxcr2f0fjbirv/icbp_Rsubread_tpmlog.txt?dl=1",
+#' testData <- read.table("https://drive.google.com/uc?authuser=0&id=1mJICN4z_aCeh4JuPzNfm8GR_lkJOhWFr&export=download",
 #'                        sep='\t', row.names=1, header=1)
-#' corData <- read.table("https://www.dropbox.com/s/nm3m38ca6v4lu10/proteomics.txt?dl=1",
+#' corData <- read.table("https://drive.google.com/uc?authuser=0&id=1MDWVP2jBsAAcMNcNFKE74vYl-orpo7WH&export=download",
 #'                       sep='\t', row.names=1, header=1)
 #' corData$negAkt <- -1 * corData$Akt
 #' corData$negPDK1 <- -1 * corData$PDK1

@@ -38,7 +38,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' testData <- read.table("https://www.dropbox.com/s/6iuxcr2f0fjbirv/icbp_Rsubread_tpmlog.txt?dl=1",
+#' testData <- read.table("https://drive.google.com/uc?authuser=0&id=1mJICN4z_aCeh4JuPzNfm8GR_lkJOhWFr&export=download",
 #'                        sep='\t', row.names=1, header=1)
 #' combat.data <- ComBat.step2(testData, pcaPlots = TRUE)
 #' runassignGFRN(combat.data)

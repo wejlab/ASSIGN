@@ -4,9 +4,9 @@
 \alias{assign.output}
 \title{Prediction/validation output for test data}
 \usage{
-assign.output(processed.data, mcmc.pos.mean.testData, trainingData, testData,
-  trainingLabel, testLabel, geneList, adaptive_B = TRUE, adaptive_S = FALSE,
-  mixture_beta = TRUE, outputDir)
+assign.output(processed.data, mcmc.pos.mean.testData, trainingData,
+  testData, trainingLabel, testLabel, geneList, adaptive_B = TRUE,
+  adaptive_S = FALSE, mixture_beta = TRUE, outputDir)
 }
 \arguments{
 \item{processed.data}{The list object returned from the assign.preprocess

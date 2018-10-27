@@ -11,8 +11,8 @@ assign.wrapper(trainingData = NULL, testData, trainingLabel,
   theta0 = 0.05, theta1 = 0.9, iter = 2000, burn_in = 1000,
   sigma_sZero = 0.01, sigma_sNonZero = 1, S_zeroPrior = FALSE,
   pctUp = 0.5, geneselect_iter = 500, geneselect_burn_in = 100,
-  outputSignature_convergence = FALSE, ECM = FALSE, progress_bar = TRUE,
-  override_S_matrix = NULL)
+  outputSignature_convergence = FALSE, ECM = FALSE,
+  progress_bar = TRUE, override_S_matrix = NULL)
 }
 \arguments{
 \item{trainingData}{The genomic measure matrix of training samples (i.g.,

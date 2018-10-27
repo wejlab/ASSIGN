@@ -67,7 +67,7 @@ correlation step (quick) separately." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ASSIGN</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.17.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.17.4</span>
       </span>
     </div>
 
@@ -120,8 +120,8 @@ correlation step (quick) separately.</p>
     <pre class="usage"><span class='fu'>optimizeGFRN</span>(<span class='no'>indata</span>, <span class='no'>correlation</span>, <span class='no'>correlationList</span>, <span class='kw'>run</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"akt"</span>, <span class='st'>"bad"</span>,
   <span class='st'>"egfr"</span>, <span class='st'>"her2"</span>, <span class='st'>"igf1r"</span>, <span class='st'>"krasgv"</span>, <span class='st'>"krasqh"</span>, <span class='st'>"raf"</span>),
   <span class='kw'>run_ASSIGN_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>correlation_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>keep_optimized_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pathway_lengths</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fu'>seq</span>(<span class='fl'>5</span>, <span class='fl'>20</span>, <span class='fl'>5</span>), <span class='fu'>seq</span>(<span class='fl'>25</span>,
-  <span class='fl'>275</span>, <span class='fl'>25</span>), <span class='fu'>seq</span>(<span class='fl'>300</span>, <span class='fl'>500</span>, <span class='fl'>50</span>)), <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>1e+05</span>, <span class='kw'>burn_in</span> <span class='kw'>=</span> <span class='fl'>50000</span>)</pre>
+  <span class='kw'>keep_optimized_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pathway_lengths</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fu'>seq</span>(<span class='fl'>5</span>, <span class='fl'>20</span>, <span class='fl'>5</span>),
+  <span class='fu'>seq</span>(<span class='fl'>25</span>, <span class='fl'>275</span>, <span class='fl'>25</span>), <span class='fu'>seq</span>(<span class='fl'>300</span>, <span class='fl'>500</span>, <span class='fl'>50</span>)), <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>1e+05</span>, <span class='kw'>burn_in</span> <span class='kw'>=</span> <span class='fl'>50000</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,9 +191,9 @@ with runassignGFRN to try these lists on other data.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>testData</span> <span class='kw'>&lt;-</span> <span class='fu'>read.table</span>(<span class='st'>"https://www.dropbox.com/s/6iuxcr2f0fjbirv/icbp_Rsubread_tpmlog.txt?dl=1"</span>,
+<span class='no'>testData</span> <span class='kw'>&lt;-</span> <span class='fu'>read.table</span>(<span class='st'>"https://drive.google.com/uc?authuser=0&amp;id=1mJICN4z_aCeh4JuPzNfm8GR_lkJOhWFr&amp;export=download"</span>,
                        <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>'\t'</span>, <span class='kw'>row.names</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>header</span><span class='kw'>=</span><span class='fl'>1</span>)
-<span class='no'>corData</span> <span class='kw'>&lt;-</span> <span class='fu'>read.table</span>(<span class='st'>"https://www.dropbox.com/s/nm3m38ca6v4lu10/proteomics.txt?dl=1"</span>,
+<span class='no'>corData</span> <span class='kw'>&lt;-</span> <span class='fu'>read.table</span>(<span class='st'>"https://drive.google.com/uc?authuser=0&amp;id=1MDWVP2jBsAAcMNcNFKE74vYl-orpo7WH&amp;export=download"</span>,
                       <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>'\t'</span>, <span class='kw'>row.names</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>header</span><span class='kw'>=</span><span class='fl'>1</span>)
 <span class='no'>corData</span>$<span class='no'>negAkt</span> <span class='kw'>&lt;-</span> -<span class='fl'>1</span> * <span class='no'>corData</span>$<span class='no'>Akt</span>
 <span class='no'>corData</span>$<span class='no'>negPDK1</span> <span class='kw'>&lt;-</span> -<span class='fl'>1</span> * <span class='no'>corData</span>$<span class='no'>PDK1</span>
