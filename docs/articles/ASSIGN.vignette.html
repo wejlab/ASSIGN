@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ASSIGN</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.17.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.19.0</span>
       </span>
     </div>
 
@@ -84,17 +84,17 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>This vignette provides an overview of the Bioconductor package <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> (Adaptive Signature Selection and InteGratioN) for signature-based profiling of heterogeneous biological pathways. <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> is a computational tool used to evaluate the pathway deregulation/activation status in individual patient samples. <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> employs a flexible Bayesian factor analysis approach that adapts predetermined pathway signatures derived either from a literature search or from perturbation experiments to create cell-/tissue-specific pathway signatures. The deregulation/activation level of each context-specific pathway is quantified to a score, which represents the extent to which a patient sample matches thepathway deregulation/activation signature.</p>
-<p>Some distinctive features of <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> are:</p>
+<p>This vignette provides an overview of the Bioconductor package <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> (Adaptive Signature Selection and InteGratioN) for signature-based profiling of heterogeneous biological pathways. <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> is a computational tool used to evaluate the pathway deregulation/activation status in individual patient samples. <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> employs a flexible Bayesian factor analysis approach that adapts predetermined pathway signatures derived either from a literature search or from perturbation experiments to create cell-/tissue-specific pathway signatures. The deregulation/activation level of each context-specific pathway is quantified to a score, which represents the extent to which a patient sample matches thepathway deregulation/activation signature.</p>
+<p>Some distinctive features of <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> are:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Multiple Pathway Profiling</strong>: <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> can profile multiple pathway signatures simultaneously, accounting for ‘cross-talk’ between interconnected pathway components.</li>
+<strong>Multiple Pathway Profiling</strong>: <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> can profile multiple pathway signatures simultaneously, accounting for ‘cross-talk’ between interconnected pathway components.</li>
 <li>
-<strong>Context specificity in baseline gene expression</strong>: Baseline gene expression levels (i.e., the gene expression level under normal conditions) may vary widely due to differences across tissue types, disease statuses, or measurement platforms. <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> can adaptively estimate background gene expression levels across a set of samples.</li>
+<strong>Context specificity in baseline gene expression</strong>: Baseline gene expression levels (i.e., the gene expression level under normal conditions) may vary widely due to differences across tissue types, disease statuses, or measurement platforms. <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> can adaptively estimate background gene expression levels across a set of samples.</li>
 <li>
-<strong>Context-specific signature estimation</strong>: <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> provides the flexibility to use either an input gene list or magnitudes of signature genes as prior information, allowing for adaptive refinement of pathway signatures in specific cell or tissue types.</li>
+<strong>Context-specific signature estimation</strong>: <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> provides the flexibility to use either an input gene list or magnitudes of signature genes as prior information, allowing for adaptive refinement of pathway signatures in specific cell or tissue types.</li>
 <li>
-<strong>Regularization of signature strength estimates</strong>: <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> regularizes the signature strength coefficients using a Bayesian ridge regression formulation by shrinking the strength of the irrelevant signature genes toward zero. The parameter regularization constrains the pathway signature to a small group of genes, making the results more biologically interpretable.</li>
+<strong>Regularization of signature strength estimates</strong>: <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> regularizes the signature strength coefficients using a Bayesian ridge regression formulation by shrinking the strength of the irrelevant signature genes toward zero. The parameter regularization constrains the pathway signature to a small group of genes, making the results more biologically interpretable.</li>
 </ol>
 </div>
 <div id="how-to-use-the-assign-package" class="section level1">
@@ -103,14 +103,14 @@
 <div id="example-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-data" class="anchor"></a>Example Data</h2>
-<p>In the following examples, we will illustrate how to run <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> using either the easy to use <code>assign.wrapper</code> function for simple analysis or each individual <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> step for more detailed intermediate results.</p>
-<p>For either analysis, we will first load <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> and create a temporary directory <code>'tempdir'</code> under the user’s current working directory. All output generated in this vignette will be saved in <code>'tempdir'</code>.</p>
+<p>In the following examples, we will illustrate how to run <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> using either the easy to use <code>assign.wrapper</code> function for simple analysis or each individual <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> step for more detailed intermediate results.</p>
+<p>For either analysis, we will first load <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> and create a temporary directory <code>'tempdir'</code> under the user’s current working directory. All output generated in this vignette will be saved in <code>'tempdir'</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ASSIGN)
 
 <span class="kw">dir.create</span>(<span class="st">"tempdir"</span>)</code></pre></div>
 <pre><code>## Warning in dir.create("tempdir"): 'tempdir' already exists</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tempdir &lt;-<span class="st"> "tempdir"</span></code></pre></div>
-<p>Next, load the training data, test data, training labels, and test labels. The training dataset is a G (number of genomic measurements) x N (number of samples in pathway perturbation experiments) matrix, including five oncogenic pathways: B-Catenin, E2F3, MYC, RAS, and SRC pathways in this example. The training data labels denote the column indices of control and experimental samples for each perturbation experiment. For example, we specify the column indices of the 10 RAS control samples to be 1:10, and column indices of 10 RAS activated samples to be 39:48. The test dataset is a G (number of genomic measurements) x N (number of patient samples) matrix. The test data labels denote the classes of the N test samples. In our example, test samples 1-53 are adenocarcinoma and samples 54-111 are squamous cell carcinoma. We specify <code>'Adeno'</code> and <code>'Squamous'</code> in the vector of test data labels. Note that the test data labels are optional. <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> outputs additional validation plots to evaluate classification accuracy when test data labels are provided.</p>
+<p>Next, load the training data, test data, training labels, and test labels. The training dataset is a G (number of genomic measurements) x N (number of samples in pathway perturbation experiments) matrix, including five oncogenic pathways: B-Catenin, E2F3, MYC, RAS, and SRC pathways in this example. The training data labels denote the column indices of control and experimental samples for each perturbation experiment. For example, we specify the column indices of the 10 RAS control samples to be 1:10, and column indices of 10 RAS activated samples to be 39:48. The test dataset is a G (number of genomic measurements) x N (number of patient samples) matrix. The test data labels denote the classes of the N test samples. In our example, test samples 1-53 are adenocarcinoma and samples 54-111 are squamous cell carcinoma. We specify <code>'Adeno'</code> and <code>'Squamous'</code> in the vector of test data labels. Note that the test data labels are optional. <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> outputs additional validation plots to evaluate classification accuracy when test data labels are provided.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(trainingData1)
 <span class="kw">data</span>(testData1)
 <span class="kw">data</span>(geneList1)
@@ -122,25 +122,25 @@ testLabel1 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class
 </div>
 <div id="run-assign-all-in-one-using-assign-wrapper" class="section level2">
 <h2 class="hasAnchor">
-<a href="#run-assign-all-in-one-using-assign-wrapper" class="anchor"></a>Run <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> all-in-one using <code>assign.wrapper</code>
+<a href="#run-assign-all-in-one-using-assign-wrapper" class="anchor"></a>Run <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> all-in-one using <code>assign.wrapper</code>
 </h2>
-<p>We developed an all-in-one <code>assign.wrapper</code> function to run <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> with one command. For most users, <code>assign.wrapper</code> will be sufficient. The <code>assign.wrapper</code> function outputs the following files:</p>
+<p>We developed an all-in-one <code>assign.wrapper</code> function to run <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> with one command. For most users, <code>assign.wrapper</code> will be sufficient. The <code>assign.wrapper</code> function outputs the following files:</p>
 <ul>
 <li>
-<strong>pathway_activity_testset.csv</strong>: <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> predicted pathway activity in test samples.</li>
+<strong>pathway_activity_testset.csv</strong>: <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> predicted pathway activity in test samples.</li>
 <li>
 <strong>signature_heatmap_testset_prior.pdf</strong>: heatmaps of the expression level of prior signature genes in training samples.</li>
 <li>
 <strong>pathway_activity_scatterplot_testset.pdf</strong>: scatterplot of pathway activity in test samples. The x-axis represents test samples ordered by pathway activity; the y-axis represents pathway activity.</li>
 <li>
-<strong>output.rda</strong>: The intermediate results of individual <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> functions.</li>
+<strong>output.rda</strong>: The intermediate results of individual <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> functions.</li>
 <li>
-<strong>parameters.txt</strong>: A log file containing the parameters used for this <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> run.</li>
+<strong>parameters.txt</strong>: A log file containing the parameters used for this <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> run.</li>
 </ul>
 <p>If training data is provided, <code>assign.wrapper</code> also outputs the following files:</p>
 <ul>
 <li>
-<strong>pathway_activity_trainingset.csv</strong>: <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> predicted pathway activity in training samples.</li>
+<strong>pathway_activity_trainingset.csv</strong>: <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> predicted pathway activity in training samples.</li>
 <li>
 <strong>signature_heatmap_trainingset.pdf</strong>: heatmaps of the expression level of signature genes in training samples.</li>
 <li>
@@ -162,7 +162,7 @@ testLabel1 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class
 <li>
 <strong>pathway_activity_boxplot_testset.pdf</strong>: boxplot of pathway activity in every test class.</li>
 </ul>
-<p>Here we illustrate how to run <code>assign.wrapper</code> function with three examples. To start, create a temporary directory <code>'tempdir'</code> and load training and test datasets. The individual parameters are described in detail in the sections below and the <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> reference manual.</p>
+<p>Here we illustrate how to run <code>assign.wrapper</code> function with three examples. To start, create a temporary directory <code>'tempdir'</code> and load training and test datasets. The individual parameters are described in detail in the sections below and the <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> reference manual.</p>
 <div id="example-1-training-data-is-available-but-a-gene-list-of-pathway-signature-genes-is-not-available" class="section level3">
 <h3 class="hasAnchor">
 <a href="#example-1-training-data-is-available-but-a-gene-list-of-pathway-signature-genes-is-not-available" class="anchor"></a>Example 1: Training data is available, but a gene list of pathway signature genes is not available:</h3>
@@ -199,7 +199,7 @@ testLabel1 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class
 </div>
 <div id="run-assign-step-by-step" class="section level2">
 <h2 class="hasAnchor">
-<a href="#run-assign-step-by-step" class="anchor"></a>Run <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> step-by-step</h2>
+<a href="#run-assign-step-by-step" class="anchor"></a>Run <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> step-by-step</h2>
 <p>We developed a series of functions: <code>assign.preprocess</code>, <code>assign.mcmc</code>, <code>assign.convergence</code>, <code>assign.summary</code>, <code>assign.cv.output</code>, and <code>assign.output</code> that work in concert to produce detailed results.</p>
 <div id="assign-preprocess" class="section level3">
 <h3 class="hasAnchor">
@@ -268,7 +268,7 @@ processed.data &lt;-<span class="st"> </span><span class="kw"><a href="../refere
 <p>The <code>assign.cv.output</code> generates the cross-validation results in the training samples. Output files from <code>assign.cv.output</code> are:</p>
 <ul>
 <li>
-<strong>pathway_activity_trainingset.csv</strong>: <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> predicted pathway activity in training samples.</li>
+<strong>pathway_activity_trainingset.csv</strong>: <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> predicted pathway activity in training samples.</li>
 <li>
 <strong>signature_heatmap_trainingset.pdf</strong>: heatmaps of the expression level of signature genes in training samples.</li>
 <li>
@@ -290,7 +290,7 @@ processed.data &lt;-<span class="st"> </span><span class="kw"><a href="../refere
 <p>The <code>assign.output</code> generates the prediction results in the test samples. Output files from <code>assign.output</code> are:</p>
 <ul>
 <li>
-<strong>pathway_activity_testset.csv</strong>: <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> predicted pathway activity in test samples.</li>
+<strong>pathway_activity_testset.csv</strong>: <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> predicted pathway activity in test samples.</li>
 <li>
 <strong>signature_heatmap_testset_prior.pdf</strong>: heatmaps of the expression level of prior signature genes in training samples.</li>
 <li>
@@ -317,7 +317,7 @@ processed.data &lt;-<span class="st"> </span><span class="kw"><a href="../refere
 <div id="anchor-gene-lists-and-exclude-gene-lists" class="section level2">
 <h2 class="hasAnchor">
 <a href="#anchor-gene-lists-and-exclude-gene-lists" class="anchor"></a>Anchor Gene Lists and Exclude Gene Lists</h2>
-<p>The <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> package allows a signature to be adapted to fit other biological contexts, reducing the contribution of specific genes in the signature to better match heterogeneity observed in the test dataset. Occasionally, adapting a signature may reduce the importance of key signature genes. For example, if a signature is created by overexpressing an oncogenic gene in a cell line, but during the adaptation step, <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> reduces the importance of that key gene, the quality of the <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> predictions may be reduced. Alternatively, if a gene in the signature is associated with some other heterogeneity in the data, such as smoking status, <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> may adapt to differences in that gene, rather than the actual desired signature activity predictions. To this end, we have added the ability to provide a list of key genes to anchor in the signature, and genes to exclude from the signature. <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> accomplishes this by setting the probability of inclusion into the signature to one for anchor genes, and zero for exclude genes. The change in expression values can still adapt, increasing or reducing the fold change associated with each gene in the signature, but the anchor genes will always contribute to the final signature, and the exclude genes will not.</p>
+<p>The <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> package allows a signature to be adapted to fit other biological contexts, reducing the contribution of specific genes in the signature to better match heterogeneity observed in the test dataset. Occasionally, adapting a signature may reduce the importance of key signature genes. For example, if a signature is created by overexpressing an oncogenic gene in a cell line, but during the adaptation step, <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> reduces the importance of that key gene, the quality of the <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> predictions may be reduced. Alternatively, if a gene in the signature is associated with some other heterogeneity in the data, such as smoking status, <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> may adapt to differences in that gene, rather than the actual desired signature activity predictions. To this end, we have added the ability to provide a list of key genes to anchor in the signature, and genes to exclude from the signature. <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> accomplishes this by setting the probability of inclusion into the signature to one for anchor genes, and zero for exclude genes. The change in expression values can still adapt, increasing or reducing the fold change associated with each gene in the signature, but the anchor genes will always contribute to the final signature, and the exclude genes will not.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dir.create</span>(<span class="kw">file.path</span>(tempdir, <span class="st">"anchor_exclude_example"</span>))
 
 anchorList =<span class="st"> </span><span class="kw">list</span>(<span class="dt">bcat=</span><span class="st">"224321_at"</span>,
@@ -342,17 +342,17 @@ excludeList =<span class="st"> </span><span class="kw">list</span>(<span class="
 <div id="fraction-of-upregulated-genes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fraction-of-upregulated-genes" class="anchor"></a>Fraction of Upregulated Genes</h2>
-<p>By default, <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> Bayesian gene selection chooses the signature genes with an equal fraction of genes that increase with pathway activity and genes that decrease with pathway activity. Use the pctUp parameter to modify this fraction. Set pctUP to NULL to select the most significant genes, regardless of direction.</p>
+<p>By default, <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> Bayesian gene selection chooses the signature genes with an equal fraction of genes that increase with pathway activity and genes that decrease with pathway activity. Use the pctUp parameter to modify this fraction. Set pctUP to NULL to select the most significant genes, regardless of direction.</p>
 </div>
 </div>
 <div id="gfrn-optimization-procedure" class="section level1">
 <h1 class="hasAnchor">
 <a href="#gfrn-optimization-procedure" class="anchor"></a>GFRN Optimization Procedure</h1>
-<p>When running <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em>, the number of genes in the gene list can affect the predictions that <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> produces, but it is not always clear how long the gene list should be. Included within <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> is the optimization procedure used in the publication <a href="http://dx.doi.org/10.1186/s13073-017-0429-x">Activity of distinct growth factor receptor network components in breast tumors uncovers two biologically relevant subtypes</a>. The function allows you to optimize the gene list lengths for the pathways included in the paper using your own correlation data and gene list lengths. This function runs <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> pathway prediction on various gene list lengths to find the optimum gene list length for the GFRN pathways by correlating the <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> predictions to a matrix of correlation data that you provide. This function takes a long time to run because you are running <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> many times on many pathways, so I recommend parallelizing by pathway or running the <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> predictions first (long and parallelizable) and then running the correlation step (quick) separately.</p>
+<p>When running <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em>, the number of genes in the gene list can affect the predictions that <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> produces, but it is not always clear how long the gene list should be. Included within <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> is the optimization procedure used in the publication <a href="http://dx.doi.org/10.1186/s13073-017-0429-x">Activity of distinct growth factor receptor network components in breast tumors uncovers two biologically relevant subtypes</a>. The function allows you to optimize the gene list lengths for the pathways included in the paper using your own correlation data and gene list lengths. This function runs <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> pathway prediction on various gene list lengths to find the optimum gene list length for the GFRN pathways by correlating the <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> predictions to a matrix of correlation data that you provide. This function takes a long time to run because you are running <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> many times on many pathways, so I recommend parallelizing by pathway or running the <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> predictions first (long and parallelizable) and then running the correlation step (quick) separately.</p>
 <div id="example-optimization-procedure" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-optimization-procedure" class="anchor"></a>Example Optimization Procedure</h2>
-<p>The following example optimizes the pathway length for the AKT pathway based on correlating <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> predictions with proteomics data. First, read in the test data that you want to predict using <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> and the data (e.g. proteomics data) that will be used for correlation:</p>
+<p>The following example optimizes the pathway length for the AKT pathway based on correlating <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> predictions with proteomics data. First, read in the test data that you want to predict using <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> and the data (e.g. proteomics data) that will be used for correlation:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dir.create</span>(<span class="kw">file.path</span>(tempdir, <span class="st">"optimization_example"</span>))
 <span class="kw">setwd</span>(<span class="kw">file.path</span>(tempdir, <span class="st">"optimization_example"</span>))
 
@@ -372,27 +372,27 @@ combat.data &lt;-<span class="st"> </span><span class="kw"><a href="../reference
 <span class="co">#run the default optimization procedure</span>
 optimization_results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/optimizeGFRN.html">optimizeGFRN</a></span>(combat.data, corData,
                                      corList, <span class="dt">run=</span><span class="st">"akt"</span>)</code></pre></div>
-<p><em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> will output the results for each gene list length in the current working directory. The <code>optimizeGFRN</code> function returns a list of optimized gene lists which can be used on other datasets and correlation results. Additional options and documentation is available in the <code>optimizeGFRN</code> function documentation.</p>
+<p><em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> will output the results for each gene list length in the current working directory. The <code>optimizeGFRN</code> function returns a list of optimized gene lists which can be used on other datasets and correlation results. Additional options and documentation is available in the <code>optimizeGFRN</code> function documentation.</p>
 </div>
 </div>
 <div id="citing-assign" class="section level1">
 <h1 class="hasAnchor">
-<a href="#citing-assign" class="anchor"></a>Citing <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em>
+<a href="#citing-assign" class="anchor"></a>Citing <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em>
 </h1>
-<p>If you use <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> in your publication, please cite:</p>
+<p>If you use <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> in your publication, please cite:</p>
 <p>Shen, Y. et al. ASSIGN: context-specific genomic profiling of multiple heterogeneous biological pathways. Bioinformatics 31 (11), 1745-1753 (2015). <a href="http://dx.doi.org/10.1093/bioinformatics/btv031">doi:10.1093/bioinformatics/btv031</a></p>
 </div>
 <div id="conclusion" class="section level1">
 <h1 class="hasAnchor">
 <a href="#conclusion" class="anchor"></a>Conclusion</h1>
-<p>Please see the <em><a href="http://bioconductor.org/packages/ASSIGN">ASSIGN</a></em> reference manual for full descriptions of functions and the various options they support.</p>
+<p>Please see the <em><a href="https://bioconductor.org/packages/3.8/ASSIGN">ASSIGN</a></em> reference manual for full descriptions of functions and the various options they support.</p>
 </div>
 <div id="session-info" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session info</h1>
 <pre><code>## R version 3.5.1 (2018-07-02)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
-## Running under: macOS  10.14
+## Running under: macOS  10.14.1
 ## 
 ## Matrix products: default
 ## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
@@ -405,17 +405,19 @@ optimization_results &lt;-<span class="st"> </span><span class="kw"><a href="../
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] ASSIGN_1.17.2   BiocStyle_2.8.2
+## [1] ASSIGN_1.19.0    BiocStyle_2.10.0
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.19     rstudioapi_0.8   knitr_1.20       xml2_1.2.0      
-##  [5] magrittr_1.5     roxygen2_6.1.0   MASS_7.3-51      R6_2.3.0        
-##  [9] rlang_0.3.0      stringr_1.3.1    tools_3.5.1      xfun_0.4        
-## [13] htmltools_0.3.6  commonmark_1.6   yaml_2.2.0       rprojroot_1.3-2 
-## [17] digest_0.6.18    assertthat_0.2.0 bookdown_0.7     pkgdown_1.1.0   
-## [21] crayon_1.3.4     fs_1.2.6         memoise_1.1.0    evaluate_0.12   
-## [25] rmarkdown_1.10   stringi_1.2.4    compiler_3.5.1   desc_1.2.0      
-## [29] backports_1.1.2</code></pre>
+##  [1] Rcpp_0.12.19       rstudioapi_0.8     knitr_1.20        
+##  [4] xml2_1.2.0         magrittr_1.5       roxygen2_6.1.0    
+##  [7] MASS_7.3-51.1      R6_2.3.0           rlang_0.3.0.1     
+## [10] stringr_1.3.1      tools_3.5.1        xfun_0.4          
+## [13] htmltools_0.3.6    commonmark_1.6     yaml_2.2.0        
+## [16] rprojroot_1.3-2    digest_0.6.18      assertthat_0.2.0  
+## [19] bookdown_0.7       pkgdown_1.1.0      crayon_1.3.4      
+## [22] BiocManager_1.30.3 fs_1.2.6           memoise_1.1.0     
+## [25] evaluate_0.12      rmarkdown_1.10     stringi_1.2.4     
+## [28] compiler_3.5.1     desc_1.2.0         backports_1.1.2</code></pre>
 </div>
   </div>
 
@@ -428,8 +430,8 @@ optimization_results &lt;-<span class="st"> </span><span class="kw"><a href="../
       <li>
 <a href="#how-to-use-the-assign-package">How to use the ASSIGN package</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#example-data">Example Data</a></li>
-      <li><a href="#run-assign-all-in-one-using-assign-wrapper">Run <em><a href="http://bioconductor-org/packages/ASSIGN">ASSIGN</a></em> all-in-one using <code>assign.wrapper</code></a></li>
-      <li><a href="#run-assign-step-by-step">Run <em><a href="http://bioconductor-org/packages/ASSIGN">ASSIGN</a></em> step-by-step</a></li>
+      <li><a href="#run-assign-all-in-one-using-assign-wrapper">Run <em><a href="https://bioconductor-org/packages/3-8/ASSIGN">ASSIGN</a></em> all-in-one using <code>assign.wrapper</code></a></li>
+      <li><a href="#run-assign-step-by-step">Run <em><a href="https://bioconductor-org/packages/3-8/ASSIGN">ASSIGN</a></em> step-by-step</a></li>
       </ul>
 </li>
       <li>
@@ -443,7 +445,7 @@ optimization_results &lt;-<span class="st"> </span><span class="kw"><a href="../
 <li><a href="#example-optimization-procedure">Example Optimization Procedure</a></li>
       </ul>
 </li>
-      <li><a href="#citing-assign">Citing <em><a href="http://bioconductor-org/packages/ASSIGN">ASSIGN</a></em></a></li>
+      <li><a href="#citing-assign">Citing <em><a href="https://bioconductor-org/packages/3-8/ASSIGN">ASSIGN</a></em></a></li>
       <li><a href="#conclusion">Conclusion</a></li>
       <li><a href="#session-info">Session info</a></li>
       </ul>
