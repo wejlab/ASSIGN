@@ -43,9 +43,10 @@ biocViews: Software, GeneExpression, Pathways, Bayesian
 Suggests:
     testthat,
     BiocStyle,
+    lintr,
     knitr,
     rmarkdown
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 URL: https://compbiomed.github.io/ASSIGN/
 BugReports: https://github.com/compbiomed/ASSIGN/issues
