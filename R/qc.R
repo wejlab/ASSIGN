@@ -12,7 +12,7 @@ qc <- function(trainingData, testData, geneList){
   } else {
     probe <- row.names(testData)
   }
-  for (i in 1:length(geneList)){
+  for (i in seq_len(length(geneList))){
     geneList[[i]] <- geneList[[i]][geneList[[i]] %in% probe]
   }
   rtlist <- list(testData = testData, geneList = geneList)

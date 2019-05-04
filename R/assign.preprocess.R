@@ -107,14 +107,14 @@ assign.preprocess <- function(trainingData=NULL, testData, anchorGenes=NULL,
                               n_sigGene=NA, theta0=0.05, theta1=0.9, pctUp=0.5,
                               geneselect_iter=500, geneselect_burn_in=100,
                               progress_bar = TRUE){
-  if(!is.null(anchorGenes)){
-    if(names(trainingLabel)[-1] != names(anchorGenes)){
+  if (!is.null(anchorGenes)){
+    if (names(trainingLabel)[-1] != names(anchorGenes)){
       stop("The anchorGene list must contain all pathways listed in the trainingLabel")
     }
   }
 
-  if(!is.null(excludeGenes)){
-    if(names(trainingLabel)[-1] != names(excludeGenes)){
+  if (!is.null(excludeGenes)){
+    if (names(trainingLabel)[-1] != names(excludeGenes)){
       stop("The excludeGenes list must contain all pathways listed in the trainingLabel")
     }
   }
@@ -133,7 +133,7 @@ assign.preprocess <- function(trainingData=NULL, testData, anchorGenes=NULL,
     stop("trainingData and geneList are both set NULL. Need one of them for the analysis!")
   }
 
-  if(!is.null(trainingData) & is.null(trainingLabel)){
+  if (!is.null(trainingData) & is.null(trainingLabel)){
     stop("You must supply trainingLabels when specifying trainingData!")
   }
 

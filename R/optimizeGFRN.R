@@ -112,7 +112,7 @@ optimizeGFRN <- function(indata, correlation, correlationList,
   }
 
   combined <- ASSIGN::merge_drop(results, correlation)
-  results <- combined[, 1:length(colnames(results))]
+  results <- combined[, seq_len(length(colnames(results)))]
   correlation <- combined[, (length(colnames(results)) + 1):(length(colnames(results)) + length(colnames(correlation)))]
 
   #correlate the specific columns with the pathways according to the

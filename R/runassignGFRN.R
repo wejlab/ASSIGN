@@ -84,8 +84,8 @@ runassignGFRN <- function(indata, run=c("akt", "bad", "egfr", "her2", "igf1r",
   for (curr_path in run){
     trainingLabel <- list()
     trainingLabel[["control"]] <- list()
-    trainingLabel[["control"]][[curr_path]] <- 1:
-      ncol(indata[[gfpList[[curr_path]]]])
+    trainingLabel[["control"]][[curr_path]] <- seq_len(
+      ncol(indata[[gfpList[[curr_path]]]]))
     trainingLabel[[curr_path]] <- (ncol(indata[[gfpList[[curr_path]]]]) + 1):
       (ncol(indata[[gfpList[[curr_path]]]]) + ncol(indata[[curr_path]]))
 

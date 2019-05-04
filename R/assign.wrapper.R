@@ -206,25 +206,25 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
   setwd(outputDir)
 
   ###moom added this
-  param <- data.frame(ASSIGN='ASSIGN parameters',
-                      version=as.character(utils::packageVersion("ASSIGN")),
-                      n_sigGene=n_sigGene,
-                      adaptive_B=adaptive_B,
-                      adaptive_S=adaptive_S,
-                      mixture_beta=mixture_beta,
-                      p_beta=p_beta,
-                      theta0=theta0,
-                      theta1=theta1,
-                      iter=iter,
-                      burn_in=burn_in,
-                      sigma_sZero=sigma_sZero,
-                      sigma_sNonZero=sigma_sNonZero,
-                      S_zeroPrior=S_zeroPrior,
-                      pctUp=pctUp,
-                      geneselect_iter=geneselect_iter,
-                      geneselect_burn_in=geneselect_burn_in,
-                      ECM=ECM,
-                      outputDir=outputDir)
+  param <- data.frame(ASSIGN = 'ASSIGN parameters',
+                      version = as.character(utils::packageVersion("ASSIGN")),
+                      n_sigGene = n_sigGene,
+                      adaptive_B = adaptive_B,
+                      adaptive_S = adaptive_S,
+                      mixture_beta = mixture_beta,
+                      p_beta = p_beta,
+                      theta0 = theta0,
+                      theta1 = theta1,
+                      iter = iter,
+                      burn_in = burn_in,
+                      sigma_sZero = sigma_sZero,
+                      sigma_sNonZero = sigma_sNonZero,
+                      S_zeroPrior = S_zeroPrior,
+                      pctUp = pctUp,
+                      geneselect_iter = geneselect_iter,
+                      geneselect_burn_in = geneselect_burn_in,
+                      ECM = ECM,
+                      outputDir = outputDir)
   y1 <- yaml::as.yaml(param, column.major = FALSE)
   writeLines(y1, con = "parameters.yaml")
 
@@ -275,7 +275,7 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
                                 pathName, sep = ":"))
     delta_in <- NULL
 
-    for (i in 1:ncol(deltas)){
+    for (i in seq_len(ncol(deltas))){
       delta_in[i] <- (strsplit(colnames(deltas), ":")[[i]][2])
     }
 

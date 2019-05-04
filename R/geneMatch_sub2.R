@@ -1,6 +1,6 @@
 geneMatch_sub2 <- function(dat, diffGeneList, trainingLabel){
   bgPosB <- NULL; edPosB <- NULL
-  for (i in 1:length(trainingLabel[[1]])){
+  for (i in seq_len(length(trainingLabel[[1]]))){
     bgPosB <- c(bgPosB, trainingLabel[[1]][[i]][1])
     edPosB <- c(edPosB, trainingLabel[[1]][[i]][length(trainingLabel[[1]][[i]])])
   }
@@ -15,7 +15,7 @@ geneMatch_sub2 <- function(dat, diffGeneList, trainingLabel){
   dat1 <- dat[tmp, ]
   S1 <- matrix(0, nrow = nrow(dat1), ncol = length(bgPosB))
   S2 <- matrix(0, nrow = nrow(dat1), ncol = length(bgPosB))
-  for (i in 1:length(bgPosB)){
+  for (i in seq_len(length(bgPosB))){
     pathBase <- rowMeans(dat1[, bgPosB[i]:edPosB[i]])
     pathSig <- rowMeans(dat1[, bgPosS[i]:edPosS[i]]) - pathBase
     tmp2 <- match(geneName2[[i]], row.names(dat1))

@@ -5,7 +5,7 @@ bayes.gene.selection <- function(n_sigGene, dat, trainingLabel, iter=500,
                                  excludeGenes=NULL, progress_bar = TRUE){
   nPath <- length(trainingLabel) - 1
   bgPosB <- NULL; edPosB <- NULL
-  for (i in 1:length(trainingLabel[[1]])){
+  for (i in seq_len(length(trainingLabel[[1]]))){
     bgPosB <- c(bgPosB, trainingLabel[[1]][[i]][1])
     edPosB <- c(edPosB, trainingLabel[[1]][[i]][length(trainingLabel[[1]][[i]])])
   }
@@ -41,13 +41,13 @@ bayes.gene.selection <- function(n_sigGene, dat, trainingLabel, iter=500,
     PHI_S[1, ] <- rep(0, n)
     PHI_Delta[1, ] <- rep(0, n)
     PHI_tau2[1, ] <- rep(u / v, n)
-    if(progress_bar){
+    if (progress_bar){
       pb <- utils::txtProgressBar(min = 0, max = iter, width = 80, file = stderr())
       message("| 0%                                  50%",
               "                                 100% |")
     }
     for (i in 2:iter){
-      if(progress_bar){
+      if (progress_bar){
         utils::setTxtProgressBar(pb, i)
       }
       s_B_1 <- 1 / (k * PHI_tau2[i - 1, ] + 1 / sigma2 ^ 2)
@@ -69,7 +69,7 @@ bayes.gene.selection <- function(n_sigGene, dat, trainingLabel, iter=500,
       PHI_tau2[i, ] <- Rlab::rgamma(n, un, vn)
 
     }
-    if(progress_bar){
+    if (progress_bar){
       close(pb)
     }
     B_pos[, j] <- apply(PHI_B[-c(1:burn_in), ], 2, mean)
@@ -80,13 +80,13 @@ bayes.gene.selection <- function(n_sigGene, dat, trainingLabel, iter=500,
 
   diffGeneList <- vector("list")
   for (j in 1:m){
-    if(!is.null(excludeGenes[[j]])){
+    if (!is.null(excludeGenes[[j]])){
       excludegene_index <- which(row.names(dat) %in% excludeGenes[[j]])
     } else{
       excludegene_index <- NULL
     }
     #check if we are excluding more genes than are available for signature
-    if(length(setdiff(order((abs(S_pos[, j]) * r_pos[, j]), decreasing = TRUE),
+    if (length(setdiff(order((abs(S_pos[, j]) * r_pos[, j]), decreasing = TRUE),
                       excludegene_index)) < n_sigGene[j]){
       stop("There aren't enough genes available in the data. ",
            "Check excludeGenes and n_sigGene.")
