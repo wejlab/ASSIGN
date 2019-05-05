@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/compbiomed/ASSIGN.svg?branch=master)](https://travis-ci.org/dfjenkins3/ASSIGN)
+[![Build Status](https://travis-ci.org/compbiomed/ASSIGN.svg?branch=master)](https://travis-ci.org/compbiomed/ASSIGN)
 
 # ASSIGN: Adaptive Signature Selection and InteGratioN
 
