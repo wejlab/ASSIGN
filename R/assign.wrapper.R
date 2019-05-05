@@ -192,8 +192,7 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
       coef_train <- mcmc.pos.mean.trainingData$kappa_pos
     }
     coef_test <- mcmc.pos.mean.testData$kappa_pos
-  }
-  else {
+  } else {
     if (!is.null(trainingData)) {
       coef_train <- mcmc.pos.mean.trainingData$beta_pos
     }
