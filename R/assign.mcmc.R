@@ -121,10 +121,10 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
   m <- NCOL(S)
 
   #prior of B
-  if (adaptive_B == FALSE){
+  if (adaptive_B == FALSE) {
     mu_B_0 <- Bg
   } else {
-    if (Bg_zeroPrior == TRUE){
+    if (Bg_zeroPrior == TRUE) {
       mu_B_0 <- rep(0, n)
     } else {
       mu_B_0 <- Bg
@@ -136,10 +136,10 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
   sB0_inv_muB0 <-  s_B_0_inv * mu_B_0
 
   # prior of S
-  if (adaptive_S == FALSE){
+  if (adaptive_S == FALSE) {
     S_0 <- S
   } else {
-    if (S_zeroPrior == TRUE){
+    if (S_zeroPrior == TRUE) {
       S_0 <- matrix(0, n, m)
     } else {
       S_0 <- S
@@ -176,12 +176,12 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
   P_tau2 <- matrix(nrow = iter, ncol = n)
 
   #initial values
-  if (adaptive_B == TRUE){
+  if (adaptive_B == TRUE) {
     B_temp <- msm::rtnorm(n, 0, 1, lower = 0)
   } else {
     B_temp <- mu_B_0
   }
-  if (adaptive_S == TRUE){
+  if (adaptive_S == TRUE) {
     S_temp <- S
   } else {
     S_temp <- S_0
@@ -189,7 +189,7 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
   delta_temp <- matrix(Rlab::rbern(onesNM, p_delta), n, m)
   delta_pr_temp <- p_delta
   beta_temp <- matrix(0, m, k)
-  if (mixture_beta == TRUE){
+  if (mixture_beta == TRUE) {
     gamma_temp <- matrix(Rlab::rbern(onesMK, p_beta), m, k)
     gamma_pr_temp <- matrix(p_beta, m, k)
   } else {
@@ -201,30 +201,30 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
 
   #update first row
   P_B[1, ] <- B_temp
-  if (adaptive_S == TRUE){
+  if (adaptive_S == TRUE) {
     P_S[1, , ] <- S_temp
     P_delta[1, , ] <- delta_temp
     P_delta_pr[1, , ] <- delta_pr_temp
   }
   P_beta[1, , ] <- beta_temp
-  if (mixture_beta == TRUE){
+  if (mixture_beta == TRUE) {
     P_gamma[1, , ] <- gamma_temp
     P_gamma_pr[1, , ] <- gamma_pr_temp
   }
   P_kappa[1, , ] <- kappa_temp
   P_tau2[1, ] <- tau_temp
 
-  if (progress_bar){
+  if (progress_bar) {
     pb <- utils::txtProgressBar(min = 0, max = iter, width = 80, file = stderr())
     message("| 0%                                  50%",
             "                                 100% |")
   }
   for (i in 2:iter) {
-    if (progress_bar){
+    if (progress_bar) {
       utils::setTxtProgressBar(pb, i)
     }
     #update B
-    if (adaptive_B == TRUE){
+    if (adaptive_B == TRUE) {
       tmp0 <- S_temp %*% beta_temp
 
       s_B_1 <- 1 / (k * tau_temp + s_B_0_inv)
@@ -240,8 +240,8 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
     B_rep <- matrix(rep(B_temp, k), n, k)
     Y_minus_B_rep <- Y - B_rep
 
-    for (s in 1:m){
-      if (m == 1){
+    for (s in 1:m) {
+      if (m == 1) {
         tmp1 <- S_temp[, s] ^ 2 * tau_temp
         tmp2 <- S_temp[, s] * tau_temp
         s_beta_0_inv <- 1 / ifelse(gamma_temp[s, ] == 1, sigma_b2 ^ 2,
@@ -260,7 +260,7 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
       if (ECM == TRUE) {
         beta_temp[s, ] <- mu_beta_1
       } else {
-        if (mixture_beta == TRUE){
+        if (mixture_beta == TRUE) {
           lower <- ifelse(gamma_temp[s, ] == 1, 0, -Inf)
           upper <- ifelse(gamma_temp[s, ] == 1, 1, Inf)
           beta_temp[s, ] <- msm::rtnorm(k, mu_beta_1, sqrt(s_beta_1), lower,
@@ -273,8 +273,8 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
       }
     }
 
-    if (mixture_beta == TRUE){
-      for (s in 1:m){
+    if (mixture_beta == TRUE) {
+      for (s in 1:m) {
         gamma_b_div_a <- (stats::pnorm(1) - stats::pnorm(0)) * odds_beta * (sigma_b2 / sigma_b1) * exp(-1 / 2 * (beta_temp[s, ] ^ 2 / sigma_b1 ^ 2 - beta_temp[s, ] ^ 2 / sigma_b2 ^ 2))
         gamma_pr_temp[s, ] <- ifelse(beta_temp[s, ] < 0,  0, 1 / (1 + gamma_b_div_a))
         gamma_temp[s, ] <- Rlab::rbern(k, gamma_pr_temp[s, ])
@@ -282,7 +282,7 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
     }
 
     #update S
-    if (adaptive_S == TRUE){
+    if (adaptive_S == TRUE) {
       mu_S_0 <- ifelse(delta_temp == 1, S_0, 0)
       sigma_s2 <- ((i %% 500 + 1) ^ 2 + 1 / sigma_sNonZero) / (i %% 500 + 1) ^ 2 * sigma_sNonZero
       sigma_s1 <- ((i %% 500 + 1) ^ 2 + 1 / sigma_sNonZero) / (i %% 500 + 1) ^ 2 * sigma_sZero  ## add a little tempering every 500 iterations to not get stuck in local modes
@@ -290,7 +290,7 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
       tmp4 <- s_S_inv_0 * mu_S_0
       s_S_inv_1 <- 1 / (as.matrix(tau_temp) %*% t(as.matrix(apply(beta_temp ^ 2, 1, sum))) + s_S_inv_0)
 
-      for (j in 1:m){
+      for (j in 1:m) {
         E1 <-  Y_minus_B_rep - S_temp[, -j, drop = FALSE] %*% beta_temp[-j, , drop = FALSE]
         mu_S_1 <- s_S_inv_1[, j] * (tau_temp * (E1 %*% beta_temp[j, ]) + tmp4[, j])
         lower <- ifelse(mu_S_0[, j] > 0, 0, -Inf)
@@ -314,36 +314,36 @@ assign.mcmc <- function(Y, Bg, X, Delta_prior_p, iter=2000, adaptive_B=TRUE,
     tau_temp <- Rlab::rgamma(n, un, vn)
 
     # update
-    if (adaptive_B == TRUE){
+    if (adaptive_B == TRUE) {
       P_B[i, ] <- B_temp
     }
-    if (adaptive_S == TRUE){
+    if (adaptive_S == TRUE) {
       P_S[i, , ] <- S_temp
       P_delta[i, , ] <- delta_temp
       P_delta_pr[i, , ] <- delta_pr_temp
     }
     P_beta[i, , ] <- beta_temp
-    if (mixture_beta == TRUE){
+    if (mixture_beta == TRUE) {
       P_gamma[i, , ] <- gamma_temp
       P_gamma_pr[i, , ] <- gamma_pr_temp
     }
     P_kappa[i, , ] <- kappa_temp
     P_tau2[i, ] <- tau_temp
   }
-  if (progress_bar){
+  if (progress_bar) {
     close(pb)
   }
 
   rtlist <- list(beta_mcmc = P_beta,  tau2_mcmc = P_tau2)
-  if (adaptive_B == TRUE){
+  if (adaptive_B == TRUE) {
     rtlist <- c(rtlist, list(B_mcmc = P_B))
   }
 
-  if (mixture_beta == TRUE){
+  if (mixture_beta == TRUE) {
     rtlist <- c(rtlist, list(gamma_mcmc = P_gamma, kappa_mcmc = P_kappa))
   }
 
-  if (adaptive_S == TRUE){
+  if (adaptive_S == TRUE) {
     rtlist <- c(rtlist, list(S_mcmc = P_S, Delta_mcmc = P_delta))
   }
 

@@ -4,9 +4,15 @@
 \alias{assign.convergence}
 \title{Check the convergence of the MCMC chain}
 \usage{
-assign.convergence(test, burn_in = 0, iter = 2000, parameter = c("B",
-  "S", "Delta", "beta", "kappa", "gamma", "sigma"), whichGene, whichSample,
-  whichPath)
+assign.convergence(
+  test,
+  burn_in = 0,
+  iter = 2000,
+  parameter = c("B", "S", "Delta", "beta", "kappa", "gamma", "sigma"),
+  whichGene,
+  whichSample,
+  whichPath
+)
 }
 \arguments{
 \item{test}{The list object returned from the assign.mcmc function. The list

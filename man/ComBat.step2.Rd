@@ -4,8 +4,12 @@
 \alias{ComBat.step2}
 \title{Perform the second step of ComBat}
 \usage{
-ComBat.step2(testData, pcaPlots = FALSE, combat_train = NULL,
-  plots_to_console = FALSE)
+ComBat.step2(
+  testData,
+  pcaPlots = FALSE,
+  combat_train = NULL,
+  plots_to_console = FALSE
+)
 }
 \arguments{
 \item{testData}{The input test data to batch correct}

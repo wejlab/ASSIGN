@@ -10,5 +10,6 @@ test_that("test no trainingLabels", {
   expect_error(assign.wrapper(trainingData = trainingData1,
                               trainingLabel = NULL,
                               testData = testData1,
-                              geneList = geneList1, n_sigGene = NULL), "You must supply trainingLabels when specifying trainingData!")
+                              geneList = geneList1, n_sigGene = NULL,
+                              outputDir = tempfile()), "You must supply trainingLabels when specifying trainingData!")
 })

@@ -38,7 +38,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' testData <- read.table("https://drive.google.com/uc?authuser=0&id=1mJICN4z_aCeh4JuPzNfm8GR_lkJOhWFr&export=download",
+#' testData <- read.table(paste0("https://drive.google.com/uc?authuser=0&",
+#'                               "id=1mJICN4z_aCeh4JuPzNfm8GR_lkJOhWFr",
+#'                               "&export=download"),
 #'                        sep='\t', row.names=1, header=1)
 #' combat.data <- ComBat.step2(testData, pcaPlots = TRUE)
 #' runassignGFRN(combat.data)
@@ -62,7 +64,7 @@ runassignGFRN <- function(indata, run=c("akt", "bad", "egfr", "her2", "igf1r",
   gfpList <- list(akt = "gfp", bad = "gfp", egfr = "egfr_gfp", her2 = "gfp",
                   igf1r = "gfp", krasgv = "kras_gfp", raf = "gfp")
 
-  if (is.null(optimized_geneList)){
+  if (is.null(optimized_geneList)) {
     utils::data("gfrn_geneList", package = "ASSIGN", envir = environment())
     gfrn_geneList <- get("gfrn_geneList", envir = environment())
     optimized_geneList <- list(akt = c(gfrn_geneList$akt_up[1:10],
@@ -81,7 +83,7 @@ runassignGFRN <- function(indata, run=c("akt", "bad", "egfr", "her2", "igf1r",
                                        gfrn_geneList$raf_down[1:175]))
   }
 
-  for (curr_path in run){
+  for (curr_path in run) {
     trainingLabel <- list()
     trainingLabel[["control"]] <- list()
     trainingLabel[["control"]][[curr_path]] <- seq_len(
@@ -89,20 +91,20 @@ runassignGFRN <- function(indata, run=c("akt", "bad", "egfr", "her2", "igf1r",
     trainingLabel[[curr_path]] <- (ncol(indata[[gfpList[[curr_path]]]]) + 1):
       (ncol(indata[[gfpList[[curr_path]]]]) + ncol(indata[[curr_path]]))
 
-    if (!(anchorGeneList[curr_path] %in% rownames(indata[["test"]]))){
+    if (!(anchorGeneList[curr_path] %in% rownames(indata[["test"]]))) {
       warning(anchorGeneList[curr_path], " not in input data. No anchor gene ",
               "will be used.")
       anchorGeneList[curr_path] <- list(NULL)
     }
 
     excludeGeneList <- NULL
-    if (exclude_common_genes){
+    if (exclude_common_genes) {
       excludegenes <- get("excludegenes", envir = environment())
       excludeGeneList <- list()
       excludeGeneList[curr_path] <- list(excludegenes)
     }
 
-    if (use_seed){
+    if (use_seed) {
       set.seed(use_seed)
     }
 

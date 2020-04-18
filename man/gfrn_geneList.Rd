@@ -4,8 +4,10 @@
 \name{gfrn_geneList}
 \alias{gfrn_geneList}
 \title{Pathway Signature Gene Lists}
-\format{List of gene lists for akt, bad, egfr, her2, igf1r, krasgv, krasqh,
-and raf}
+\format{
+List of gene lists for akt, bad, egfr, her2, igf1r, krasgv, krasqh,
+and raf
+}
 \source{
 Bild et al.
 }

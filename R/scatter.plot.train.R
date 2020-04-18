@@ -1,11 +1,11 @@
-scatter.plot.train <- function(coef_train, trainingData, trainingLabel){
+scatter.plot.train <- function(coef_train, trainingData, trainingLabel, outPath) {
   nPath <- length(trainingLabel) - 1
   trainL <- character(length = length(unlist(trainingLabel)))
-  for (i in 1:(nPath + 1)){
-    if (i == 1){
+  for (i in 1:(nPath + 1)) {
+    if (i == 1) {
       x <- unique(trainingLabel[[i]])
       names(x) <- paste("control", seq_len(length(x)), sep = "")
-      for (j in seq_len(length(x))){
+      for (j in seq_len(length(x))) {
         trainL[x[[j]]] <- rep(names(x)[j], length(x[[j]]))
       }
     } else {
@@ -15,8 +15,8 @@ scatter.plot.train <- function(coef_train, trainingData, trainingLabel){
   }
   trainL <- trainL[trainL != ""]
 
-  grDevices::pdf("pathway_activity_scatterplot_trainingset.pdf")
-  for (i in 1:nPath){
+  grDevices::pdf(outPath)
+  for (i in 1:nPath) {
     HMEC_samples <- seq_len(ncol(trainingData))
     Pathway_strength_HMEC <- coef_train[, i]
     graphics::plot(HMEC_samples, Pathway_strength_HMEC, col = as.factor(trainL),

@@ -45,15 +45,15 @@
 assign.convergence <- function(test, burn_in=0, iter=2000,
                                parameter=c("B", "S", "Delta", "beta", "kappa",
                                            "gamma", "sigma"), whichGene,
-                               whichSample, whichPath){
-  if (parameter == "B"){
+                               whichSample, whichPath) {
+  if (parameter == "B") {
     B_pos <- test$B_mcmc[burn_in:iter, whichGene]
     graphics::plot(B_pos, type = "l", xlab = "Iteration", ylab = "Posterior B",
                    main = "Convergence of posterior B")
     return(B_pos)
   }
 
-  if (parameter == "S"){
+  if (parameter == "S") {
     S_pos <- test$S_mcmc[burn_in:iter, whichGene, whichPath]
     graphics::plot(S_pos, type = "l", xlab = "Iteration",
                    ylab = paste("Posterior S of pathway ", whichPath, " gene ",
@@ -62,7 +62,7 @@ assign.convergence <- function(test, burn_in=0, iter=2000,
     return(S_pos)
   }
 
-  if (parameter == "Delta"){
+  if (parameter == "Delta") {
     Delta_pos <- test$Delta_mcmc[burn_in:iter, whichGene, whichPath]
     graphics::plot(Delta_pos, type = "l", xlab = "Iteration",
                    ylab = paste("Posterior Delta of pathway ", whichPath,
@@ -71,7 +71,7 @@ assign.convergence <- function(test, burn_in=0, iter=2000,
     return(Delta_pos)
   }
 
-  if (parameter == "beta"){
+  if (parameter == "beta") {
     beta_pos <- test$beta_mcmc[burn_in:iter, whichPath, whichSample]
     graphics::plot(beta_pos, type = "l", xlab = "Iteration",
                    ylab = paste("Posterior beta of sample ", whichSample,
@@ -80,7 +80,7 @@ assign.convergence <- function(test, burn_in=0, iter=2000,
     return(beta_pos)
   }
 
-  if (parameter == "kappa"){
+  if (parameter == "kappa") {
     kappa_pos <- test$kappa_mcmc[burn_in:iter, whichPath, whichSample]
     graphics::plot(kappa_pos, type = "l", xlab = "Iteration",
                    ylab = paste("Posterior kappa of sample ", whichSample,
@@ -89,7 +89,7 @@ assign.convergence <- function(test, burn_in=0, iter=2000,
     return(kappa_pos)
   }
 
-  if (parameter == "gamma"){
+  if (parameter == "gamma") {
     gamma_pos <- test$gamma_mcmc[burn_in:iter, whichPath, whichSample]
     graphics::plot(gamma_pos, type = "l", xlab = "Iteration",
                    ylab = paste("Posterior gamma of sample ", whichSample,
@@ -98,7 +98,7 @@ assign.convergence <- function(test, burn_in=0, iter=2000,
     return(gamma_pos)
   }
 
-  if (parameter == "sigma"){
+  if (parameter == "sigma") {
     sigma_pos <- 1 / test$tau2_mcmc[burn_in:iter, whichGene]
     graphics::plot(sigma_pos, type = "l", xlab = "Iteration",
                    ylab = paste("Posterior sigma^2 of gene ",

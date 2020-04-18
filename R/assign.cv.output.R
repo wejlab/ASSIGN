@@ -37,8 +37,7 @@
 #' @examples
 #'
 #' \dontshow{
-#' olddir <- setwd(tempdir())
-#' tempdir <- tempdir()
+#' tempdir <- file.path(tempdir(), "assign_cv_output")
 #' data(trainingData1)
 #' data(testData1)
 #' data(geneList1)
@@ -63,34 +62,44 @@
 #'                  trainingLabel=trainingLabel1,
 #'                  adaptive_B=FALSE, adaptive_S=FALSE,
 #'                  mixture_beta=TRUE, outputDir=tempdir)
-#' \dontshow{
-#' setwd(olddir)
-#' }
 #'
 #' @export assign.cv.output
 assign.cv.output <- function(processed.data, mcmc.pos.mean.trainingData,
                              trainingData, trainingLabel, adaptive_B=FALSE,
-                             adaptive_S=FALSE, mixture_beta=TRUE, outputDir){
+                             adaptive_S=FALSE, mixture_beta=TRUE, outputDir) {
   message("Outputing results...")
 
-  if (mixture_beta){
+  if (mixture_beta) {
     coef_train <- mcmc.pos.mean.trainingData$kappa_pos
   } else {
     coef_train <- mcmc.pos.mean.trainingData$beta_pos
   }
 
-  cwd <- getwd()
-  setwd(outputDir)
+  if (!dir.exists(outputDir)) {
+    dir.create(outputDir)
+  }
+
   rownames(coef_train) <- names(processed.data$trainingData_sub)
   colnames(coef_train) <- names(trainingLabel)[-1]
-  utils::write.csv(coef_train, file = "pathway_activity_trainingset.csv")
+
+  if (any(file.exists(
+    file.path(outputDir, "pathway_activity_trainingset.csv"),
+    file.path(outputDir, "signature_heatmap_trainingset.pdf"),
+    file.path(outputDir, "pathway_activity_scatterplot_trainingset.pdf")))) {
+    stop("Output files already exist. Delete the following files to run assign.cv.output():\n",
+         file.path(outputDir, "pathway_activity_trainingset.csv"), "\n",
+         file.path(outputDir, "signature_heatmap_trainingset.pdf"), "\n",
+         file.path(outputDir, "pathway_activity_scatterplot_trainingset.pdf"))
+  }
+
+  utils::write.csv(coef_train, file = file.path(outputDir, "pathway_activity_trainingset.csv"))
 
   #heatmaps of each pathway
   heatmap.train(diffGeneList = processed.data$diffGeneList, trainingData,
-                trainingLabel)
+                trainingLabel, outPath = file.path(outputDir, "signature_heatmap_trainingset.pdf"))
 
   #provide test labels for model validation
-  scatter.plot.train(coef_train, trainingData, trainingLabel)
+  scatter.plot.train(coef_train, trainingData, trainingLabel,
+                     outPath = file.path(outputDir, "pathway_activity_scatterplot_trainingset.pdf"))
 
-  setwd(cwd)
 }

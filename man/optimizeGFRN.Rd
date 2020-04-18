@@ -4,11 +4,18 @@
 \alias{optimizeGFRN}
 \title{Optimize GFRN gene lists lengths}
 \usage{
-optimizeGFRN(indata, correlation, correlationList, run = c("akt", "bad",
-  "egfr", "her2", "igf1r", "krasgv", "krasqh", "raf"),
-  run_ASSIGN_only = FALSE, correlation_only = FALSE,
-  keep_optimized_only = FALSE, pathway_lengths = c(seq(5, 20, 5),
-  seq(25, 275, 25), seq(300, 500, 50)), iter = 1e+05, burn_in = 50000)
+optimizeGFRN(
+  indata,
+  correlation,
+  correlationList,
+  run = c("akt", "bad", "egfr", "her2", "igf1r", "krasgv", "krasqh", "raf"),
+  run_ASSIGN_only = FALSE,
+  correlation_only = FALSE,
+  keep_optimized_only = FALSE,
+  pathway_lengths = c(seq(5, 20, 5), seq(25, 275, 25), seq(300, 500, 50)),
+  iter = 1e+05,
+  burn_in = 50000
+)
 }
 \arguments{
 \item{indata}{The list of data frames from ComBat.step2}
@@ -61,10 +68,14 @@ correlation step (quick) separately.
 }
 \examples{
 \dontrun{
-testData <- read.table("https://drive.google.com/uc?authuser=0&id=1mJICN4z_aCeh4JuPzNfm8GR_lkJOhWFr&export=download",
-                       sep='\\t', row.names=1, header=1)
-corData <- read.table("https://drive.google.com/uc?authuser=0&id=1MDWVP2jBsAAcMNcNFKE74vYl-orpo7WH&export=download",
-                      sep='\\t', row.names=1, header=1)
+testData <- read.table(paste0("https://drive.google.com/uc?authuser=0",
+                              "&id=1mJICN4z_aCeh4JuPzNfm8GR_lkJOhWFr",
+                              "&export=download"),
+                       sep='\t', row.names=1, header=1)
+corData <- read.table(paste0("https://drive.google.com/uc?authuser=0",
+                             "&id=1MDWVP2jBsAAcMNcNFKE74vYl-orpo7WH",
+                             "&export=download"),
+                      sep='\t', row.names=1, header=1)
 corData$negAkt <- -1 * corData$Akt
 corData$negPDK1 <- -1 * corData$PDK1
 corData$negPDK1p241 <- -1 * corData$PDK1p241

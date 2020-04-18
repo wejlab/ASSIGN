@@ -4,15 +4,35 @@
 \alias{assign.wrapper}
 \title{ASSIGN All-in-one function}
 \usage{
-assign.wrapper(trainingData = NULL, testData, trainingLabel,
-  testLabel = NULL, geneList = NULL, anchorGenes = NULL,
-  excludeGenes = NULL, n_sigGene = NA, adaptive_B = TRUE,
-  adaptive_S = FALSE, mixture_beta = TRUE, outputDir, p_beta = 0.01,
-  theta0 = 0.05, theta1 = 0.9, iter = 2000, burn_in = 1000,
-  sigma_sZero = 0.01, sigma_sNonZero = 1, S_zeroPrior = FALSE,
-  pctUp = 0.5, geneselect_iter = 500, geneselect_burn_in = 100,
-  outputSignature_convergence = FALSE, ECM = FALSE,
-  progress_bar = TRUE, override_S_matrix = NULL)
+assign.wrapper(
+  trainingData = NULL,
+  testData,
+  trainingLabel,
+  testLabel = NULL,
+  geneList = NULL,
+  anchorGenes = NULL,
+  excludeGenes = NULL,
+  n_sigGene = NA,
+  adaptive_B = TRUE,
+  adaptive_S = FALSE,
+  mixture_beta = TRUE,
+  outputDir,
+  p_beta = 0.01,
+  theta0 = 0.05,
+  theta1 = 0.9,
+  iter = 2000,
+  burn_in = 1000,
+  sigma_sZero = 0.01,
+  sigma_sNonZero = 1,
+  S_zeroPrior = FALSE,
+  pctUp = 0.5,
+  geneselect_iter = 500,
+  geneselect_burn_in = 100,
+  outputSignature_convergence = FALSE,
+  ECM = FALSE,
+  progress_bar = TRUE,
+  override_S_matrix = NULL
+)
 }
 \arguments{
 \item{trainingData}{The genomic measure matrix of training samples (i.g.,
@@ -136,8 +156,7 @@ those functions.
 \examples{
 
 \dontshow{
-olddir <- setwd(tempdir())
-tempdir <- tempdir()
+tempdir <- file.path(tempdir(), "assign_wrapper")
 }
 data(trainingData1)
 data(testData1)
@@ -154,10 +173,6 @@ assign.wrapper(trainingData=trainingData1, testData=testData1,
                geneList=geneList1, adaptive_B=TRUE, adaptive_S=FALSE,
                mixture_beta=TRUE, outputDir=tempdir, p_beta=0.01,
                theta0=0.05, theta1=0.9, iter=20, burn_in=10)
-
-\dontshow{
-setwd(olddir)
-}
 
 }
 \author{

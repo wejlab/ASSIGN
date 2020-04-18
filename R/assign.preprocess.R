@@ -106,38 +106,38 @@ assign.preprocess <- function(trainingData=NULL, testData, anchorGenes=NULL,
                               excludeGenes=NULL, trainingLabel, geneList=NULL,
                               n_sigGene=NA, theta0=0.05, theta1=0.9, pctUp=0.5,
                               geneselect_iter=500, geneselect_burn_in=100,
-                              progress_bar = TRUE){
-  if (!is.null(anchorGenes)){
-    if (names(trainingLabel)[-1] != names(anchorGenes)){
+                              progress_bar = TRUE) {
+  if (!is.null(anchorGenes)) {
+    if (names(trainingLabel)[-1] != names(anchorGenes)) {
       stop("The anchorGene list must contain all pathways listed in the trainingLabel")
     }
   }
 
-  if (!is.null(excludeGenes)){
-    if (names(trainingLabel)[-1] != names(excludeGenes)){
+  if (!is.null(excludeGenes)) {
+    if (names(trainingLabel)[-1] != names(excludeGenes)) {
       stop("The excludeGenes list must contain all pathways listed in the trainingLabel")
     }
   }
 
   message("Performing QC on the input data...")
   dat <- qc(trainingData, testData, geneList)
-  if (!is.null(trainingLabel)){
+  if (!is.null(trainingLabel)) {
     if (identical(names(trainingLabel$control),
-                  names(trainingLabel)[-1]) == FALSE){
+                  names(trainingLabel)[-1]) == FALSE) {
       warning("Control Labels DO NOT match the experimental Labels!\nPlease make sure that you specify the correct indice for control and experimental samples in the trainingLabel!")
     }
   }
 
   message("Generating starting/prior values for model parameters...")
-  if (is.null(trainingData) & is.null(geneList)){
+  if (is.null(trainingData) & is.null(geneList)) {
     stop("trainingData and geneList are both set NULL. Need one of them for the analysis!")
   }
 
-  if (!is.null(trainingData) & is.null(trainingLabel)){
+  if (!is.null(trainingData) & is.null(trainingLabel)) {
     stop("You must supply trainingLabels when specifying trainingData!")
   }
 
-  if (!is.null(trainingData) & !is.null(trainingLabel)){
+  if (!is.null(trainingData) & !is.null(trainingLabel)) {
     x <- data_prep_s1(n_sigGene, trainingData = dat$trainingData,
                       testData = dat$testData, trainingLabel, anchorGenes,
                       excludeGenes, geneList = dat$geneList, theta0, theta1,

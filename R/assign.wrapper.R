@@ -91,8 +91,7 @@
 #' @examples
 #'
 #' \dontshow{
-#' olddir <- setwd(tempdir())
-#' tempdir <- tempdir()
+#' tempdir <- file.path(tempdir(), "assign_wrapper")
 #' }
 #' data(trainingData1)
 #' data(testData1)
@@ -110,10 +109,6 @@
 #'                mixture_beta=TRUE, outputDir=tempdir, p_beta=0.01,
 #'                theta0=0.05, theta1=0.9, iter=20, burn_in=10)
 #'
-#' \dontshow{
-#' setwd(olddir)
-#' }
-#'
 #' @export assign.wrapper
 assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
                            testLabel = NULL, geneList = NULL,
@@ -125,7 +120,42 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
                            sigma_sNonZero = 1, S_zeroPrior=FALSE, pctUp=0.5,
                            geneselect_iter=500, geneselect_burn_in=100,
                            outputSignature_convergence = FALSE, ECM = FALSE,
-                           progress_bar = TRUE, override_S_matrix = NULL){
+                           progress_bar = TRUE, override_S_matrix = NULL) {
+
+  if (!dir.exists(outputDir)) {
+    dir.create(outputDir)
+  }
+
+  if (any(file.exists(
+    file.path(outputDir, "parameters.yaml"),
+    file.path(outputDir, "signature_gene_list_prior.csv"),
+    file.path(outputDir, "pathway_activity_trainingset.csv"),
+    file.path(outputDir, "pathway_activity_testset.csv"),
+    file.path(outputDir, "Signature_convergence.pdf"),
+    file.path(outputDir, "signature_heatmap_trainingset.pdf"),
+    file.path(outputDir, "signature_heatmap_testset_prior.pdf"),
+    file.path(outputDir, "signature_heatmap_testset_posterior.pdf"),
+    file.path(outputDir, "posterior_delta.csv"),
+    file.path(outputDir, "pathway_activity_scatterplot_trainingset.pdf"),
+    file.path(outputDir, "pathway_activity_scatterplot_testset.pdf"),
+    file.path(outputDir, "pathway_activity_boxplot_testset.pdf"),
+    file.path(outputDir, "output.rds")))) {
+    stop("Output files already exist. Delete the following files to run assign.cv.output():\n",
+         file.path(outputDir, "parameters.yaml"), "\n",
+         file.path(outputDir, "signature_gene_list_prior.csv"), "\n",
+         file.path(outputDir, "pathway_activity_trainingset.csv"), "\n",
+         file.path(outputDir, "pathway_activity_testset.csv"), "\n",
+         file.path(outputDir, "Signature_convergence.pdf"), "\n",
+         file.path(outputDir, "signature_heatmap_trainingset.pdf"), "\n",
+         file.path(outputDir, "signature_heatmap_testset_prior.pdf"), "\n",
+         file.path(outputDir, "signature_heatmap_testset_posterior.pdf"), "\n",
+         file.path(outputDir, "posterior_delta.csv"), "\n",
+         file.path(outputDir, "pathway_activity_scatterplot_trainingset.pdf"), "\n",
+         file.path(outputDir, "pathway_activity_scatterplot_testset.pdf"), "\n",
+         file.path(outputDir, "pathway_activity_boxplot_testset.pdf"), "\n",
+         file.path(outputDir, "output.rds"))
+  }
+
   if (is.null(geneList)) {
     pathName <- names(trainingLabel)[-1]
   } else {
@@ -198,14 +228,9 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
     }
     coef_test <- mcmc.pos.mean.testData$beta_pos
   }
-  cwd <- getwd()
 
-  ##moom added this to create the output folder if doesn't exist already.
-  dir.create(outputDir, showWarnings = FALSE)
-  setwd(outputDir)
-
-  ###moom added this
-  param <- data.frame(ASSIGN = 'ASSIGN parameters',
+  #Save ASSIGN parameters
+  param <- data.frame(ASSIGN = "ASSIGN parameters",
                       version = as.character(utils::packageVersion("ASSIGN")),
                       n_sigGene = n_sigGene,
                       adaptive_B = adaptive_B,
@@ -225,35 +250,38 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
                       ECM = ECM,
                       outputDir = outputDir)
   y1 <- yaml::as.yaml(param, column.major = FALSE)
-  writeLines(y1, con = "parameters.yaml")
+  writeLines(y1, con = file.path(outputDir, "parameters.yaml"))
 
-  ###moom added this to include the gene list and prior coefficient
+  #Include the gene list and prior coefficient
   if (!is.null(trainingData)) {
     rownames(coef_train) <- colnames(processed.data$trainingData_sub)
     colnames(coef_train) <- pathName
-    utils::write.csv(processed.data$S_matrix, file = "signature_gene_list_prior.csv")
-    utils::write.csv(coef_train, file = "pathway_activity_trainingset.csv")
+    utils::write.csv(processed.data$S_matrix, file = file.path(outputDir, "signature_gene_list_prior.csv"))
+    utils::write.csv(coef_train, file = file.path(outputDir, "pathway_activity_trainingset.csv"))
   }
 
   rownames(coef_test) <- colnames(processed.data$testData_sub)
   colnames(coef_test) <- pathName
-  utils::write.csv(coef_test, file = "pathway_activity_testset.csv")
+  utils::write.csv(coef_test, file = file.path(outputDir, "pathway_activity_testset.csv"))
   if (!is.null(trainingData)) {
     heatmap.train(diffGeneList = processed.data$diffGeneList,
-                  trainingData, trainingLabel)
+                  trainingData, trainingLabel,
+                  outPath = file.path(outputDir, "signature_heatmap_trainingset.pdf"))
   }
 
   heatmap.test.prior(diffGeneList = processed.data$diffGeneList,
-                     testData, trainingLabel, testLabel, coef_test, geneList)
+                     testData, trainingLabel, testLabel, coef_test, geneList,
+                     outPath = file.path(outputDir, "signature_heatmap_testset_prior.pdf"))
 
   if (adaptive_S) {
     heatmap.test.pos(testData = processed.data$testData_sub,
                      Delta_pos = mcmc.pos.mean.testData$Delta_pos,
                      trainingLabel, testLabel, Delta_cutoff = 0.95,
-                     coef_test, geneList)
-    ####Added by moom####
-    if (outputSignature_convergence){
-      grDevices::pdf("Signature_convergence.pdf")
+                     coef_test, geneList,
+                     outPath = file.path(outputDir, "signature_heatmap_testset_posterior.pdf"))
+    # Plot signature convergence (can be a very large PDF when performing many iterations)
+    if (outputSignature_convergence) {
+      grDevices::pdf(file.path(outputDir, "Signature_convergence.pdf"))
       graphics::plot(mcmc.chain.testData$S_mcmc)
       graphics::abline(h = 0, col = "red")
       invisible(grDevices::dev.off())
@@ -274,20 +302,23 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
                                 pathName, sep = ":"))
     delta_in <- NULL
 
-    for (i in seq_len(ncol(deltas))){
+    for (i in seq_len(ncol(deltas))) {
       delta_in[i] <- (strsplit(colnames(deltas), ":")[[i]][2])
     }
 
     utils::write.csv(round(deltas[, order(delta_in)], digits = 4),
-                     "posterior_delta.csv", quote = FALSE)
+                     file.path(outputDir, "posterior_delta.csv"), quote = FALSE)
   }
 
   if (!is.null(trainingData)) {
-    scatter.plot.train(coef_train, trainingData, trainingLabel)
+    scatter.plot.train(coef_train, trainingData, trainingLabel,
+                       outPath = file.path(outputDir, "pathway_activity_scatterplot_trainingset.pdf"))
   }
-  scatter.plot.test(coef_test, trainingLabel, testLabel, geneList)
+  scatter.plot.test(coef_test, trainingLabel, testLabel, geneList,
+                    outPath = file.path(outputDir, "pathway_activity_scatterplot_testset.pdf"))
   if (!is.null(testLabel)) {
-    box.plot.test(coef_test, trainingLabel, testLabel, geneList)
+    box.plot.test(coef_test, trainingLabel, testLabel, geneList,
+                  outPath = file.path(outputDir, "pathway_activity_boxplot_testset.pdf"))
   }
   if (!is.null(trainingData)) {
     output.data <- list(processed.data = processed.data,
@@ -298,6 +329,5 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
     output.data <- list(processed.data = processed.data,
                         mcmc.pos.mean.testData = mcmc.pos.mean.testData)
   }
-  saveRDS(output.data, file = "output.rds")
-  setwd(cwd)
+  saveRDS(output.data, file = file.path(outputDir, "output.rds"))
 }

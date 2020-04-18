@@ -26,11 +26,11 @@
 #' @export ComBat.step2
 ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL,
                          plots_to_console=FALSE) {
-  if (!("ref.batch" %in% names(as.list(args(sva::ComBat))))){
+  if (!("ref.batch" %in% names(as.list(args(sva::ComBat))))) {
     stop("Installed version of sva: ", utils::packageVersion("sva"), " does not have ref.batch option.\n",
          "Use devtools to install the github version of sva:\ndevtools::install_github('jtleek/sva-devel')")
   }
-  if (is.null(combat_train)){
+  if (is.null(combat_train)) {
     combat_train_file <- tempfile(pattern = "combat_train", fileext = ".rda")
     utils::download.file("https://drive.google.com/uc?authuser=0&id=1juOofXauICxkiEl8agpRueRy7rK86nA_&export=download",
                          combat_train_file)
@@ -52,20 +52,20 @@ ComBat.step2 <- function(testData, pcaPlots=FALSE, combat_train=NULL,
            rep("krasgv", 9),
            rep("test", ncol(testData)))
   bat <- c(rep(1, ncol(combat_train)), rep(2, ncol(testData)))
-  if (pcaPlots){
+  if (pcaPlots) {
     pcaplotbefore <- pcaplot(dat, sub, plottitle = "PCA: Before ComBat")
-    if (plots_to_console){
+    if (plots_to_console) {
       print(pcaplotbefore)
     }
     grDevices::pdf("pca_refcombat_twostep.pdf")
     print(pcaplotbefore)
   }
   combat_expr1 <- sva::ComBat(dat = as.matrix(dat), batch = bat, mod = NULL, ref.batch = 1)
-  if (pcaPlots){
+  if (pcaPlots) {
     pcaplotafter <- pcaplot(combat_expr1, sub, plottitle = "PCA: After ComBat")
     print(pcaplotafter)
     invisible(grDevices::dev.off())
-    if (plots_to_console){
+    if (plots_to_console) {
       print(pcaplotafter)
     }
   }

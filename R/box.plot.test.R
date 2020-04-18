@@ -1,5 +1,5 @@
-box.plot.test <- function(coef_test, trainingLabel, testLabel, geneList=NULL){
-  if (is.null(geneList)){
+box.plot.test <- function(coef_test, trainingLabel, testLabel, geneList=NULL, outPath) {
+  if (is.null(geneList)) {
     nPath <- length(trainingLabel) - 1
     pathName <- names(trainingLabel)[-1]
   } else {
@@ -7,8 +7,8 @@ box.plot.test <- function(coef_test, trainingLabel, testLabel, geneList=NULL){
     pathName <- names(geneList)
   }
 
-  grDevices::pdf("pathway_activity_boxplot_testset.pdf")
-  for (i in 1:nPath){
+  grDevices::pdf(outPath)
+  for (i in 1:nPath) {
     graphics::boxplot(coef_test[, i] ~ as.factor(testLabel),
                       main = paste("box-plot of", pathName[i],
                                    "pathway activity in test samples",

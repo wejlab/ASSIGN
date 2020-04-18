@@ -61,7 +61,7 @@
 #'
 #' @export assign.summary
 assign.summary <- function(test, burn_in=1000, iter=2000, adaptive_B=TRUE,
-                           adaptive_S=FALSE, mixture_beta=TRUE){
+                           adaptive_S=FALSE, mixture_beta=TRUE) {
   beta_pos <- test$beta_mcmc[burn_in:iter, , , drop = FALSE]
   beta_pos_mean <- apply(beta_pos, 3:2, mean)
 

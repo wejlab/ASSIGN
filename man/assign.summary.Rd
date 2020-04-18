@@ -4,8 +4,14 @@
 \alias{assign.summary}
 \title{Summary of the model parameters estimated by the Gibbs sampling algorithm}
 \usage{
-assign.summary(test, burn_in = 1000, iter = 2000, adaptive_B = TRUE,
-  adaptive_S = FALSE, mixture_beta = TRUE)
+assign.summary(
+  test,
+  burn_in = 1000,
+  iter = 2000,
+  adaptive_B = TRUE,
+  adaptive_S = FALSE,
+  mixture_beta = TRUE
+)
 }
 \arguments{
 \item{test}{The list object returned from the assign.mcmc function. The list

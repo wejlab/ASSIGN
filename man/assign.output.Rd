@@ -4,9 +4,19 @@
 \alias{assign.output}
 \title{Prediction/validation output for test data}
 \usage{
-assign.output(processed.data, mcmc.pos.mean.testData, trainingData,
-  testData, trainingLabel, testLabel, geneList, adaptive_B = TRUE,
-  adaptive_S = FALSE, mixture_beta = TRUE, outputDir)
+assign.output(
+  processed.data,
+  mcmc.pos.mean.testData,
+  trainingData,
+  testData,
+  trainingLabel,
+  testLabel,
+  geneList,
+  adaptive_B = TRUE,
+  adaptive_S = FALSE,
+  mixture_beta = TRUE,
+  outputDir
+)
 }
 \arguments{
 \item{processed.data}{The list object returned from the assign.preprocess
@@ -66,8 +76,7 @@ value "testData_sub" from the assign.preprocess function.
 }
 \examples{
 \dontshow{
-olddir <- setwd(tempdir())
-tempdir <- tempdir()
+tempdir <- file.path(tempdir(), "assign_output")
 
 data(trainingData1)
 data(testData1)
@@ -79,24 +88,25 @@ trainingLabel1 <- list(control = list(bcat=1:10, e2f3=1:10, myc=1:10,
                        ras = 39:48, src = 49:55)
 testLabel1 <- rep(c("subtypeA","subtypeB"),c(53,58))
 
-processed.data <- assign.preprocess(trainingData=trainingData1,
-testData=testData1, trainingLabel=trainingLabel1, geneList=geneList1)
-mcmc.chain <- assign.mcmc(Y=processed.data$testData_sub,
-Bg = processed.data$B_vector, X=processed.data$S_matrix,
-Delta_prior_p = processed.data$Pi_matrix, iter = 20,
-adaptive_B=TRUE, adaptive_S=FALSE, mixture_beta=TRUE)
-mcmc.pos.mean <- assign.summary(test=mcmc.chain, burn_in=10, iter=20,
-adaptive_B=FALSE, adaptive_S=FALSE,mixture_beta=TRUE)
+processed.data <- assign.preprocess(
+  trainingData=trainingData1, testData=testData1,
+  trainingLabel=trainingLabel1, geneList=geneList1)
+
+mcmc.chain <- assign.mcmc(
+  Y=processed.data$testData_sub, Bg = processed.data$B_vector,
+  X=processed.data$S_matrix, Delta_prior_p = processed.data$Pi_matrix,
+  iter = 20, adaptive_B=TRUE, adaptive_S=FALSE, mixture_beta=TRUE)
+
+mcmc.pos.mean <- assign.summary(
+  test=mcmc.chain, burn_in=10, iter=20,
+  adaptive_B=FALSE, adaptive_S=FALSE, mixture_beta=TRUE)
 }
-assign.output(processed.data=processed.data,
-              mcmc.pos.mean.testData=mcmc.pos.mean,
-              trainingData=trainingData1, testData=testData1,
-              trainingLabel=trainingLabel1, testLabel=testLabel1,
-              geneList=NULL, adaptive_B=TRUE, adaptive_S=FALSE,
-              mixture_beta=TRUE, outputDir=tempdir)
-\dontshow{
-setwd(olddir)
-}
+assign.output(processed.data = processed.data,
+              mcmc.pos.mean.testData = mcmc.pos.mean,
+              trainingData = trainingData1, testData = testData1,
+              trainingLabel = trainingLabel1, testLabel = testLabel1,
+              geneList = NULL, adaptive_B = TRUE, adaptive_S = FALSE,
+              mixture_beta = TRUE, outputDir = tempdir)
 
 }
 \author{

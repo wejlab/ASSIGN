@@ -15,7 +15,7 @@
 #' \dontrun{
 #' merged.df <- merge_drop(df1,df2)
 #' }
-merge_drop <- function(x, y, by=0, ...){
+merge_drop <- function(x, y, by=0, ...) {
   new_m <- merge(x, y, by = by, ...)
   rownames(new_m) <- new_m$Row.names
   return(new_m[, 2:length(colnames(new_m))])
@@ -37,8 +37,8 @@ merge_drop <- function(x, y, by=0, ...){
 #' @return A PCA plot is displayed
 #' @export pcaplot
 #'
-pcaplot <- function(mat, sub, center=TRUE, scale=TRUE, plottitle="PCA"){
-  if (length(sub) != ncol(mat)){
+pcaplot <- function(mat, sub, center=TRUE, scale=TRUE, plottitle="PCA") {
+  if (length(sub) != ncol(mat)) {
     stop("verify the subscripts...exiting now")
   }
   else{
@@ -70,15 +70,15 @@ pcaplot <- function(mat, sub, center=TRUE, scale=TRUE, plottitle="PCA"){
 #'
 #' @export gather_assign_results
 #'
-gather_assign_results <- function(path = "."){
+gather_assign_results <- function(path = ".") {
   curr_files <- list.files(path = path,
                            pattern = "pathway_activity_testset.csv",
                            recursive = TRUE)
   results_df <- data.frame()
-  for (i in curr_files){
+  for (i in curr_files) {
     curr <- utils::read.csv(file.path(path, i), header = TRUE, row.names = 1)
     colnames(curr) <- strsplit(i, split = "/")[[1]][1]
-    if (ncol(results_df) == 0){
+    if (ncol(results_df) == 0) {
       results_df <- curr
     }
     else{

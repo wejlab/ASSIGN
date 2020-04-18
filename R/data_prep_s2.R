@@ -1,18 +1,18 @@
 # only the geneList and test data is available
-data_prep_s2 <- function(geneList, anchorGenes, testData, theta0, theta1){
+data_prep_s2 <- function(geneList, anchorGenes, testData, theta0, theta1) {
   S <- matrix(0, nrow = nrow(testData), ncol = length(geneList))
 
-  for (i in seq_len(length(geneList))){
+  for (i in seq_len(length(geneList))) {
     tmp <- match(geneList[[i]], row.names(testData))
     tmp <- tmp[!is.na(tmp)]
     S[tmp, i] <- 1
   }
 
   #Check for anchor Genes
-  if (!is.null(anchorGenes)){
-    for (j in seq_len(length(names(anchorGenes)))){
+  if (!is.null(anchorGenes)) {
+    for (j in seq_len(length(names(anchorGenes)))) {
       #if an anchor gene is not in the geneList
-      if (length(intersect(geneList[[j]], anchorGenes[[j]])) != length(anchorGenes[[j]])){
+      if (length(intersect(geneList[[j]], anchorGenes[[j]])) != length(anchorGenes[[j]])) {
         #FAIL with error message
         stop("All anchor genes must be listed in the geneList")
       }
@@ -31,9 +31,9 @@ data_prep_s2 <- function(geneList, anchorGenes, testData, theta0, theta1){
   Pi_matrix <- as.matrix(ifelse(S1 == 0, theta0, theta1))
 
   #change the Pi_matrix values for the anchor genes to 1
-  if (!is.null(anchorGenes)){
-    for (j in seq_len(length(names(anchorGenes)))){
-      for (k in seq_len(length(anchorGenes[[j]]))){
+  if (!is.null(anchorGenes)) {
+    for (j in seq_len(length(names(anchorGenes)))) {
+      for (k in seq_len(length(anchorGenes[[j]]))) {
         Pi_matrix[anchorGenes[[j]][k], j] <- 1
       }
     }

@@ -5,12 +5,27 @@
 \title{The Gibbs sampling algorithm to approximate the joint distribution of the
 model parameters}
 \usage{
-assign.mcmc(Y, Bg, X, Delta_prior_p, iter = 2000, adaptive_B = TRUE,
-  adaptive_S = FALSE, mixture_beta = TRUE, sigma_sZero = 0.01,
-  sigma_sNonZero = 1, p_beta = 0.01, sigma_bZero = 0.01,
-  sigma_bNonZero = 1, alpha_tau = 1, beta_tau = 0.01,
-  Bg_zeroPrior = TRUE, S_zeroPrior = FALSE, ECM = FALSE,
-  progress_bar = TRUE)
+assign.mcmc(
+  Y,
+  Bg,
+  X,
+  Delta_prior_p,
+  iter = 2000,
+  adaptive_B = TRUE,
+  adaptive_S = FALSE,
+  mixture_beta = TRUE,
+  sigma_sZero = 0.01,
+  sigma_sNonZero = 1,
+  p_beta = 0.01,
+  sigma_bZero = 0.01,
+  sigma_bNonZero = 1,
+  alpha_tau = 1,
+  beta_tau = 0.01,
+  Bg_zeroPrior = TRUE,
+  S_zeroPrior = FALSE,
+  ECM = FALSE,
+  progress_bar = TRUE
+)
 }
 \arguments{
 \item{Y}{The G x J matrix of genomic measures (i.g., gene expression) of test

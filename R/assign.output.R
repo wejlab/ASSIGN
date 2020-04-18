@@ -43,8 +43,7 @@
 #' @author Ying Shen
 #' @examples
 #' \dontshow{
-#' olddir <- setwd(tempdir())
-#' tempdir <- tempdir()
+#' tempdir <- file.path(tempdir(), "assign_output")
 #'
 #' data(trainingData1)
 #' data(testData1)
@@ -56,42 +55,60 @@
 #'                        ras = 39:48, src = 49:55)
 #' testLabel1 <- rep(c("subtypeA","subtypeB"),c(53,58))
 #'
-#' processed.data <- assign.preprocess(trainingData=trainingData1,
-#' testData=testData1, trainingLabel=trainingLabel1, geneList=geneList1)
-#' mcmc.chain <- assign.mcmc(Y=processed.data$testData_sub,
-#' Bg = processed.data$B_vector, X=processed.data$S_matrix,
-#' Delta_prior_p = processed.data$Pi_matrix, iter = 20,
-#' adaptive_B=TRUE, adaptive_S=FALSE, mixture_beta=TRUE)
-#' mcmc.pos.mean <- assign.summary(test=mcmc.chain, burn_in=10, iter=20,
-#' adaptive_B=FALSE, adaptive_S=FALSE,mixture_beta=TRUE)
+#' processed.data <- assign.preprocess(
+#'   trainingData=trainingData1, testData=testData1,
+#'   trainingLabel=trainingLabel1, geneList=geneList1)
+#'
+#' mcmc.chain <- assign.mcmc(
+#'   Y=processed.data$testData_sub, Bg = processed.data$B_vector,
+#'   X=processed.data$S_matrix, Delta_prior_p = processed.data$Pi_matrix,
+#'   iter = 20, adaptive_B=TRUE, adaptive_S=FALSE, mixture_beta=TRUE)
+#'
+#' mcmc.pos.mean <- assign.summary(
+#'   test=mcmc.chain, burn_in=10, iter=20,
+#'   adaptive_B=FALSE, adaptive_S=FALSE, mixture_beta=TRUE)
 #' }
-#' assign.output(processed.data=processed.data,
-#'               mcmc.pos.mean.testData=mcmc.pos.mean,
-#'               trainingData=trainingData1, testData=testData1,
-#'               trainingLabel=trainingLabel1, testLabel=testLabel1,
-#'               geneList=NULL, adaptive_B=TRUE, adaptive_S=FALSE,
-#'               mixture_beta=TRUE, outputDir=tempdir)
-#' \dontshow{
-#' setwd(olddir)
-#' }
+#' assign.output(processed.data = processed.data,
+#'               mcmc.pos.mean.testData = mcmc.pos.mean,
+#'               trainingData = trainingData1, testData = testData1,
+#'               trainingLabel = trainingLabel1, testLabel = testLabel1,
+#'               geneList = NULL, adaptive_B = TRUE, adaptive_S = FALSE,
+#'               mixture_beta = TRUE, outputDir = tempdir)
 #'
 #' @export assign.output
 assign.output <- function(processed.data, mcmc.pos.mean.testData, trainingData,
                           testData, trainingLabel, testLabel, geneList,
                           adaptive_B=TRUE, adaptive_S=FALSE, mixture_beta=TRUE,
-                          outputDir){
+                          outputDir) {
   message("Outputing results...")
 
-  if (mixture_beta){
+  if (mixture_beta) {
     coef_test <- mcmc.pos.mean.testData$kappa_pos
   } else {
     coef_test <- mcmc.pos.mean.testData$beta_pos
   }
 
-  cwd <- getwd()
-  setwd(outputDir)
+  if (!dir.exists(outputDir)) {
+    dir.create(outputDir)
+  }
 
-  if (is.null(geneList)){
+  if (any(file.exists(
+    file.path(outputDir, "pathway_activity_testset.csv"),
+    file.path(outputDir, "signature_heatmap_trainingset.pdf"),
+    file.path(outputDir, "signature_heatmap_testset_prior.pdf"),
+    file.path(outputDir, "signature_heatmap_testset_posterior.pdf"),
+    file.path(outputDir, "pathway_activity_scatterplot_testset.pdf"),
+    file.path(outputDir, "pathway_activity_boxplot_testset.pdf")))) {
+    stop("Output files already exist. Delete the following files to run assign.cv.output():\n",
+         file.path(outputDir, "pathway_activity_testset.csv"), "\n",
+         file.path(outputDir, "signature_heatmap_trainingset.pdf"), "\n",
+         file.path(outputDir, "signature_heatmap_testset_prior.pdf"), "\n",
+         file.path(outputDir, "signature_heatmap_testset_posterior.pdf"), "\n",
+         file.path(outputDir, "pathway_activity_scatterplot_testset.pdf"), "\n",
+         file.path(outputDir, "pathway_activity_boxplot_testset.pdf"))
+  }
+
+  if (is.null(geneList)) {
     pathName <- names(trainingLabel)[-1]
   } else {
     pathName <- names(geneList)
@@ -99,27 +116,29 @@ assign.output <- function(processed.data, mcmc.pos.mean.testData, trainingData,
 
   rownames(coef_test) <- colnames(processed.data$testData_sub)
   colnames(coef_test) <- pathName
-  utils::write.csv(coef_test, file = "pathway_activity_testset.csv")
+  utils::write.csv(coef_test, file = file.path(outputDir, "pathway_activity_testset.csv"))
 
   #heatmaps of each pathway
-  if (!is.null(trainingData) & !is.null(trainingLabel)){
+  if (!is.null(trainingData) & !is.null(trainingLabel)) {
     heatmap.train(diffGeneList = processed.data$diffGeneList, trainingData,
-                  trainingLabel)
+                  trainingLabel, outPath = file.path(outputDir, "signature_heatmap_trainingset.pdf"))
   }
   heatmap.test.prior(diffGeneList = processed.data$diffGeneList, testData,
-                     trainingLabel, testLabel, coef_test, geneList)
-  if (adaptive_S){
+                     trainingLabel, testLabel, coef_test, geneList,
+                     outPath = file.path(outputDir, "signature_heatmap_testset_prior.pdf"))
+  if (adaptive_S) {
     heatmap.test.pos(testData = processed.data$testData_sub,
                      Delta_pos = mcmc.pos.mean.testData$Delta_pos,
                      trainingLabel, testLabel, Delta_cutoff = 0.95,
-                     coef_test, geneList)
+                     coef_test, geneList,
+                     outPath = file.path(outputDir, "signature_heatmap_testset_posterior.pdf"))
   }
 
   #provide test labels for model validation
-  scatter.plot.test(coef_test, trainingLabel, testLabel, geneList)
-  if (!is.null(testLabel)){
-    box.plot.test(coef_test, trainingLabel, testLabel, geneList)
+  scatter.plot.test(coef_test, trainingLabel, testLabel, geneList,
+                    outPath = file.path(outputDir, "pathway_activity_scatterplot_testset.pdf"))
+  if (!is.null(testLabel)) {
+    box.plot.test(coef_test, trainingLabel, testLabel, geneList,
+                  outPath = file.path(outputDir, "pathway_activity_boxplot_testset.pdf"))
   }
-
-  setwd(cwd)
 }

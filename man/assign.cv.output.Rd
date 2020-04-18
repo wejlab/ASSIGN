@@ -4,9 +4,16 @@
 \alias{assign.cv.output}
 \title{Cross validation output}
 \usage{
-assign.cv.output(processed.data, mcmc.pos.mean.trainingData, trainingData,
-  trainingLabel, adaptive_B = FALSE, adaptive_S = FALSE,
-  mixture_beta = TRUE, outputDir)
+assign.cv.output(
+  processed.data,
+  mcmc.pos.mean.trainingData,
+  trainingData,
+  trainingLabel,
+  adaptive_B = FALSE,
+  adaptive_S = FALSE,
+  mixture_beta = TRUE,
+  outputDir
+)
 }
 \arguments{
 \item{processed.data}{The list object returned from the assign.preprocess
@@ -57,8 +64,7 @@ validation, The Y argument in the assign.mcmc function is the output value
 \examples{
 
 \dontshow{
-olddir <- setwd(tempdir())
-tempdir <- tempdir()
+tempdir <- file.path(tempdir(), "assign_cv_output")
 data(trainingData1)
 data(testData1)
 data(geneList1)
@@ -83,9 +89,6 @@ assign.cv.output(processed.data=processed.data,
                  trainingLabel=trainingLabel1,
                  adaptive_B=FALSE, adaptive_S=FALSE,
                  mixture_beta=TRUE, outputDir=tempdir)
-\dontshow{
-setwd(olddir)
-}
 
 }
 \author{

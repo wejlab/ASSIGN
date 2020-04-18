@@ -4,8 +4,10 @@
 \name{geneList1}
 \alias{geneList1}
 \title{Pathway signature gene sets}
-\format{List with 5 components representing each pathway. 200 signature
-genes are selected for each pathway.}
+\format{
+List with 5 components representing each pathway. 200 signature
+genes are selected for each pathway.
+}
 \source{
 Bild et al. (2006) Oncogenic pathway signatures in human cancers as
 a guide to targeted therapies. Nature, 439, 353-357.

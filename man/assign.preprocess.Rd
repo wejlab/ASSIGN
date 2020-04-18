@@ -4,11 +4,21 @@
 \alias{assign.preprocess}
 \title{Input data preprocessing}
 \usage{
-assign.preprocess(trainingData = NULL, testData, anchorGenes = NULL,
-  excludeGenes = NULL, trainingLabel, geneList = NULL,
-  n_sigGene = NA, theta0 = 0.05, theta1 = 0.9, pctUp = 0.5,
-  geneselect_iter = 500, geneselect_burn_in = 100,
-  progress_bar = TRUE)
+assign.preprocess(
+  trainingData = NULL,
+  testData,
+  anchorGenes = NULL,
+  excludeGenes = NULL,
+  trainingLabel,
+  geneList = NULL,
+  n_sigGene = NA,
+  theta0 = 0.05,
+  theta1 = 0.9,
+  pctUp = 0.5,
+  geneselect_iter = 500,
+  geneselect_burn_in = 100,
+  progress_bar = TRUE
+)
 }
 \arguments{
 \item{trainingData}{The genomic measure matrix of training samples (i.g.,

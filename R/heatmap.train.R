@@ -1,20 +1,20 @@
-heatmap.train <- function(diffGeneList, trainingData, trainingLabel){
+heatmap.train <- function(diffGeneList, trainingData, trainingLabel, outPath) {
   nPath <- length(trainingLabel) - 1
 
   bgPosB <- NULL; edPosB <- NULL
-  for (i in seq_len(length(trainingLabel[[1]]))){
+  for (i in seq_len(length(trainingLabel[[1]]))) {
     bgPosB <- c(bgPosB, trainingLabel[[1]][[i]][1])
     edPosB <- c(edPosB,
                 trainingLabel[[1]][[i]][length(trainingLabel[[1]][[i]])])
   }
   bgPosS <- NULL; edPosS <- NULL
-  for (i in 2:length(trainingLabel)){
+  for (i in 2:length(trainingLabel)) {
     bgPosS <- c(bgPosS, trainingLabel[[i]][1])
     edPosS <- c(edPosS, trainingLabel[[i]][length(trainingLabel[[i]])])
   }
 
-  grDevices::pdf("signature_heatmap_trainingset.pdf")
-  for (i in 1:nPath){
+  grDevices::pdf(outPath)
+  for (i in 1:nPath) {
     tmp <- match(diffGeneList[[i]], row.names(trainingData))
     path <- trainingData[tmp, ]
     sig <- rowMeans(path[, bgPosS[i]:edPosS[i]]) - rowMeans(path[, bgPosB[i]:edPosB[i]])

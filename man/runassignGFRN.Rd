@@ -4,11 +4,20 @@
 \alias{runassignGFRN}
 \title{Run optimized single pathway ASSIGN}
 \usage{
-runassignGFRN(indata, run = c("akt", "bad", "egfr", "her2", "igf1r",
-  "krasgv", "raf"), optimized_geneList = NULL, use_seed = 1234,
-  sigma_sZero = 0.05, sigma_sNonZero = 0.5, S_zeroPrior = FALSE,
-  iter = 1e+05, burn_in = 50000, exclude_common_genes = FALSE,
-  adaptive_S = TRUE, ECM = FALSE)
+runassignGFRN(
+  indata,
+  run = c("akt", "bad", "egfr", "her2", "igf1r", "krasgv", "raf"),
+  optimized_geneList = NULL,
+  use_seed = 1234,
+  sigma_sZero = 0.05,
+  sigma_sNonZero = 0.5,
+  S_zeroPrior = FALSE,
+  iter = 1e+05,
+  burn_in = 50000,
+  exclude_common_genes = FALSE,
+  adaptive_S = TRUE,
+  ECM = FALSE
+)
 }
 \arguments{
 \item{indata}{The list of data frames from ComBat.step2}
@@ -63,8 +72,10 @@ values were used in the analysis for the paper.
 }
 \examples{
 \dontrun{
-testData <- read.table("https://drive.google.com/uc?authuser=0&id=1mJICN4z_aCeh4JuPzNfm8GR_lkJOhWFr&export=download",
-                       sep='\\t', row.names=1, header=1)
+testData <- read.table(paste0("https://drive.google.com/uc?authuser=0&",
+                              "id=1mJICN4z_aCeh4JuPzNfm8GR_lkJOhWFr",
+                              "&export=download"),
+                       sep='\t', row.names=1, header=1)
 combat.data <- ComBat.step2(testData, pcaPlots = TRUE)
 runassignGFRN(combat.data)
 }

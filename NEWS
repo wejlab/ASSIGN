@@ -1,3 +1,8 @@
+Changes in Version 1.23.1 (2020-04-18)
+
+* ASSIGN no longer changes the working directory
+* ASSIGN requires that output files do not exist before functions run
+
 Changes in Version 1.17.2
 
 * Bugfix ComBat.step2 by forcing ComBat input to be a matrix

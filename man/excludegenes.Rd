@@ -4,7 +4,9 @@
 \name{excludegenes}
 \alias{excludegenes}
 \title{Exclude Gene List}
-\format{character vector of commonly differentially expressed genes}
+\format{
+character vector of commonly differentially expressed genes
+}
 \source{
 Bild et al.
 }
