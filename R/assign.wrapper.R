@@ -232,7 +232,7 @@ assign.wrapper <- function(trainingData = NULL, testData, trainingLabel,
   #Save ASSIGN parameters
   param <- data.frame(ASSIGN = "ASSIGN parameters",
                       version = as.character(utils::packageVersion("ASSIGN")),
-                      n_sigGene = n_sigGene,
+                      n_sigGene = if (is.null(n_sigGene)) {NA} else n_sigGene,
                       adaptive_B = adaptive_B,
                       adaptive_S = adaptive_S,
                       mixture_beta = mixture_beta,
